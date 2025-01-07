@@ -1,0 +1,18 @@
+{
+  "cSpell.words": [
+    "juce"
+  ],
+  "files.associations": {
+    "array": "cpp",
+    "*.tcc": "cpp",
+    "memory": "cpp",
+    "istream": "cpp",
+    "functional": "cpp",
+    "tuple": "cpp",
+    "utility": "cpp"
+  },
+  "terminal.integrated.env.linux": {
+    "GTK_PATH": null,
+    "GIO_MODULE_DIR": null,
+  },
+}
