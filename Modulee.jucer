@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <JUCERPROJECT id="P8lFtp" name="Modulee" projectType="audioplug" useAppConfig="0"
-              addUsingNamespaceToJuceHeader="0" jucerFormatVersion="1">
+              addUsingNamespaceToJuceHeader="0" jucerFormatVersion="1" companyName="Yolisses"
+              companyWebsite="yolisses.com" companyEmail="yolisses0@gmail.com"
+              pluginCharacteristicsValue="pluginIsSynth" pluginDesc="The most modular modular synthetizer"
+              pluginCode="Mdle">
   <MAINGROUP id="nP1ypY" name="Modulee">
     <GROUP id="{AE86BBFC-512C-92AD-FF4B-F98A8699FED5}" name="Source">
       <FILE id="t4eyAg" name="PluginProcessor.cpp" compile="1" resource="0"
