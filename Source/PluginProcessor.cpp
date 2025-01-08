@@ -8,6 +8,7 @@
 
 #include "PluginProcessor.h"
 #include "PluginEditor.h"
+#include "../Vendor/modulee-engine-clib/pkg/bindings.h"
 
 //==============================================================================
 ModuleeAudioProcessor::ModuleeAudioProcessor()
@@ -95,6 +96,8 @@ void ModuleeAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBlock
 {
     // Use this method as the place to do any pre-playback
     // initialisation that you need..
+
+    graph_pointer = create_graph_pointer();
 }
 
 void ModuleeAudioProcessor::releaseResources()

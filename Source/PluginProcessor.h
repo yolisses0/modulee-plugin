@@ -9,6 +9,7 @@
 #pragma once
 
 #include <JuceHeader.h>
+#include "../Vendor/modulee-engine-clib/pkg/bindings.h"
 
 //==============================================================================
 /**
@@ -54,6 +55,8 @@ public:
   void setStateInformation(const void *data, int sizeInBytes) override;
 
 private:
+  Graph *graph_pointer;
+
   //==============================================================================
   JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(ModuleeAudioProcessor)
 };
