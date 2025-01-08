@@ -19,7 +19,7 @@ ModuleeAudioProcessorEditor::ModuleeAudioProcessorEditor(ModuleeAudioProcessor &
   addAndMakeVisible(webView.get());
 
   // send the browser to a start page..
-  webView->goToURL("https://www.juce.com");
+  webView->goToURL("https://modulee.yolisses.com");
 
   // Make sure that before the constructor has finished, you've set the
   // editor's size to whatever you need it to be.
