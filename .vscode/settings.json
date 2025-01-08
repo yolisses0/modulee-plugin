@@ -9,7 +9,9 @@
     "istream": "cpp",
     "functional": "cpp",
     "tuple": "cpp",
-    "utility": "cpp"
+    "utility": "cpp",
+    "random": "cpp",
+    "optional": "cpp"
   },
   "terminal.integrated.env.linux": {
     "GTK_PATH": null,

@@ -8,7 +8,6 @@
 
 #include "PluginProcessor.h"
 #include "PluginEditor.h"
-#include "../Vendor/modulee-engine-clib/pkg/bindings.h"
 
 //==============================================================================
 ModuleeAudioProcessor::ModuleeAudioProcessor()
@@ -20,9 +19,13 @@ ModuleeAudioProcessor::ModuleeAudioProcessor()
 #endif
                          .withOutput("Output", juce::AudioChannelSet::stereo(), true)
 #endif
-      )
+                         ),
+      // I'm not sure how this initialization works. If something breaks
+      // involving this scope, revise this thoroughly.
+      graph(nullptr, &destroy_graph_pointer)
 #endif
 {
+    graph.reset(create_graph_pointer());
 }
 
 ModuleeAudioProcessor::~ModuleeAudioProcessor()
@@ -96,8 +99,6 @@ void ModuleeAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBlock
 {
     // Use this method as the place to do any pre-playback
     // initialisation that you need..
-
-    graph_pointer = create_graph_pointer();
 }
 
 void ModuleeAudioProcessor::releaseResources()

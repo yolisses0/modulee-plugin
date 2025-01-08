@@ -55,7 +55,13 @@ public:
   void setStateInformation(const void *data, int sizeInBytes) override;
 
 private:
-  Graph *graph_pointer;
+  /*
+  `unique_ptr` is a smart pointer that will call the destructor
+  once there's no reference to this.
+  This line is just a declaration though. The real initialization
+  value is given in the plugin processor constructor.
+  */
+  std::unique_ptr<Graph, decltype(&destroy_graph_pointer)> graph;
 
   //==============================================================================
   JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(ModuleeAudioProcessor)
