@@ -1,0 +1,3 @@
+[submodule "Vendor/modulee-engine-clib"]
+	path = Vendor/modulee-engine-clib
+	url = https://github.com/yolisses0/modulee-engine-clib
