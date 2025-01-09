@@ -56,7 +56,7 @@
  #define JucePlugin_ManufacturerEmail      "yolisses0@gmail.com"
 #endif
 #ifndef  JucePlugin_ManufacturerCode
- #define JucePlugin_ManufacturerCode       0x4d616e75
+ #define JucePlugin_ManufacturerCode       0x596c7373
 #endif
 #ifndef  JucePlugin_PluginCode
  #define JucePlugin_PluginCode             0x4d646c65
