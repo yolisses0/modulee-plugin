@@ -8,14 +8,13 @@
 
 #pragma once
 
-#include <JuceHeader.h>
 #include "../Vendor/modulee-engine-clib/pkg/bindings.h"
+#include <JuceHeader.h>
 
 //==============================================================================
 /**
  */
-class ModuleeAudioProcessor : public juce::AudioProcessor
-{
+class ModuleeAudioProcessor : public juce::AudioProcessor {
 public:
   //==============================================================================
   ModuleeAudioProcessor();
@@ -61,7 +60,7 @@ private:
   This line is just a declaration though. The real initialization
   value is given in the plugin processor constructor.
   */
-  //std::unique_ptr<Graph, decltype(&destroy_graph_pointer)> graph;
+  // std::unique_ptr<Graph, decltype(&destroy_graph_pointer)> graph;
 
   //==============================================================================
   JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(ModuleeAudioProcessor)

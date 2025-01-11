@@ -17,4 +17,5 @@
     "GTK_PATH": null,
     "GIO_MODULE_DIR": null,
   },
+  "C_Cpp.clang_format_fallbackStyle": "LLVM",
 }

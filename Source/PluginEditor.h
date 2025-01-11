@@ -8,14 +8,13 @@
 
 #pragma once
 
-#include <JuceHeader.h>
 #include "PluginProcessor.h"
+#include <JuceHeader.h>
 
 //==============================================================================
 /**
  */
-class ModuleeAudioProcessorEditor : public juce::AudioProcessorEditor
-{
+class ModuleeAudioProcessorEditor : public juce::AudioProcessorEditor {
 public:
   ModuleeAudioProcessorEditor(ModuleeAudioProcessor &);
   ~ModuleeAudioProcessorEditor() override;
