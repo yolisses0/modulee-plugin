@@ -7478,5 +7478,6 @@
     <None Include="..\..\..\..\..\..\JUCE\modules\juce_graphics\unicode\sheenbidi\JUCE_CHANGES.txt">
       <Filter>JUCE Modules\juce_graphics\unicode\sheenbidi</Filter>
     </None>
+    <None Include="packages.config"/>
   </ItemGroup>
 </Project>

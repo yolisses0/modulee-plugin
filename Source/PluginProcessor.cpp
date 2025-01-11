@@ -19,13 +19,13 @@ ModuleeAudioProcessor::ModuleeAudioProcessor()
 #endif
                          .withOutput("Output", juce::AudioChannelSet::stereo(), true)
 #endif
-                         ),
+                         )
       // I'm not sure how this initialization works. If something breaks
       // involving this scope, revise this thoroughly.
-      graph(nullptr, &destroy_graph_pointer)
+    //,graph(nullptr, &destroy_graph_pointer)
 #endif
 {
-    graph.reset(create_graph_pointer());
+    //graph.reset(create_graph_pointer());
 }
 
 ModuleeAudioProcessor::~ModuleeAudioProcessor()

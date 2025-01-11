@@ -15,7 +15,20 @@ ModuleeAudioProcessorEditor::ModuleeAudioProcessorEditor(ModuleeAudioProcessor &
 {
 
   // create the actual browser component
-  webView.reset(new juce::WebBrowserComponent());
+  webView.reset(
+      new juce::WebBrowserComponent(
+          juce::WebBrowserComponent::Options{}
+          .withBackend(
+              juce::WebBrowserComponent::Options::Backend::webview2)
+          .withWinWebView2Options(
+              juce::WebBrowserComponent::Options::WinWebView2{}
+              .withBackgroundColour(juce::Colours::white)
+              // this may be necessary for some DAWs; include for safety
+              .withUserDataFolder(juce::File::getSpecialLocation(
+                  juce::File::SpecialLocationType::tempDirectory)))
+          .withNativeIntegrationEnabled()
+      )
+  );
   addAndMakeVisible(webView.get());
 
   // send the browser to a start page..
