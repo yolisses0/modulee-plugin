@@ -28,6 +28,10 @@ ModuleeAudioProcessor::ModuleeAudioProcessor()
 #endif
 {
   graph.reset(create_graph_pointer());
+  char *test = (char *)malloc(13 * sizeof(char));
+  strcpy(test, "Hello from C");
+  set_debug_string(&**&graph, test);
+  free(test);
 }
 
 ModuleeAudioProcessor::~ModuleeAudioProcessor() {}
