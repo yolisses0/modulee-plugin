@@ -144,7 +144,7 @@ void ModuleeAudioProcessor::processBlock(juce::AudioBuffer<float> &buffer,
     auto numSamples = buffer.getNumSamples();
 
     // Fill the buffer with generated audio from Rust
-    fill_audio(channelData, numSamples);
+    process_block(&**&graph, channelData, numSamples);
 
     // Optionally, modify the data further (e.g., apply effects or gain)
     for (int sample = 0; sample < numSamples; ++sample) {
