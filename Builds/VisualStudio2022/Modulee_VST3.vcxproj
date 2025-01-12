@@ -94,7 +94,7 @@
       <ProgramDatabaseFile>$(IntDir)\Modulee.pdb</ProgramDatabaseFile>
       <SubSystem>Windows</SubSystem>
       <LargeAddressAware>true</LargeAddressAware>
-      <AdditionalDependencies>modulee_engine.lib;Modulee.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>modulee_engine.lib;kernel32.lib;advapi32.lib;ntdll.lib;userenv.lib;ws2_32.lib;dbghelp.lib;/defaultlib:msvcrt;Modulee.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalOptions>/LIBPATH:&quot;../../Vendor/modulee-engine-clib/target/debug&quot; %(AdditionalOptions)</AdditionalOptions>
     </Link>
     <Bscmake>
@@ -102,7 +102,7 @@
       <OutputFile>$(IntDir)\Modulee.bsc</OutputFile>
     </Bscmake>
     <Lib>
-      <AdditionalDependencies>modulee_engine.lib;Modulee.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>modulee_engine.lib;kernel32.lib;advapi32.lib;ntdll.lib;userenv.lib;ws2_32.lib;dbghelp.lib;/defaultlib:msvcrt;Modulee.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Lib>
     <PreBuildEvent>
       <Command>if &quot;$(PROCESSOR_ARCHITECTURE)&quot; == &quot;x86&quot; if defined PROCESSOR_ARCHITEW6432 (
@@ -196,7 +196,7 @@ echo : Info: VST3 manifest generation is disabled for Modulee because a AMD64 ma
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <LargeAddressAware>true</LargeAddressAware>
       <LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
-      <AdditionalDependencies>modulee_engine.lib;Modulee.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>modulee_engine.lib;kernel32.lib;advapi32.lib;ntdll.lib;userenv.lib;ws2_32.lib;dbghelp.lib;/defaultlib:msvcrt;Modulee.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalOptions>/LIBPATH:&quot;../../Vendor/modulee-engine-clib/target/debug&quot; %(AdditionalOptions)</AdditionalOptions>
     </Link>
     <Bscmake>
@@ -204,7 +204,7 @@ echo : Info: VST3 manifest generation is disabled for Modulee because a AMD64 ma
       <OutputFile>$(IntDir)\Modulee.bsc</OutputFile>
     </Bscmake>
     <Lib>
-      <AdditionalDependencies>modulee_engine.lib;Modulee.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>modulee_engine.lib;kernel32.lib;advapi32.lib;ntdll.lib;userenv.lib;ws2_32.lib;dbghelp.lib;/defaultlib:msvcrt;Modulee.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Lib>
     <PreBuildEvent>
       <Command>if &quot;$(PROCESSOR_ARCHITECTURE)&quot; == &quot;x86&quot; if defined PROCESSOR_ARCHITEW6432 (

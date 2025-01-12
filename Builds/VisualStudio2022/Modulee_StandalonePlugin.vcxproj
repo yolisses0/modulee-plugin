@@ -94,7 +94,7 @@
       <ProgramDatabaseFile>$(IntDir)\Modulee.pdb</ProgramDatabaseFile>
       <SubSystem>Windows</SubSystem>
       <LargeAddressAware>true</LargeAddressAware>
-      <AdditionalDependencies>modulee_engine.lib;Modulee.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>modulee_engine.lib;kernel32.lib;advapi32.lib;ntdll.lib;userenv.lib;ws2_32.lib;dbghelp.lib;/defaultlib:msvcrt;Modulee.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalOptions>/LIBPATH:&quot;../../Vendor/modulee-engine-clib/target/debug&quot; %(AdditionalOptions)</AdditionalOptions>
     </Link>
     <Bscmake>
@@ -102,7 +102,7 @@
       <OutputFile>$(IntDir)\Modulee.bsc</OutputFile>
     </Bscmake>
     <Lib>
-      <AdditionalDependencies>modulee_engine.lib;Modulee.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>modulee_engine.lib;kernel32.lib;advapi32.lib;ntdll.lib;userenv.lib;ws2_32.lib;dbghelp.lib;/defaultlib:msvcrt;Modulee.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -143,7 +143,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <LargeAddressAware>true</LargeAddressAware>
       <LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
-      <AdditionalDependencies>modulee_engine.lib;Modulee.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>modulee_engine.lib;kernel32.lib;advapi32.lib;ntdll.lib;userenv.lib;ws2_32.lib;dbghelp.lib;/defaultlib:msvcrt;Modulee.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalOptions>/LIBPATH:&quot;../../Vendor/modulee-engine-clib/target/debug&quot; %(AdditionalOptions)</AdditionalOptions>
     </Link>
     <Bscmake>
@@ -151,7 +151,7 @@
       <OutputFile>$(IntDir)\Modulee.bsc</OutputFile>
     </Bscmake>
     <Lib>
-      <AdditionalDependencies>modulee_engine.lib;Modulee.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>modulee_engine.lib;kernel32.lib;advapi32.lib;ntdll.lib;userenv.lib;ws2_32.lib;dbghelp.lib;/defaultlib:msvcrt;Modulee.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
