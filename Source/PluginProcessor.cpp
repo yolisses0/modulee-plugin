@@ -141,11 +141,14 @@ void ModuleeAudioProcessor::processBlock(juce::AudioBuffer<float> &buffer,
   // interleaved by keeping the same state.
   for (int channel = 0; channel < totalNumOutputChannels; ++channel) {
     auto *channelData = buffer.getWritePointer(channel);
+    auto numSamples = buffer.getNumSamples();
 
-    for (int sample = 0; sample < buffer.getNumSamples(); ++sample) {
-      float currentSample = (float)sample / buffer.getNumSamples();
-      channelData[sample] =
-          2.0f * (currentSample - std::floor(currentSample + 0.5f));
+    // Fill the buffer with generated audio from Rust
+    fill_audio(channelData, numSamples);
+
+    // Optionally, modify the data further (e.g., apply effects or gain)
+    for (int sample = 0; sample < numSamples; ++sample) {
+      channelData[sample] *= 0.5f; // Example: Apply a gain of 0.5
     }
   }
 }
