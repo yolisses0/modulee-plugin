@@ -32,29 +32,6 @@ ModuleeAudioProcessor::ModuleeAudioProcessor()
 #endif
 {
   graph.reset(create_graph_pointer());
-
-  auto dev_nodes_data = R"(
-[
-    {
-        "id": 1,
-        "type": "ConstantNode",
-        "extras": {
-            "value": 0.23
-        }
-    },
-    {
-        "id": 2,
-        "type": "OutputNode",
-        "input_ids": {
-            "input": 1
-        }
-    }
-]
-)";
-  char *nodes_data = (char *)malloc(strlen(dev_nodes_data) * sizeof(char));
-  strcpy(nodes_data, dev_nodes_data);
-  setGraph(nodes_data);
-  free(nodes_data);
 }
 
 ModuleeAudioProcessor::~ModuleeAudioProcessor() {}
