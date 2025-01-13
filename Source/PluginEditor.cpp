@@ -29,15 +29,10 @@ ModuleeAudioProcessorEditor::ModuleeAudioProcessorEditor(
       juce::WebBrowserComponent::Options{}
           .withBackend(juce::WebBrowserComponent::Options::Backend::webview2)
           .withWinWebView2Options(winWebViewOptions)
-          .withEventListener(
-              "passSomeString",
-              [this](juce::var objectFromFrontend) {
-                std::cout << "passSomeString" << std::endl;
-                std::cout << objectFromFrontend.toString() << std::endl;
-                auto someString =
-                    objectFromFrontend.getProperty("someString", "").toString();
-                std::cout << someString << std::endl;
-              })
+          .withEventListener("passSomeString",
+                             [this](juce::var objectFromFrontend) {
+                               this->handlePassSomeString(objectFromFrontend);
+                             })
           .withNativeIntegrationEnabled();
 
   auto webBrowserComponent = new juce::WebBrowserComponent(webBrowserOptions);
@@ -56,6 +51,14 @@ ModuleeAudioProcessorEditor::ModuleeAudioProcessorEditor(
   // editor's size to whatever you need it to be.
   setSize(600, 400);
   setResizable(true, true);
+}
+
+void ModuleeAudioProcessorEditor::handlePassSomeString(
+    juce::var objectFromFrontend) {
+  std::cout << "passSomeString" << std::endl;
+  std::cout << objectFromFrontend.toString() << std::endl;
+  auto someString = objectFromFrontend.getProperty("someString", "").toString();
+  std::cout << someString << std::endl;
 }
 
 ModuleeAudioProcessorEditor::~ModuleeAudioProcessorEditor() {}
