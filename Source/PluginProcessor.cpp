@@ -42,6 +42,7 @@ ModuleeAudioProcessor::ModuleeAudioProcessor()
         "id": 2,
         "type": "OutputNode",
         "input_ids": {
+            "input": 1
         }
     }
 ]

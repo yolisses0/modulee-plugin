@@ -35,7 +35,8 @@
                JUCE_USE_WIN_WEBVIEW2="1" JUCE_USE_WIN_WEBVIEW2_WITH_STATIC_LINKING="1"
                JUCE_WEB_BROWSER="1"/>
   <EXPORTFORMATS>
-    <LINUX_MAKE targetFolder="Builds/LinuxMakefile" extraLinkerFlags="-L&quot;../../Vendor/modulee-engine-clib/target/debug&quot; -lmodulee_engine">
+    <LINUX_MAKE targetFolder="Builds/LinuxMakefile" extraLinkerFlags="-L&quot;../../Vendor/modulee-engine-clib/target/debug&quot;"
+                externalLibraries="modulee_engine">
       <CONFIGURATIONS>
         <CONFIGURATION isDebug="1" name="Debug" targetName="Modulee"/>
         <CONFIGURATION isDebug="0" name="Release" targetName="Modulee"/>
