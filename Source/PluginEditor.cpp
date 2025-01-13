@@ -24,6 +24,7 @@ ModuleeAudioProcessorEditor::ModuleeAudioProcessorEditor(
                                .withBackgroundColour(juce::Colour(0xff18181b))
                                .withUserDataFolder(userDataFolder);
 
+  std::cout << "cout is working" << std::endl;
   auto webBrowserOptions =
       juce::WebBrowserComponent::Options{}
           .withBackend(juce::WebBrowserComponent::Options::Backend::webview2)
@@ -31,6 +32,8 @@ ModuleeAudioProcessorEditor::ModuleeAudioProcessorEditor(
           .withEventListener(
               "passSomeString",
               [this](juce::var objectFromFrontend) {
+                std::cout << "passSomeString" << std::endl;
+                std::cout << objectFromFrontend.toString() << std::endl;
                 auto someString =
                     objectFromFrontend.getProperty("someString", "").toString();
                 std::cout << someString << std::endl;
@@ -42,8 +45,12 @@ ModuleeAudioProcessorEditor::ModuleeAudioProcessorEditor(
   webView.reset(webBrowserComponent);
   addAndMakeVisible(webView.get());
 
-  // send the browser to a start page..
+  // Determine the URL based on the build configuration
+#ifdef IS_DEV_ENVIRONMENT
+  webView->goToURL("http://localhost:5173");
+#else
   webView->goToURL("https://modulee.yolisses.com");
+#endif
 
   // Make sure that before the constructor has finished, you've set the
   // editor's size to whatever you need it to be.
