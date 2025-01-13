@@ -12,7 +12,8 @@
     "utility": "cpp",
     "random": "cpp",
     "optional": "cpp",
-    "algorithm": "cpp"
+    "algorithm": "cpp",
+    "new": "cpp"
   },
   "terminal.integrated.env.linux": {
     "GTK_PATH": null,
