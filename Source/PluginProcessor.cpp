@@ -35,7 +35,7 @@ ModuleeAudioProcessor::ModuleeAudioProcessor()
         "id": 1,
         "type": "ConstantNode",
         "extras": {
-            "value": 23
+            "value": 0.23
         }
     },
     {

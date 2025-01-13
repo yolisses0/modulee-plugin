@@ -8,6 +8,7 @@
 
 #include "PluginEditor.h"
 #include "PluginProcessor.h"
+#include <iostream>
 
 //==============================================================================
 ModuleeAudioProcessorEditor::ModuleeAudioProcessorEditor(
@@ -27,6 +28,13 @@ ModuleeAudioProcessorEditor::ModuleeAudioProcessorEditor(
       juce::WebBrowserComponent::Options{}
           .withBackend(juce::WebBrowserComponent::Options::Backend::webview2)
           .withWinWebView2Options(winWebViewOptions)
+          .withEventListener(
+              "passSomeString",
+              [this](juce::var objectFromFrontend) {
+                auto someString =
+                    objectFromFrontend.getProperty("someString", "").toString();
+                std::cout << someString << std::endl;
+              })
           .withNativeIntegrationEnabled();
 
   auto webBrowserComponent = new juce::WebBrowserComponent(webBrowserOptions);
