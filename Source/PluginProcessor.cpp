@@ -9,6 +9,10 @@
 #include "PluginProcessor.h"
 #include "PluginEditor.h"
 
+void ModuleeAudioProcessor::setGraph(const char *nodes_data) {
+  set_nodes(&**&graph, nodes_data);
+}
+
 //==============================================================================
 ModuleeAudioProcessor::ModuleeAudioProcessor()
 #ifndef JucePlugin_PreferredChannelConfigurations
@@ -47,11 +51,9 @@ ModuleeAudioProcessor::ModuleeAudioProcessor()
     }
 ]
 )";
-
   char *nodes_data = (char *)malloc(strlen(dev_nodes_data) * sizeof(char));
   strcpy(nodes_data, dev_nodes_data);
-
-  set_nodes(&**&graph, nodes_data);
+  setGraph(nodes_data);
   free(nodes_data);
 }
 

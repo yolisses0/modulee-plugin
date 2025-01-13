@@ -16,6 +16,8 @@
  */
 class ModuleeAudioProcessor : public juce::AudioProcessor {
 public:
+  void setGraph(const char *nodes_data);
+
   //==============================================================================
   ModuleeAudioProcessor();
   ~ModuleeAudioProcessor() override;

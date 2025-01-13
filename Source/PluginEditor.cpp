@@ -29,10 +29,12 @@ ModuleeAudioProcessorEditor::ModuleeAudioProcessorEditor(
       juce::WebBrowserComponent::Options{}
           .withBackend(juce::WebBrowserComponent::Options::Backend::webview2)
           .withWinWebView2Options(winWebViewOptions)
-          .withEventListener("passSomeString",
-                             [this](juce::var objectFromFrontend) {
-                               this->handlePassSomeString(objectFromFrontend);
-                             })
+          .withEventListener(
+              "passSomeString",
+              [this](juce::var data) { handlePassSomeString(data); })
+          .withEventListener(
+              "graphChange",
+              [this](juce::var data) { handleGraphChange(data); })
           .withNativeIntegrationEnabled();
 
   auto webBrowserComponent = new juce::WebBrowserComponent(webBrowserOptions);
@@ -53,12 +55,17 @@ ModuleeAudioProcessorEditor::ModuleeAudioProcessorEditor(
   setResizable(true, true);
 }
 
-void ModuleeAudioProcessorEditor::handlePassSomeString(
-    juce::var objectFromFrontend) {
+void ModuleeAudioProcessorEditor::handlePassSomeString(juce::var data) {
   std::cout << "passSomeString" << std::endl;
-  std::cout << objectFromFrontend.toString() << std::endl;
-  auto someString = objectFromFrontend.getProperty("someString", "").toString();
+  auto someString = data.getProperty("someString", "").toString();
   std::cout << someString << std::endl;
+}
+
+void ModuleeAudioProcessorEditor::handleGraphChange(juce::var data) {
+  std::cout << "graphChange" << std::endl;
+  auto nodes_data = data.getProperty("nodesData", "").toString();
+  std::cout << nodes_data << std::endl;
+  audioProcessor.setGraph(nodes_data.toStdString().c_str());
 }
 
 ModuleeAudioProcessorEditor::~ModuleeAudioProcessorEditor() {}

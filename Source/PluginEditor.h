@@ -32,5 +32,6 @@ private:
 
   JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(ModuleeAudioProcessorEditor)
 
-  void handlePassSomeString(juce::var objectFromFrontend);
+  void handlePassSomeString(juce::var data);
+  void handleGraphChange(juce::var data);
 };
