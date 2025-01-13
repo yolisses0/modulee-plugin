@@ -20,7 +20,7 @@ ModuleeAudioProcessorEditor::ModuleeAudioProcessorEditor(
 
   // configure Windows WebView2
   auto winWebViewOptions = juce::WebBrowserComponent::Options::WinWebView2{}
-                               .withBackgroundColour(juce::Colours::white)
+                               .withBackgroundColour(juce::Colour(0xff18181b))
                                .withUserDataFolder(userDataFolder);
 
   auto webBrowserOptions =
