@@ -28,10 +28,24 @@ ModuleeAudioProcessor::ModuleeAudioProcessor()
 #endif
 {
   graph.reset(create_graph_pointer());
-  char *test = (char *)malloc(13 * sizeof(char));
-  strcpy(test, "Hello from C");
-  set_debug_string(&**&graph, test);
-  free(test);
+
+  auto dev_nodes_data = R"(
+  [
+    {
+        "id": 1,
+        "type": "ConstantNode",
+        "extras": {
+            "value": 23
+        }
+    }
+]
+)";
+
+  char *nodes_data = (char *)malloc(strlen(dev_nodes_data) * sizeof(char));
+  strcpy(nodes_data, dev_nodes_data);
+
+  set_nodes(&**&graph, nodes_data);
+  free(nodes_data);
 }
 
 ModuleeAudioProcessor::~ModuleeAudioProcessor() {}
