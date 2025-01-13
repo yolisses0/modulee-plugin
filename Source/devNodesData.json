@@ -5,5 +5,12 @@
         "extras": {
             "value": 23
         }
+    },
+    {
+        "id": 2,
+        "type": "OutputNode",
+        "input_ids": {
+            "input": 1
+        }
     }
 ]

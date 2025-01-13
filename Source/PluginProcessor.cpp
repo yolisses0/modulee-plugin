@@ -30,12 +30,18 @@ ModuleeAudioProcessor::ModuleeAudioProcessor()
   graph.reset(create_graph_pointer());
 
   auto dev_nodes_data = R"(
-  [
+[
     {
         "id": 1,
         "type": "ConstantNode",
         "extras": {
             "value": 23
+        }
+    },
+    {
+        "id": 2,
+        "type": "OutputNode",
+        "input_ids": {
         }
     }
 ]
