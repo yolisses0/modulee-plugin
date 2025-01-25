@@ -8,9 +8,12 @@
 
 #include "PluginProcessor.h"
 #include "PluginEditor.h"
+#include <mutex>
 
 void ModuleeAudioProcessor::setGraph(const char *nodes_data) {
+  graph_mutex.lock();
   set_nodes(&**&graph, nodes_data);
+  graph_mutex.unlock();
 }
 
 //==============================================================================
@@ -147,7 +150,9 @@ void ModuleeAudioProcessor::processBlock(juce::AudioBuffer<float> &buffer,
   auto numSamples = buffer.getNumSamples();
   auto *channelData = buffer.getWritePointer(0);
   // Fill the buffer with generated audio from Rust
+  graph_mutex.lock();
   process_block(&**&graph, channelData, numSamples);
+  graph_mutex.unlock();
 
   for (int channel = 1; channel < totalNumOutputChannels; ++channel) {
     auto *otherChannelData = buffer.getWritePointer(channel);

@@ -63,6 +63,7 @@ private:
   value is given in the plugin processor constructor.
   */
   std::unique_ptr<Graph, decltype(&destroy_graph_pointer)> graph;
+  std::mutex graph_mutex;
 
   //==============================================================================
   JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(ModuleeAudioProcessor)
