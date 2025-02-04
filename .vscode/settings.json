@@ -1,6 +1,8 @@
 {
   "cSpell.words": [
-    "juce"
+    "clib",
+    "juce",
+    "modulee"
   ],
   "files.associations": {
     "array": "cpp",
