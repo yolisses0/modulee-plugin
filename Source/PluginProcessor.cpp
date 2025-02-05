@@ -114,7 +114,7 @@ bool ModuleeAudioProcessor::isBusesLayoutSupported(
       layouts.getMainOutputChannelSet() != juce::AudioChannelSet::stereo())
     return false;
 
-    // This checks if the input layout matches the output layout
+  // This checks if the input layout matches the output layout
 #if !JucePlugin_IsSynth
   if (layouts.getMainOutputChannelSet() != layouts.getMainInputChannelSet())
     return false;
@@ -159,6 +159,23 @@ void ModuleeAudioProcessor::processBlock(juce::AudioBuffer<float> &buffer,
 
     for (int sample = 0; sample < numSamples; ++sample) {
       otherChannelData[sample] = channelData[sample];
+    }
+  }
+
+  for (const auto metadata : midiMessages) {
+    auto message = metadata.getMessage();
+    auto timeStamp = metadata.samplePosition;
+
+    if (message.isNoteOn()) {
+      DBG("Note On: " << message.getNoteNumber() << " Velocity: "
+                      << message.getVelocity() << " Timestamp: " << timeStamp);
+    } else if (message.isNoteOff()) {
+      DBG("Note Off: " << message.getNoteNumber()
+                       << " Timestamp: " << timeStamp);
+    } else if (message.isController()) {
+      DBG("Controller: " << message.getControllerNumber()
+                         << " Value: " << message.getControllerValue()
+                         << " Timestamp: " << timeStamp);
     }
   }
 }
