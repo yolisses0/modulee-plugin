@@ -127,6 +127,26 @@ bool ModuleeAudioProcessor::isBusesLayoutSupported(
 
 void ModuleeAudioProcessor::processBlock(juce::AudioBuffer<float> &buffer,
                                          juce::MidiBuffer &midiMessages) {
+
+  for (const auto metadata : midiMessages) {
+    auto message = metadata.getMessage();
+    auto timeStamp = metadata.samplePosition;
+
+    if (message.isNoteOn()) {
+      DBG("Note On: " << message.getNoteNumber() << " Velocity: "
+                      << message.getVelocity() << " Timestamp: " << timeStamp);
+      set_note_on(&**&graph, (float)message.getNoteNumber());
+    } else if (message.isNoteOff()) {
+      DBG("Note Off: " << message.getNoteNumber()
+                       << " Timestamp: " << timeStamp);
+      set_note_off(&**&graph, (float)message.getNoteNumber());
+    } else if (message.isController()) {
+      DBG("Controller: " << message.getControllerNumber()
+                         << " Value: " << message.getControllerValue()
+                         << " Timestamp: " << timeStamp);
+    }
+  }
+
   juce::ScopedNoDenormals noDenormals;
   auto totalNumInputChannels = getTotalNumInputChannels();
   auto totalNumOutputChannels = getTotalNumOutputChannels();
@@ -159,23 +179,6 @@ void ModuleeAudioProcessor::processBlock(juce::AudioBuffer<float> &buffer,
 
     for (int sample = 0; sample < numSamples; ++sample) {
       otherChannelData[sample] = channelData[sample];
-    }
-  }
-
-  for (const auto metadata : midiMessages) {
-    auto message = metadata.getMessage();
-    auto timeStamp = metadata.samplePosition;
-
-    if (message.isNoteOn()) {
-      DBG("Note On: " << message.getNoteNumber() << " Velocity: "
-                      << message.getVelocity() << " Timestamp: " << timeStamp);
-    } else if (message.isNoteOff()) {
-      DBG("Note Off: " << message.getNoteNumber()
-                       << " Timestamp: " << timeStamp);
-    } else if (message.isController()) {
-      DBG("Controller: " << message.getControllerNumber()
-                         << " Value: " << message.getControllerValue()
-                         << " Timestamp: " << timeStamp);
     }
   }
 }
