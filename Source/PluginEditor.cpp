@@ -29,12 +29,11 @@ ModuleeAudioProcessorEditor::ModuleeAudioProcessorEditor(
       juce::WebBrowserComponent::Options{}
           .withBackend(juce::WebBrowserComponent::Options::Backend::webview2)
           .withWinWebView2Options(winWebViewOptions)
+          .withEventListener("setGroups",
+                             [this](juce::var data) { handleSetGroups(data); })
           .withEventListener(
-              "passSomeString",
-              [this](juce::var data) { handlePassSomeString(data); })
-          .withEventListener(
-              "graphChange",
-              [this](juce::var data) { handleGraphChange(data); })
+              "setMainGroupId",
+              [this](juce::var data) { handleSetMainGroupId(data); })
           .withNativeIntegrationEnabled();
 
   auto webBrowserComponent = new juce::WebBrowserComponent(webBrowserOptions);
@@ -55,17 +54,18 @@ ModuleeAudioProcessorEditor::ModuleeAudioProcessorEditor(
   setResizable(true, true);
 }
 
-void ModuleeAudioProcessorEditor::handlePassSomeString(juce::var data) {
-  std::cout << "passSomeString" << std::endl;
-  auto someString = data.getProperty("someString", "").toString();
-  std::cout << someString << std::endl;
+void ModuleeAudioProcessorEditor::handleSetGroups(juce::var data) {
+  std::cout << "handleSetGroups" << std::endl;
+  auto groups_data = data.getProperty("groupsData", "").toString();
+  std::cout << groups_data << std::endl;
+  audioProcessor.setGroups(groups_data.toStdString().c_str());
 }
 
-void ModuleeAudioProcessorEditor::handleGraphChange(juce::var data) {
-  std::cout << "graphChange" << std::endl;
-  auto nodes_data = data.getProperty("nodesData", "").toString();
-  std::cout << nodes_data << std::endl;
-  audioProcessor.setGraph(nodes_data.toStdString().c_str());
+void ModuleeAudioProcessorEditor::handleSetMainGroupId(juce::var data) {
+  std::cout << "handleSetMainGroupId" << std::endl;
+  auto mainGroupId = (int)data.getProperty("mainGroupId", "");
+  std::cout << mainGroupId << std::endl;
+  audioProcessor.setMainGroupId(mainGroupId);
 }
 
 ModuleeAudioProcessorEditor::~ModuleeAudioProcessorEditor() {}
