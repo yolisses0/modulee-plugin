@@ -16,7 +16,7 @@ void ModuleeAudioProcessor::setGroups(const char *groups_data) {
   graph_mutex.unlock();
 }
 
-void ModuleeAudioProcessor::setMainGroupId(int main_group_id) {
+void ModuleeAudioProcessor::setMainGroupId(uint64_t main_group_id) {
   graph_mutex.lock();
   set_main_group_id(&**&graph, main_group_id);
   graph_mutex.unlock();

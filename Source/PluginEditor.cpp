@@ -55,16 +55,15 @@ ModuleeAudioProcessorEditor::ModuleeAudioProcessorEditor(
 }
 
 void ModuleeAudioProcessorEditor::handleSetGroups(juce::var data) {
-  std::cout << "handleSetGroups" << std::endl;
   auto groups_data = data.getProperty("groupsData", "").toString();
-  std::cout << groups_data << std::endl;
   audioProcessor.setGroups(groups_data.toStdString().c_str());
 }
 
 void ModuleeAudioProcessorEditor::handleSetMainGroupId(juce::var data) {
-  std::cout << "handleSetMainGroupId" << std::endl;
-  auto mainGroupId = (int)data.getProperty("mainGroupId", "");
-  std::cout << mainGroupId << std::endl;
+  auto mainGroupId = (uint64_t)data.getProperty("mainGroupId", "")
+                         .toString()
+                         .getLargeIntValue();
+  DBG("handleSetMainGroupId" << mainGroupId);
   audioProcessor.setMainGroupId(mainGroupId);
 }
 

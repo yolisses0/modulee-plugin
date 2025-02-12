@@ -17,7 +17,7 @@
 class ModuleeAudioProcessor : public juce::AudioProcessor {
 public:
   void setGroups(const char *groups_data);
-  void setMainGroupId(int main_group_id);
+  void setMainGroupId(uint64_t main_group_id);
 
   //==============================================================================
   ModuleeAudioProcessor();
