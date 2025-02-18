@@ -102,7 +102,7 @@
       <AdditionalManifestFiles/>
     </Manifest>
     <PreBuildEvent>
-      <Command>cargo build --manifest-path=..\..\Vendor\modulee-engine-clib\Cargo.toml;
+      <Command>cargo build --manifest-path ..\..\Vendor\modulee-engine-clib\Cargo.toml
 </Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
@@ -154,7 +154,7 @@
       <AdditionalManifestFiles/>
     </Manifest>
     <PreBuildEvent>
-      <Command>cargo build --manifest-path=..\..\Vendor\modulee-engine-clib\Cargo.toml;
+      <Command>cargo build --manifest-path ..\..\Vendor\modulee-engine-clib\Cargo.toml --release
 </Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>

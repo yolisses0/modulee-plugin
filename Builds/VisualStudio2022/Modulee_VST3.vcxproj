@@ -105,7 +105,7 @@
       <AdditionalDependencies>modulee_engine.lib;kernel32.lib;advapi32.lib;ntdll.lib;userenv.lib;ws2_32.lib;dbghelp.lib;/defaultlib:msvcrt;Modulee.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Lib>
     <PreBuildEvent>
-      <Command>cargo build --manifest-path=..\..\Vendor\modulee-engine-clib\Cargo.toml;
+      <Command>cargo build --manifest-path ..\..\Vendor\modulee-engine-clib\Cargo.toml
 if &quot;$(PROCESSOR_ARCHITECTURE)&quot; == &quot;x86&quot; if defined PROCESSOR_ARCHITEW6432 (
     echo : Warning: Toolchain configuration issue! You are using a 32-bit toolchain to compile a 64-bit target on a 64-bit system. This may cause problems with the build system. To resolve this, use the x64 version of MSBuild. You can invoke it directly at: &quot;&lt;VisualStudioPathHere&gt;/MSBuild/Current/Bin/amd64/MSBuild.exe&quot; Or, use the &quot;x64 Native Tools Command Prompt&quot; script.
 )
@@ -208,7 +208,7 @@ echo : Info: VST3 manifest generation is disabled for Modulee because a AMD64 ma
       <AdditionalDependencies>modulee_engine.lib;kernel32.lib;advapi32.lib;ntdll.lib;userenv.lib;ws2_32.lib;dbghelp.lib;/defaultlib:msvcrt;Modulee.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Lib>
     <PreBuildEvent>
-      <Command>cargo build --manifest-path=..\..\Vendor\modulee-engine-clib\Cargo.toml;
+      <Command>cargo build --manifest-path ..\..\Vendor\modulee-engine-clib\Cargo.toml --release
 if &quot;$(PROCESSOR_ARCHITECTURE)&quot; == &quot;x86&quot; if defined PROCESSOR_ARCHITEW6432 (
     echo : Warning: Toolchain configuration issue! You are using a 32-bit toolchain to compile a 64-bit target on a 64-bit system. This may cause problems with the build system. To resolve this, use the x64 version of MSBuild. You can invoke it directly at: &quot;&lt;VisualStudioPathHere&gt;/MSBuild/Current/Bin/amd64/MSBuild.exe&quot; Or, use the &quot;x64 Native Tools Command Prompt&quot; script.
 )
