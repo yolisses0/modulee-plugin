@@ -16,6 +16,9 @@
  */
 class ModuleeAudioProcessor : public juce::AudioProcessor {
 public:
+  void setGroups(const char *groups_data);
+  void setMainGroupId(uint64_t main_group_id);
+
   //==============================================================================
   ModuleeAudioProcessor();
   ~ModuleeAudioProcessor() override;
@@ -61,6 +64,7 @@ private:
   value is given in the plugin processor constructor.
   */
   std::unique_ptr<Graph, decltype(&destroy_graph_pointer)> graph;
+  std::mutex graph_mutex;
 
   //==============================================================================
   JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(ModuleeAudioProcessor)

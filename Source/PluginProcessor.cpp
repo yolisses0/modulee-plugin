@@ -8,6 +8,19 @@
 
 #include "PluginProcessor.h"
 #include "PluginEditor.h"
+#include <mutex>
+
+void ModuleeAudioProcessor::setGroups(const char *groups_data) {
+  graph_mutex.lock();
+  set_groups(&**&graph, groups_data);
+  graph_mutex.unlock();
+}
+
+void ModuleeAudioProcessor::setMainGroupId(uint64_t main_group_id) {
+  graph_mutex.lock();
+  set_main_group_id(&**&graph, main_group_id);
+  graph_mutex.unlock();
+}
 
 //==============================================================================
 ModuleeAudioProcessor::ModuleeAudioProcessor()
@@ -107,7 +120,7 @@ bool ModuleeAudioProcessor::isBusesLayoutSupported(
       layouts.getMainOutputChannelSet() != juce::AudioChannelSet::stereo())
     return false;
 
-    // This checks if the input layout matches the output layout
+  // This checks if the input layout matches the output layout
 #if !JucePlugin_IsSynth
   if (layouts.getMainOutputChannelSet() != layouts.getMainInputChannelSet())
     return false;
@@ -120,6 +133,26 @@ bool ModuleeAudioProcessor::isBusesLayoutSupported(
 
 void ModuleeAudioProcessor::processBlock(juce::AudioBuffer<float> &buffer,
                                          juce::MidiBuffer &midiMessages) {
+
+  for (const auto metadata : midiMessages) {
+    auto message = metadata.getMessage();
+    auto timeStamp = metadata.samplePosition;
+
+    if (message.isNoteOn()) {
+      DBG("Note On: " << message.getNoteNumber() << " Velocity: "
+                      << message.getVelocity() << " Timestamp: " << timeStamp);
+      set_note_on(&**&graph, (float)message.getNoteNumber());
+    } else if (message.isNoteOff()) {
+      DBG("Note Off: " << message.getNoteNumber()
+                       << " Timestamp: " << timeStamp);
+      set_note_off(&**&graph, (float)message.getNoteNumber());
+    } else if (message.isController()) {
+      DBG("Controller: " << message.getControllerNumber()
+                         << " Value: " << message.getControllerValue()
+                         << " Timestamp: " << timeStamp);
+    }
+  }
+
   juce::ScopedNoDenormals noDenormals;
   auto totalNumInputChannels = getTotalNumInputChannels();
   auto totalNumOutputChannels = getTotalNumOutputChannels();
@@ -139,10 +172,20 @@ void ModuleeAudioProcessor::processBlock(juce::AudioBuffer<float> &buffer,
   // the samples and the outer loop is handling the channels.
   // Alternatively, you can process the samples with the channels
   // interleaved by keeping the same state.
-  for (int channel = 0; channel < totalNumInputChannels; ++channel) {
-    auto *channelData = buffer.getWritePointer(channel);
 
-    // ..do something to the data...
+  auto numSamples = buffer.getNumSamples();
+  auto *channelData = buffer.getWritePointer(0);
+  // Fill the buffer with generated audio from Rust
+  graph_mutex.lock();
+  process_block(&**&graph, channelData, numSamples);
+  graph_mutex.unlock();
+
+  for (int channel = 1; channel < totalNumOutputChannels; ++channel) {
+    auto *otherChannelData = buffer.getWritePointer(channel);
+
+    for (int sample = 0; sample < numSamples; ++sample) {
+      otherChannelData[sample] = channelData[sample];
+    }
   }
 }
 

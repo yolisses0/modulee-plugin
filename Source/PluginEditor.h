@@ -31,4 +31,7 @@ private:
   std::unique_ptr<juce::WebBrowserComponent> webView;
 
   JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(ModuleeAudioProcessorEditor)
+
+  void handleSetGroups(juce::var data);
+  void handleSetMainGroupId(juce::var data);
 };
