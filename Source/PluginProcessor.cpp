@@ -10,15 +10,9 @@
 #include "PluginEditor.h"
 #include <mutex>
 
-void ModuleeAudioProcessor::setGroups(const char *groups_data) {
+void ModuleeAudioProcessor::setGraph(const char *graph_data) {
   graph_mutex.lock();
-  set_groups(&**&graph, groups_data);
-  graph_mutex.unlock();
-}
-
-void ModuleeAudioProcessor::setMainGroupId(uint64_t main_group_id) {
-  graph_mutex.lock();
-  set_main_group_id(&**&graph, main_group_id);
+  set_graph(&**&graph, graph_data);
   graph_mutex.unlock();
 }
 

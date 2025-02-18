@@ -29,11 +29,8 @@ ModuleeAudioProcessorEditor::ModuleeAudioProcessorEditor(
       juce::WebBrowserComponent::Options{}
           .withBackend(juce::WebBrowserComponent::Options::Backend::webview2)
           .withWinWebView2Options(winWebViewOptions)
-          .withEventListener("setGroups",
-                             [this](juce::var data) { handleSetGroups(data); })
-          .withEventListener(
-              "setMainGroupId",
-              [this](juce::var data) { handleSetMainGroupId(data); })
+          .withEventListener("setGraph",
+                             [this](juce::var data) { handleSetGraph(data); })
           .withNativeIntegrationEnabled();
 
   auto webBrowserComponent = new juce::WebBrowserComponent(webBrowserOptions);
@@ -54,17 +51,9 @@ ModuleeAudioProcessorEditor::ModuleeAudioProcessorEditor(
   setResizable(true, true);
 }
 
-void ModuleeAudioProcessorEditor::handleSetGroups(juce::var data) {
-  auto groups_data = data.getProperty("groupsData", "").toString();
-  audioProcessor.setGroups(groups_data.toStdString().c_str());
-}
-
-void ModuleeAudioProcessorEditor::handleSetMainGroupId(juce::var data) {
-  auto mainGroupId = (uint64_t)data.getProperty("mainGroupId", "")
-                         .toString()
-                         .getLargeIntValue();
-  DBG("handleSetMainGroupId" << mainGroupId);
-  audioProcessor.setMainGroupId(mainGroupId);
+void ModuleeAudioProcessorEditor::handleSetGraph(juce::var data) {
+  auto graph_data = data.getProperty("graphData", "").toString();
+  audioProcessor.setGraph(graph_data.toStdString().c_str());
 }
 
 ModuleeAudioProcessorEditor::~ModuleeAudioProcessorEditor() {}
