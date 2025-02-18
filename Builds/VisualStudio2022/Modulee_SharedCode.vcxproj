@@ -98,6 +98,10 @@
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <OutputFile>$(IntDir)\Modulee.bsc</OutputFile>
     </Bscmake>
+    <PreBuildEvent>
+      <Command>cargo build --manifest-path=..\..\Vendor\modulee-engine-clib\Cargo.toml;
+</Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <Midl>
@@ -143,6 +147,10 @@
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <OutputFile>$(IntDir)\Modulee.bsc</OutputFile>
     </Bscmake>
+    <PreBuildEvent>
+      <Command>cargo build --manifest-path=..\..\Vendor\modulee-engine-clib\Cargo.toml;
+</Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Source\PluginProcessor.cpp"/>

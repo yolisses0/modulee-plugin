@@ -101,6 +101,10 @@
     <Manifest>
       <AdditionalManifestFiles/>
     </Manifest>
+    <PreBuildEvent>
+      <Command>cargo build --manifest-path=..\..\Vendor\modulee-engine-clib\Cargo.toml;
+</Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <Midl>
@@ -149,6 +153,10 @@
     <Manifest>
       <AdditionalManifestFiles/>
     </Manifest>
+    <PreBuildEvent>
+      <Command>cargo build --manifest-path=..\..\Vendor\modulee-engine-clib\Cargo.toml;
+</Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="C:\JUCE\modules\juce_audio_plugin_client\VST3\juce_VST3ManifestHelper.cpp"/>

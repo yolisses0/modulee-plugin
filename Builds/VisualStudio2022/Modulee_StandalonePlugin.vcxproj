@@ -104,6 +104,10 @@
     <Lib>
       <AdditionalDependencies>modulee_engine.lib;kernel32.lib;advapi32.lib;ntdll.lib;userenv.lib;ws2_32.lib;dbghelp.lib;/defaultlib:msvcrt;Modulee.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Lib>
+    <PreBuildEvent>
+      <Command>cargo build --manifest-path=..\..\Vendor\modulee-engine-clib\Cargo.toml;
+</Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <Midl>
@@ -153,6 +157,10 @@
     <Lib>
       <AdditionalDependencies>modulee_engine.lib;kernel32.lib;advapi32.lib;ntdll.lib;userenv.lib;ws2_32.lib;dbghelp.lib;/defaultlib:msvcrt;Modulee.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Lib>
+    <PreBuildEvent>
+      <Command>cargo build --manifest-path=..\..\Vendor\modulee-engine-clib\Cargo.toml;
+</Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\..\..\JUCE\modules\juce_audio_plugin_client\juce_audio_plugin_client_Standalone.cpp">
