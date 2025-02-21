@@ -28,9 +28,9 @@ private:
   // access the processor object that created it.
   ModuleeAudioProcessor &audioProcessor;
 
+  void handleSetGraph(juce::var data);
+
   std::unique_ptr<juce::WebBrowserComponent> webView;
 
   JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(ModuleeAudioProcessorEditor)
-
-  void handleSetGraph(juce::var data);
 };

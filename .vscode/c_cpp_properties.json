@@ -6,7 +6,9 @@
                 "${workspaceFolder}/**",
                 "~/JUCE/modules"
             ],
-            "defines": [],
+            "defines": [
+                "JucePlugin_Name=\"Modulee\""
+            ],
             "compilerPath": "/usr/bin/clang",
             "cStandard": "c17",
             "cppStandard": "c++17",

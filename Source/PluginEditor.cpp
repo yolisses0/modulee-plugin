@@ -24,7 +24,6 @@ ModuleeAudioProcessorEditor::ModuleeAudioProcessorEditor(
                                .withBackgroundColour(juce::Colour(0xff18181b))
                                .withUserDataFolder(userDataFolder);
 
-  std::cout << "cout is working" << std::endl;
   auto webBrowserOptions =
       juce::WebBrowserComponent::Options{}
           .withBackend(juce::WebBrowserComponent::Options::Backend::webview2)

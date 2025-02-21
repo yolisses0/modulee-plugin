@@ -197,6 +197,9 @@ void ModuleeAudioProcessor::getStateInformation(juce::MemoryBlock &destData) {
   // You should use this method to store your parameters in the memory block.
   // You could do that either as raw data, or use the XML or ValueTree classes
   // as intermediaries to make it easy to save and load complex data.
+  char data[] = "Hello, 🌎!";
+  char *data_pointer = &data[0];
+  destData.replaceAll(data_pointer, strlen(data));
 }
 
 void ModuleeAudioProcessor::setStateInformation(const void *data,
@@ -204,6 +207,12 @@ void ModuleeAudioProcessor::setStateInformation(const void *data,
   // You should use this method to restore your parameters from this memory
   // block, whose contents will have been created by the getStateInformation()
   // call.
+
+  const char *byteData = static_cast<const char *>(data);
+  for (int i = 0; i < sizeInBytes; ++i) {
+    printf("%c", byteData[i]);
+  }
+  printf("\n");
 }
 
 //==============================================================================
