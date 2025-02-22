@@ -34,6 +34,7 @@ ModuleeAudioProcessor::ModuleeAudioProcessor()
       graph(nullptr, &destroy_graph_pointer)
 #endif
 {
+  savedData = "test3";
   graph.reset(create_graph_pointer());
 }
 
@@ -197,10 +198,8 @@ void ModuleeAudioProcessor::getStateInformation(juce::MemoryBlock &destData) {
   // You should use this method to store your parameters in the memory block.
   // You could do that either as raw data, or use the XML or ValueTree classes
   // as intermediaries to make it easy to save and load complex data.
-
-  // Example: Store a string in the memory block
-  auto data = juce::CharPointer_UTF8("Hello, \xf0\x9f\x8c\x8e");
-  destData.replaceAll(data.getAddress(), data.sizeInBytes());
+  juce::MemoryOutputStream stream(destData, false); // Replace existing data
+  stream.writeString(savedData);
 }
 
 void ModuleeAudioProcessor::setStateInformation(const void *data,
@@ -217,7 +216,7 @@ void ModuleeAudioProcessor::setStateInformation(const void *data,
 
   // Convert the data to a juce::String
   const char *byteData = static_cast<const char *>(data);
-  juce::String savedData = juce::String::fromUTF8(byteData, sizeInBytes);
+  savedData = juce::String::fromUTF8(byteData, sizeInBytes);
   DBG("Restored data: " << savedData);
 }
 
