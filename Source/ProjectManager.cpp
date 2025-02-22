@@ -37,6 +37,12 @@ juce::String ProjectManager::getProjects() {
   return juce::JSON::toString(jsonArray);
 }
 
+void ProjectManager::deleteProject(juce::String id) {
+  auto file = juce::File::getSpecialLocation(juce::File::userDocumentsDirectory)
+                  .getChildFile(projectsDirectoryPath + "/" + id + ".json");
+  file.deleteFile();
+}
+
 juce::String ProjectManager::getProject(juce::String id) {
   auto file = juce::File::getSpecialLocation(juce::File::userDocumentsDirectory)
                   .getChildFile(projectsDirectoryPath + "/" + id + ".json");

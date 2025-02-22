@@ -58,6 +58,11 @@ ModuleeAudioProcessorEditor::ModuleeAudioProcessorEditor(
                                 projectManager.createProject(args[0]);
                                 completion(true);
                               })
+          .withNativeFunction("deleteProject",
+                              [this](auto &args, auto completion) {
+                                projectManager.deleteProject(args[0]);
+                                completion(true);
+                              })
           .withNativeIntegrationEnabled();
 
   auto webBrowserComponent = new juce::WebBrowserComponent(webBrowserOptions);
