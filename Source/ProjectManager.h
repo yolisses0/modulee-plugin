@@ -5,9 +5,6 @@
 class ProjectManager {
 public:
   ProjectManager();
-
-  // void initialize();
-  // bool getIsInitialized();
   juce::String getProjects();
   void deleteProject(juce::String id);
   juce::String getProject(juce::String id);
