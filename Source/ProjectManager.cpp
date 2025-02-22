@@ -8,15 +8,14 @@ juce::String ProjectManager::getProjects() {
           .getChildFile(projectsDirectoryPath);
   folder.createDirectory();
 
-  juce::Array<juce::File> files;
-  folder.findChildFiles(files, juce::File::findFiles, false);
+  juce::Array<juce::File> directories;
+  folder.findChildFiles(directories, juce::File::findDirectories, false);
 
   juce::var jsonArray = juce::var(juce::Array<juce::var>{});
 
-  for (const auto &file : files) {
-
+  for (const auto &directory : directories) {
+    auto file = juce::File(directory).getChildFile("index.json");
     auto fileJson = juce::JSON::parse(file);
-
     juce::DynamicObject::Ptr projectObject = new juce::DynamicObject();
     projectObject->setProperty("id", fileJson.getProperty("id", "").toString());
     projectObject->setProperty("name",
@@ -28,14 +27,14 @@ juce::String ProjectManager::getProjects() {
 }
 
 void ProjectManager::deleteProject(juce::String id) {
-  auto filePath = projectsDirectoryPath + "/" + id + ".json";
+  auto filePath = projectsDirectoryPath + "/" + id;
   auto file = juce::File::getSpecialLocation(juce::File::userDocumentsDirectory)
                   .getChildFile(filePath);
-  file.deleteFile();
+  file.deleteRecursively();
 }
 
 juce::String ProjectManager::getProject(juce::String id) {
-  auto filePath = projectsDirectoryPath + "/" + id + ".json";
+  auto filePath = projectsDirectoryPath + "/" + id + "/index.json";
   auto file = juce::File::getSpecialLocation(juce::File::userDocumentsDirectory)
                   .getChildFile(filePath);
   // That parse and toString probably aren't needed. It's here
@@ -48,8 +47,11 @@ void ProjectManager::createProject(juce::String projectDataJson) {
   auto projectData = juce::JSON::parse(projectDataJson);
   auto id = projectData.getProperty("id", false).toString();
 
-  auto file = juce::File::getSpecialLocation(juce::File::userDocumentsDirectory)
-                  .getChildFile(projectsDirectoryPath + "/" + id + ".json");
+  auto file =
+      juce::File::getSpecialLocation(juce::File::userDocumentsDirectory)
+          .getChildFile(projectsDirectoryPath + "/" + id + "/index.json");
+
+  file.createDirectory();
   // That parse and toString probably aren't needed. It's here
   // just to ensure consisted encoding during development.
 
