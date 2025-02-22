@@ -29,6 +29,7 @@ ModuleeAudioProcessorEditor::ModuleeAudioProcessorEditor(
       juce::WebBrowserComponent::Options{}
           .withBackend(juce::WebBrowserComponent::Options::Backend::webview2)
           .withWinWebView2Options(winWebViewOptions)
+          .withInitialisationData("isRunningOnJucePlugin", true)
           .withEventListener("setGraph",
                              [this](juce::var data) { handleSetGraph(data); })
           .withNativeFunction("getProjects",
