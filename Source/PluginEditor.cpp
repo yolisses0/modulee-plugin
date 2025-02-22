@@ -41,7 +41,7 @@ ModuleeAudioProcessorEditor::ModuleeAudioProcessorEditor(
                                 projectManager.setSavedData(
                                     args, std::move(completion));
                               })
-          .withNativeFunction("setSavedData",
+          .withNativeFunction("getProjects",
                               [this](auto &args, auto completion) {
                                 auto projectsJson =
                                     projectManager.getProjects();

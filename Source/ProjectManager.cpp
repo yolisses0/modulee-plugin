@@ -20,11 +20,21 @@ juce::String ProjectManager::getProjects() {
 
   juce::Array<juce::File> files;
   folder.findChildFiles(files, juce::File::findFiles, false);
+
+  juce::var jsonArray = juce::var(juce::Array<juce::var>{});
+
   for (const auto &file : files) {
-    DBG("File: " + file.getFileName());
+
+    auto fileJson = juce::JSON::parse(file);
+
+    juce::DynamicObject::Ptr projectObject = new juce::DynamicObject();
+    projectObject->setProperty("id", fileJson.getProperty("id", "").toString());
+    projectObject->setProperty("name",
+                               fileJson.getProperty("name", "").toString());
+    jsonArray.append(juce::var(projectObject.get()));
   }
 
-  return juce::String();
+  return juce::JSON::toString(jsonArray);
 }
 
 void ProjectManager::setSavedData(
