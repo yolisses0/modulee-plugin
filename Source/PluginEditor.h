@@ -28,6 +28,10 @@ private:
   getSavedData(const juce::Array<juce::var> &args,
                juce::WebBrowserComponent::NativeFunctionCompletion completion);
 
+  void
+  setSavedData(const juce::Array<juce::var> &args,
+               juce::WebBrowserComponent::NativeFunctionCompletion completion);
+
   void handleSetGraph(juce::var data);
 
   // This reference is provided as a quick way for your editor to

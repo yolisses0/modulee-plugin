@@ -34,6 +34,10 @@ ModuleeAudioProcessorEditor::ModuleeAudioProcessorEditor(
                               [this](auto &args, auto completion) {
                                 getSavedData(args, std::move(completion));
                               })
+          .withNativeFunction("setSavedData",
+                              [this](auto &args, auto completion) {
+                                setSavedData(args, std::move(completion));
+                              })
           .withNativeIntegrationEnabled();
 
   auto webBrowserComponent = new juce::WebBrowserComponent(webBrowserOptions);
@@ -74,6 +78,7 @@ void ModuleeAudioProcessorEditor::resized() {
   // subcomponents in your editor..
   webView->setBounds(0, 0, getWidth(), getHeight());
 }
+
 void ModuleeAudioProcessorEditor::getSavedData(
     const juce::Array<juce::var> &args,
     juce::WebBrowserComponent::NativeFunctionCompletion completion) {
@@ -84,4 +89,16 @@ void ModuleeAudioProcessorEditor::getSavedData(
   completion(audioProcessor.savedData);
 
   DBG("getSavedData 2");
+}
+
+void ModuleeAudioProcessorEditor::setSavedData(
+    const juce::Array<juce::var> &args,
+    juce::WebBrowserComponent::NativeFunctionCompletion completion) {
+
+  DBG("setSavedData 1");
+
+  audioProcessor.savedData = args[0];
+  completion(audioProcessor.savedData);
+
+  DBG("setSavedData 2");
 }
