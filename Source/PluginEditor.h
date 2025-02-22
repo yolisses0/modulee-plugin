@@ -24,6 +24,8 @@ public:
   void resized() override;
 
 private:
+  juce::File getSavedDataFile();
+
   void
   getSavedData(const juce::Array<juce::var> &args,
                juce::WebBrowserComponent::NativeFunctionCompletion completion);
