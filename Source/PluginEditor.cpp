@@ -30,6 +30,10 @@ ModuleeAudioProcessorEditor::ModuleeAudioProcessorEditor(
           .withWinWebView2Options(winWebViewOptions)
           .withEventListener("setGraph",
                              [this](juce::var data) { handleSetGraph(data); })
+          .withNativeFunction("getSavedData",
+                              [this](auto &args, auto completion) {
+                                getSavedData(args, std::move(completion));
+                              })
           .withNativeIntegrationEnabled();
 
   auto webBrowserComponent = new juce::WebBrowserComponent(webBrowserOptions);
@@ -69,4 +73,10 @@ void ModuleeAudioProcessorEditor::resized() {
   // This is generally where you'll want to lay out the positions of any
   // subcomponents in your editor..
   webView->setBounds(0, 0, getWidth(), getHeight());
+}
+
+void ModuleeAudioProcessorEditor::getSavedData(
+    const juce::Array<juce::var> &args,
+    juce::WebBrowserComponent::NativeFunctionCompletion completion) {
+  completion("nativeFunction callback: All OK!");
 }

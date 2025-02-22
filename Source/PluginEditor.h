@@ -24,11 +24,15 @@ public:
   void resized() override;
 
 private:
+  void
+  getSavedData(const juce::Array<juce::var> &args,
+               juce::WebBrowserComponent::NativeFunctionCompletion completion);
+
+  void handleSetGraph(juce::var data);
+
   // This reference is provided as a quick way for your editor to
   // access the processor object that created it.
   ModuleeAudioProcessor &audioProcessor;
-
-  void handleSetGraph(juce::var data);
 
   std::unique_ptr<juce::WebBrowserComponent> webView;
 
