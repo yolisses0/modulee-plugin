@@ -31,7 +31,7 @@ ModuleeAudioProcessorEditor::ModuleeAudioProcessorEditor(
           .withWinWebView2Options(winWebViewOptions)
           .withInitialisationData("isRunningOnJucePlugin", true)
           .withEventListener("setGraph",
-                             [this](juce::var data) { handleSetGraph(data); })
+                             [this](auto data) { handleSetGraph(data); })
           .withNativeFunction("getProjects",
                               [this](auto &args, auto completion) {
                                 auto projectsJson =
