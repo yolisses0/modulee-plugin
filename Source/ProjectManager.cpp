@@ -46,6 +46,19 @@ juce::String ProjectManager::getProject(juce::String id) {
   return juce::JSON::toString(fileJson);
 }
 
+void ProjectManager::createProject(juce::String projectDataJson) {
+  auto projectData = juce::JSON::parse(projectDataJson);
+  auto id = projectData.getProperty("id", false).toString();
+
+  auto file = juce::File::getSpecialLocation(juce::File::userDocumentsDirectory)
+                  .getChildFile(projectsDirectoryPath + "/" + id + ".json");
+  // That parse and toString probably aren't needed. It's here
+  // just to ensure consisted encoding during development.
+
+  auto data = juce::JSON::toString(projectData);
+  file.replaceWithData(data.getCharPointer(), data.getNumBytesAsUTF8());
+}
+
 void ProjectManager::setSavedData(
     const juce::Array<juce::var> &args,
     juce::WebBrowserComponent::NativeFunctionCompletion completion) {

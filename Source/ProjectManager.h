@@ -12,7 +12,7 @@ public:
   // void deleteProject(juce::String id);
   juce::String getProject(juce::String id);
   // void addCommand(juce::String commandDataJson);
-  // void createProject(juce::String projectDataJson);
+  void createProject(juce::String projectDataJson);
 
   //   DEBUG
   void
