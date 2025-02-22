@@ -64,24 +64,3 @@ void ProjectManager::createProject(juce::String projectDataJson) {
   auto data = juce::JSON::toString(projectData);
   file.replaceWithData(data.getCharPointer(), data.getNumBytesAsUTF8());
 }
-
-void ProjectManager::setSavedData(
-    const juce::Array<juce::var> &args,
-    juce::WebBrowserComponent::NativeFunctionCompletion completion) {
-
-  juce::String dataToSave = args[0].toString();
-  juce::File savedDataFile = getSavedDataFile();
-  if (savedDataFile.replaceWithText(dataToSave)) {
-    completion(true);
-  } else {
-    completion(false);
-  }
-}
-
-void ProjectManager::getSavedData(
-    const juce::Array<juce::var> &args,
-    juce::WebBrowserComponent::NativeFunctionCompletion completion) {
-  auto savedDataFile = getSavedDataFile();
-  juce::String loadedData = savedDataFile.loadFileAsString();
-  completion(loadedData);
-}

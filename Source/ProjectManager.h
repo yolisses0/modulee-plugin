@@ -14,14 +14,6 @@ public:
   // void addCommand(juce::String commandDataJson);
   void createProject(juce::String projectDataJson);
 
-  //   DEBUG
-  void
-  setSavedData(const juce::Array<juce::var> &args,
-               juce::WebBrowserComponent::NativeFunctionCompletion completion);
-  void
-  getSavedData(const juce::Array<juce::var> &args,
-               juce::WebBrowserComponent::NativeFunctionCompletion completion);
-
 private:
   juce::File getSavedDataFile();
   juce::String projectsDirectoryPath;

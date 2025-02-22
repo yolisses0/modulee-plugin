@@ -31,16 +31,6 @@ ModuleeAudioProcessorEditor::ModuleeAudioProcessorEditor(
           .withWinWebView2Options(winWebViewOptions)
           .withEventListener("setGraph",
                              [this](juce::var data) { handleSetGraph(data); })
-          .withNativeFunction("getSavedData",
-                              [this](auto &args, auto completion) {
-                                projectManager.getSavedData(
-                                    args, std::move(completion));
-                              })
-          .withNativeFunction("setSavedData",
-                              [this](auto &args, auto completion) {
-                                projectManager.setSavedData(
-                                    args, std::move(completion));
-                              })
           .withNativeFunction("getProjects",
                               [this](auto &args, auto completion) {
                                 auto projectsJson =
