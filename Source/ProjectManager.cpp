@@ -34,15 +34,40 @@ void ProjectManager::deleteProject(juce::String id) {
   file.deleteRecursively();
 }
 
-juce::String ProjectManager::getProject(juce::String id) {
-  auto filePath = projectsDirectoryPath + "/" + id + "/index.json";
-  auto file = juce::File::getSpecialLocation(juce::File::userDocumentsDirectory)
-                  .getChildFile(filePath);
+juce::var ProjectManager::getProjectCommands(juce::String projectId) {
+  auto commandsDirectoryPath =
+      projectsDirectoryPath + "/" + projectId + "/commands";
+  auto commandsDirectory =
+      juce::File::getSpecialLocation(juce::File::userDocumentsDirectory)
+          .getChildFile(commandsDirectoryPath);
 
-  // These parse and toString probably aren't needed. It's here just to ensure
-  // consistent encoding during development.
-  auto fileJson = juce::JSON::parse(file);
-  return juce::JSON::toString(fileJson);
+  juce::Array<juce::File> commandFiles;
+  commandsDirectory.findChildFiles(commandFiles, juce::File::findFiles, false);
+
+  juce::var commandsData = juce::var(juce::Array<juce::var>{});
+  for (const auto &commandFile : commandFiles) {
+    auto commandData = juce::JSON::parse(commandFile);
+    commandsData.append(commandsData);
+  }
+
+  return commandsData;
+}
+
+juce::String ProjectManager::getProject(juce::String id) {
+  auto projectFilePath = projectsDirectoryPath + "/" + id + "/index.json";
+  auto projectFile =
+      juce::File::getSpecialLocation(juce::File::userDocumentsDirectory)
+          .getChildFile(projectFilePath);
+  auto projectData = juce::JSON::parse(projectFile);
+
+  auto commandsData = getProjectCommands(id);
+  DBG(juce::JSON::toString(commandsData));
+
+  auto dynamicObject = projectData.getDynamicObject();
+  DBG(juce::JSON::toString(dynamicObject));
+  // dynamicObject->setProperty("commands", commandsData);
+
+  return juce::JSON::toString(projectData);
 }
 
 void ProjectManager::createProject(juce::String projectDataJson) {
@@ -70,7 +95,6 @@ void ProjectManager::addCommand(juce::String commandDataJson) {
       projectsDirectoryPath + "/" + projectId + "/commands/" + id + ".json";
   auto file = juce::File::getSpecialLocation(juce::File::userDocumentsDirectory)
                   .getChildFile(filePath);
-
   file.createDirectory();
 
   // These parse and toString probably aren't needed. It's here just to ensure
