@@ -2,16 +2,6 @@
 
 ProjectManager::ProjectManager() { projectsDirectoryPath = "Modulee/projects"; }
 
-juce::File ProjectManager::getSavedDataFile() {
-  auto savedDataFile =
-      juce::File::getSpecialLocation(juce::File::userDocumentsDirectory)
-          .getChildFile("Modulee/savedData.json");
-
-  savedDataFile.createDirectory();
-
-  return savedDataFile;
-}
-
 juce::String ProjectManager::getProjects() {
   auto folder =
       juce::File::getSpecialLocation(juce::File::userDocumentsDirectory)

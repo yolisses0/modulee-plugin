@@ -15,6 +15,5 @@ public:
   void createProject(juce::String projectDataJson);
 
 private:
-  juce::File getSavedDataFile();
   juce::String projectsDirectoryPath;
 };
