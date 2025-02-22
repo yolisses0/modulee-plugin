@@ -133,17 +133,9 @@ void ModuleeAudioProcessor::processBlock(juce::AudioBuffer<float> &buffer,
     auto timeStamp = metadata.samplePosition;
 
     if (message.isNoteOn()) {
-      DBG("Note On: " << message.getNoteNumber() << " Velocity: "
-                      << message.getVelocity() << " Timestamp: " << timeStamp);
       set_note_on(&**&graph, (float)message.getNoteNumber());
     } else if (message.isNoteOff()) {
-      DBG("Note Off: " << message.getNoteNumber()
-                       << " Timestamp: " << timeStamp);
       set_note_off(&**&graph, (float)message.getNoteNumber());
-    } else if (message.isController()) {
-      DBG("Controller: " << message.getControllerNumber()
-                         << " Value: " << message.getControllerValue()
-                         << " Timestamp: " << timeStamp);
     }
   }
 
