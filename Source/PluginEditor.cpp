@@ -8,12 +8,13 @@
 
 #include "PluginEditor.h"
 #include "PluginProcessor.h"
+#include "ProjectManager.h"
 #include <iostream>
 
 //==============================================================================
 ModuleeAudioProcessorEditor::ModuleeAudioProcessorEditor(
     ModuleeAudioProcessor &p)
-    : AudioProcessorEditor(&p), audioProcessor(p) {
+    : AudioProcessorEditor(&p), audioProcessor(p), projectManager() {
 
   // this may be necessary for some DAWs; include for safety
   auto userDataFolder = juce::File::getSpecialLocation(
@@ -32,11 +33,13 @@ ModuleeAudioProcessorEditor::ModuleeAudioProcessorEditor(
                              [this](juce::var data) { handleSetGraph(data); })
           .withNativeFunction("getSavedData",
                               [this](auto &args, auto completion) {
-                                getSavedData(args, std::move(completion));
+                                projectManager.getSavedData(
+                                    args, std::move(completion));
                               })
           .withNativeFunction("setSavedData",
                               [this](auto &args, auto completion) {
-                                setSavedData(args, std::move(completion));
+                                projectManager.setSavedData(
+                                    args, std::move(completion));
                               })
           .withNativeIntegrationEnabled();
 
@@ -77,66 +80,4 @@ void ModuleeAudioProcessorEditor::resized() {
   // This is generally where you'll want to lay out the positions of any
   // subcomponents in your editor..
   webView->setBounds(0, 0, getWidth(), getHeight());
-}
-
-juce::File ModuleeAudioProcessorEditor::getSavedDataFile() {
-  auto savedDataFile =
-      juce::File::getSpecialLocation(juce::File::userDocumentsDirectory)
-          .getChildFile("Modulee/savedData.json");
-
-  auto isFolderCreated = savedDataFile.createDirectory();
-
-  if (isFolderCreated.failed()) {
-    DBG("Failed to create the parent folder");
-  }
-
-  return savedDataFile;
-}
-
-void ModuleeAudioProcessorEditor::setSavedData(
-    const juce::Array<juce::var> &args,
-    juce::WebBrowserComponent::NativeFunctionCompletion completion) {
-  DBG("setSavedData start");
-
-  // Check if the input argument is valid
-  if (args.size() > 0 && args[0].isString()) {
-    juce::String dataToSave = args[0].toString();
-
-    juce::File savedDataFile = getSavedDataFile();
-
-    // Save the string to the file
-    if (savedDataFile.replaceWithText(dataToSave)) {
-      DBG("Data saved to file: " << savedDataFile.getFullPathName());
-      completion(true); // Indicate success to the JavaScript caller
-    } else {
-      DBG("Failed to save data to file!");
-      completion(false); // Indicate failure to the JavaScript caller
-    }
-  } else {
-    DBG("Invalid argument: Expected a string!");
-    completion(false); // Indicate failure to the JavaScript caller
-  }
-
-  DBG("setSavedData end");
-}
-
-void ModuleeAudioProcessorEditor::getSavedData(
-    const juce::Array<juce::var> &args,
-    juce::WebBrowserComponent::NativeFunctionCompletion completion) {
-  DBG("getSavedData start");
-
-  auto savedDataFile = getSavedDataFile();
-  // Use the constant file path
-  if (savedDataFile.existsAsFile()) {
-    // Load the string from the file
-    juce::String loadedData = savedDataFile.loadFileAsString();
-    DBG("Data loaded from file: " << loadedData);
-    completion(
-        loadedData); // Pass the loaded data back to the JavaScript caller
-  } else {
-    DBG("File does not exist!");
-    completion(juce::var()); // Return an empty value to indicate failure
-  }
-
-  DBG("getSavedData end");
 }

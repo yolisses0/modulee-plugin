@@ -7,6 +7,10 @@
               pluginManufacturerCode="Ylss" pluginCharacteristicsValue="pluginIsSynth,pluginWantsMidiIn">
   <MAINGROUP id="nP1ypY" name="Modulee">
     <GROUP id="{AE86BBFC-512C-92AD-FF4B-F98A8699FED5}" name="Source">
+      <FILE id="c43mxE" name="ProjectManager.cpp" compile="1" resource="0"
+            file="Source/ProjectManager.cpp"/>
+      <FILE id="Ri682g" name="ProjectManager.h" compile="0" resource="0"
+            file="Source/ProjectManager.h"/>
       <FILE id="t4eyAg" name="PluginProcessor.cpp" compile="1" resource="0"
             file="Source/PluginProcessor.cpp"/>
       <FILE id="xx0azy" name="PluginProcessor.h" compile="0" resource="0"

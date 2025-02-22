@@ -9,6 +9,7 @@
 #pragma once
 
 #include "PluginProcessor.h"
+#include "ProjectManager.h"
 #include <JuceHeader.h>
 
 //==============================================================================
@@ -24,15 +25,7 @@ public:
   void resized() override;
 
 private:
-  juce::File getSavedDataFile();
-
-  void
-  getSavedData(const juce::Array<juce::var> &args,
-               juce::WebBrowserComponent::NativeFunctionCompletion completion);
-
-  void
-  setSavedData(const juce::Array<juce::var> &args,
-               juce::WebBrowserComponent::NativeFunctionCompletion completion);
+  ProjectManager projectManager;
 
   void handleSetGraph(juce::var data);
 
