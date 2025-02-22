@@ -47,7 +47,7 @@ juce::var ProjectManager::getProjectCommands(juce::String projectId) {
   juce::var commandsData = juce::var(juce::Array<juce::var>{});
   for (const auto &commandFile : commandFiles) {
     auto commandData = juce::JSON::parse(commandFile);
-    commandsData.append(commandsData);
+    commandsData.append(commandData);
   }
 
   return commandsData;
@@ -60,12 +60,9 @@ juce::String ProjectManager::getProject(juce::String id) {
           .getChildFile(projectFilePath);
   auto projectData = juce::JSON::parse(projectFile);
 
-  auto commandsData = getProjectCommands(id);
-  DBG(juce::JSON::toString(commandsData));
-
   auto dynamicObject = projectData.getDynamicObject();
-  DBG(juce::JSON::toString(dynamicObject));
-  // dynamicObject->setProperty("commands", commandsData);
+  auto commandsData = getProjectCommands(id);
+  dynamicObject->setProperty("commands", commandsData);
 
   return juce::JSON::toString(projectData);
 }
