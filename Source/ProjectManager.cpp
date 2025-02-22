@@ -38,14 +38,16 @@ juce::String ProjectManager::getProjects() {
 }
 
 void ProjectManager::deleteProject(juce::String id) {
+  auto filePath = projectsDirectoryPath + "/" + id + ".json";
   auto file = juce::File::getSpecialLocation(juce::File::userDocumentsDirectory)
-                  .getChildFile(projectsDirectoryPath + "/" + id + ".json");
+                  .getChildFile(filePath);
   file.deleteFile();
 }
 
 juce::String ProjectManager::getProject(juce::String id) {
+  auto filePath = projectsDirectoryPath + "/" + id + ".json";
   auto file = juce::File::getSpecialLocation(juce::File::userDocumentsDirectory)
-                  .getChildFile(projectsDirectoryPath + "/" + id + ".json");
+                  .getChildFile(filePath);
   // That parse and toString probably aren't needed. It's here
   // just to ensure consisted encoding during development.
   auto fileJson = juce::JSON::parse(file);
