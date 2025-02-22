@@ -41,6 +41,12 @@ ModuleeAudioProcessorEditor::ModuleeAudioProcessorEditor(
                                 projectManager.setSavedData(
                                     args, std::move(completion));
                               })
+          .withNativeFunction("setSavedData",
+                              [this](auto &args, auto completion) {
+                                auto projectsJson =
+                                    projectManager.getProjects();
+                                completion(projectsJson);
+                              })
           .withNativeIntegrationEnabled();
 
   auto webBrowserComponent = new juce::WebBrowserComponent(webBrowserOptions);

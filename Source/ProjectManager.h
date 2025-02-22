@@ -4,9 +4,11 @@
 
 class ProjectManager {
 public:
+  ProjectManager();
+
   // void initialize();
   // bool getIsInitialized();
-  // juce::String getProjects();
+  juce::String getProjects();
   // void deleteProject(juce::String id);
   // juce::String getProject(juce::String id);
   // void addCommand(juce::String commandDataJson);
@@ -22,4 +24,5 @@ public:
 
 private:
   juce::File getSavedDataFile();
+  juce::String projectsDirectoryPath;
 };

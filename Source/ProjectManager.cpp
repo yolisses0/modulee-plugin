@@ -1,5 +1,7 @@
 #include "ProjectManager.h"
 
+ProjectManager::ProjectManager() { projectsDirectoryPath = "Modulee/projects"; }
+
 juce::File ProjectManager::getSavedDataFile() {
   auto savedDataFile =
       juce::File::getSpecialLocation(juce::File::userDocumentsDirectory)
@@ -12,6 +14,32 @@ juce::File ProjectManager::getSavedDataFile() {
   }
 
   return savedDataFile;
+}
+
+juce::String ProjectManager::getProjects() {
+
+  auto folder =
+      juce::File::getSpecialLocation(juce::File::userDocumentsDirectory)
+          .getChildFile(projectsDirectoryPath);
+
+  folder.createDirectory();
+
+  // Check if the provided file is a directory
+  if (folder.isDirectory()) {
+    // Get an array of all files and subdirectories in the folder
+    juce::Array<juce::File> files;
+    folder.findChildFiles(files, juce::File::findFiles,
+                          false); // List only files (not directories)
+
+    // Iterate through the files and print their names
+    for (const auto &file : files) {
+      DBG("File: " + file.getFileName());
+    }
+  } else {
+    DBG("Provided path is not a directory.");
+  }
+
+  return juce::String();
 }
 
 void ProjectManager::setSavedData(
