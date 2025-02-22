@@ -74,9 +74,32 @@ void ModuleeAudioProcessorEditor::resized() {
   // subcomponents in your editor..
   webView->setBounds(0, 0, getWidth(), getHeight());
 }
-
 void ModuleeAudioProcessorEditor::getSavedData(
     const juce::Array<juce::var> &args,
     juce::WebBrowserComponent::NativeFunctionCompletion completion) {
-  completion("nativeFunction callback: All OK!");
+
+  // Access the processor
+  auto *processor = getAudioProcessor();
+  if (processor == nullptr) {
+    completion("Error: Processor is null.");
+    return;
+  }
+
+  // Create a MemoryBlock to hold the saved data
+  juce::MemoryBlock savedData;
+  processor->getStateInformation(savedData);
+
+  // Check if the saved data is valid
+  if (savedData.getSize() == 0) {
+    completion("No saved data available.");
+    return;
+  }
+
+  // Convert the MemoryBlock to a string
+  const char *dataPointer = static_cast<const char *>(savedData.getData());
+  juce::String dataString =
+      juce::String::fromUTF8(dataPointer, savedData.getSize());
+
+  // Send the data back via the completion callback
+  completion(dataString);
 }
