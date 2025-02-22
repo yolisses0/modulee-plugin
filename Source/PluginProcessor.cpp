@@ -34,7 +34,6 @@ ModuleeAudioProcessor::ModuleeAudioProcessor()
       graph(nullptr, &destroy_graph_pointer)
 #endif
 {
-  savedData = "test3";
   graph.reset(create_graph_pointer());
 }
 
@@ -198,8 +197,6 @@ void ModuleeAudioProcessor::getStateInformation(juce::MemoryBlock &destData) {
   // You should use this method to store your parameters in the memory block.
   // You could do that either as raw data, or use the XML or ValueTree classes
   // as intermediaries to make it easy to save and load complex data.
-  juce::MemoryOutputStream stream(destData, false); // Replace existing data
-  stream.writeString(savedData);
 }
 
 void ModuleeAudioProcessor::setStateInformation(const void *data,
@@ -207,17 +204,6 @@ void ModuleeAudioProcessor::setStateInformation(const void *data,
   // You should use this method to restore your parameters from this memory
   // block, whose contents will have been created by the getStateInformation()
   // call.
-
-  // Check for valid data
-  if (data == nullptr || sizeInBytes <= 0) {
-    DBG("Invalid data or size in setStateInformation!");
-    return;
-  }
-
-  // Convert the data to a juce::String
-  const char *byteData = static_cast<const char *>(data);
-  savedData = juce::String::fromUTF8(byteData, sizeInBytes);
-  DBG("Restored data: " << savedData);
 }
 
 //==============================================================================

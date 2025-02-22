@@ -79,26 +79,57 @@ void ModuleeAudioProcessorEditor::resized() {
   webView->setBounds(0, 0, getWidth(), getHeight());
 }
 
-void ModuleeAudioProcessorEditor::getSavedData(
-    const juce::Array<juce::var> &args,
-    juce::WebBrowserComponent::NativeFunctionCompletion completion) {
-
-  DBG("getSavedData 1");
-
-  // Send the data back via the completion callback
-  completion(audioProcessor.savedData);
-
-  DBG("getSavedData 2");
-}
-
 void ModuleeAudioProcessorEditor::setSavedData(
     const juce::Array<juce::var> &args,
     juce::WebBrowserComponent::NativeFunctionCompletion completion) {
+  DBG("setSavedData start");
 
-  DBG("setSavedData 1");
+  // Check if the input argument is valid
+  if (args.size() > 0 && args[0].isString()) {
+    juce::String dataToSave = args[0].toString();
 
-  audioProcessor.savedData = args[0];
-  completion(audioProcessor.savedData);
+    // Choose a file location (e.g., in the user's documents directory)
+    juce::File file =
+        juce::File::getSpecialLocation(juce::File::userDocumentsDirectory)
+            .getChildFile("saved_data.txt");
 
-  DBG("setSavedData 2");
+    // Save the string to the file
+    if (file.replaceWithText(dataToSave)) {
+      DBG("Data saved to file: " << file.getFullPathName());
+      completion(true); // Indicate success to the JavaScript caller
+    } else {
+      DBG("Failed to save data to file!");
+      completion(false); // Indicate failure to the JavaScript caller
+    }
+  } else {
+    DBG("Invalid argument: Expected a string!");
+    completion(false); // Indicate failure to the JavaScript caller
+  }
+
+  DBG("setSavedData end");
+}
+
+void ModuleeAudioProcessorEditor::getSavedData(
+    const juce::Array<juce::var> &args,
+    juce::WebBrowserComponent::NativeFunctionCompletion completion) {
+  DBG("getSavedData start");
+
+  // Choose the file location (same as in setSavedData)
+  juce::File file =
+      juce::File::getSpecialLocation(juce::File::userDocumentsDirectory)
+          .getChildFile("saved_data.txt");
+
+  // Check if the file exists
+  if (file.existsAsFile()) {
+    // Load the string from the file
+    juce::String loadedData = file.loadFileAsString();
+    DBG("Data loaded from file: " << loadedData);
+    completion(
+        loadedData); // Pass the loaded data back to the JavaScript caller
+  } else {
+    DBG("File does not exist!");
+    completion(juce::var()); // Return an empty value to indicate failure
+  }
+
+  DBG("getSavedData end");
 }
