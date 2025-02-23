@@ -134,9 +134,13 @@ void ModuleeAudioProcessor::processBlock(juce::AudioBuffer<float> &buffer,
     auto timeStamp = metadata.samplePosition;
 
     if (message.isNoteOn()) {
+      graph_mutex.lock();
       set_note_on(&**&graph, (float)message.getNoteNumber());
+      graph_mutex.unlock();
     } else if (message.isNoteOff()) {
+      graph_mutex.lock();
       set_note_off(&**&graph, (float)message.getNoteNumber());
+      graph_mutex.unlock();
     }
   }
 
