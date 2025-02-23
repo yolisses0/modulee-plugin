@@ -30,8 +30,13 @@ ModuleeAudioProcessorEditor::ModuleeAudioProcessorEditor(
           .withBackend(juce::WebBrowserComponent::Options::Backend::webview2)
           .withWinWebView2Options(winWebViewOptions)
           .withInitialisationData("isRunningOnJucePlugin", true)
-          .withEventListener("setGraph",
-                             [this](auto data) { handleSetGraph(data); })
+          .withEventListener(
+              "setGraph",
+              [this](auto data) {
+                auto graphData =
+                    data.getProperty("graphData", false).toString();
+                audioProcessor.setGraph(graphData);
+              })
           .withNativeFunction("getProjects",
                               [this](auto &args, auto completion) {
                                 auto projectsJson =
@@ -82,11 +87,6 @@ ModuleeAudioProcessorEditor::ModuleeAudioProcessorEditor(
   // editor's size to whatever you need it to be.
   setSize(600, 400);
   setResizable(true, true);
-}
-
-void ModuleeAudioProcessorEditor::handleSetGraph(juce::var data) {
-  auto graph_data = data.getProperty("graphData", "").toString();
-  audioProcessor.setGraph(graph_data.toStdString().c_str());
 }
 
 ModuleeAudioProcessorEditor::~ModuleeAudioProcessorEditor() {}

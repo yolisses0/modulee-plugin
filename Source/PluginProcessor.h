@@ -16,7 +16,7 @@
  */
 class ModuleeAudioProcessor : public juce::AudioProcessor {
 public:
-  void setGraph(const char *graph_data);
+  void setGraph(juce::String graphDataString);
 
   //==============================================================================
   ModuleeAudioProcessor();

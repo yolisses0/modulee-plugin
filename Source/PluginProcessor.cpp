@@ -10,9 +10,9 @@
 #include "PluginEditor.h"
 #include <mutex>
 
-void ModuleeAudioProcessor::setGraph(const char *graph_data) {
+void ModuleeAudioProcessor::setGraph(juce::String graphDataString) {
   graph_mutex.lock();
-  set_graph(&**&graph, graph_data);
+  set_graph(&**&graph, graphDataString.toStdString().c_str());
   graph_mutex.unlock();
 }
 
