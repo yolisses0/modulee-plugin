@@ -44,13 +44,21 @@ juce::var ProjectManager::getProjectCommands(juce::String projectId) {
   juce::Array<juce::File> commandFiles;
   commandsDirectory.findChildFiles(commandFiles, juce::File::findFiles, false);
 
-  juce::var commandsData = juce::var(juce::Array<juce::var>{});
+  auto commandsData = juce::Array<juce::var>{};
   for (const auto &commandFile : commandFiles) {
     auto commandData = juce::JSON::parse(commandFile);
-    commandsData.append(commandData);
+    commandsData.add(commandData);
   }
 
-  return commandsData;
+  // Sort the array by the "createdAt" property
+  std::sort(commandsData.begin(), commandsData.end(),
+            [](const juce::var &a, const juce::var &b) {
+              auto createdAtA = a.getProperty("createdAt", juce::var());
+              auto createdAtB = b.getProperty("createdAt", juce::var());
+              return createdAtA < createdAtB;
+            });
+
+  return juce::var(commandsData);
 }
 
 juce::String ProjectManager::getProject(juce::String id) {
