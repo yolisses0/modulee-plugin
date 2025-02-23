@@ -55,6 +55,9 @@ public:
   void getStateInformation(juce::MemoryBlock &destData) override;
   void setStateInformation(const void *data, int sizeInBytes) override;
 
+  //==============================================================================
+  bool isMuted;
+
 private:
   std::mutex graph_mutex;
 

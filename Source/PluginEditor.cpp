@@ -37,6 +37,12 @@ ModuleeAudioProcessorEditor::ModuleeAudioProcessorEditor(
                     data.getProperty("graphData", false).toString();
                 audioProcessor.setGraph(graphData);
               })
+          .withEventListener("setIsMuted",
+                             [this](juce::var data) {
+                               bool isMuted =
+                                   data.getProperty("isMuted", false);
+                               audioProcessor.isMuted = isMuted;
+                             })
           .withNativeFunction("getProjects",
                               [this](auto &args, auto completion) {
                                 auto projectsJson =
