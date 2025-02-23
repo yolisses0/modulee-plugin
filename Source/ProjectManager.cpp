@@ -1,5 +1,8 @@
 #include "ProjectManager.h"
 
+// TODO consider replacing this manual files manipulation by some proper
+// database like SQLite
+
 ProjectManager::ProjectManager() { projectsDirectoryPath = "Modulee/projects"; }
 
 juce::String ProjectManager::getProjects() {
