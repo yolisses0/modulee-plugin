@@ -49,6 +49,11 @@ ModuleeAudioProcessorEditor::ModuleeAudioProcessorEditor(
                                 projectManager.createProject(args[0]);
                                 completion(true);
                               })
+          .withNativeFunction("renameProject",
+                              [this](auto &args, auto completion) {
+                                projectManager.renameProject(args[0], args[1]);
+                                completion(true);
+                              })
           .withNativeFunction("deleteProject",
                               [this](auto &args, auto completion) {
                                 projectManager.deleteProject(args[0]);

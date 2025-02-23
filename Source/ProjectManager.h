@@ -10,6 +10,7 @@ public:
   juce::String getProject(juce::String id);
   void addCommand(juce::String commandDataJson);
   void createProject(juce::String projectDataJson);
+  void renameProject(juce::String id, juce::String name);
 
 private:
   juce::String projectsDirectoryPath;

@@ -83,6 +83,20 @@ void ProjectManager::createProject(juce::String projectDataJson) {
   file.replaceWithData(data.getCharPointer(), data.getNumBytesAsUTF8());
 }
 
+void ProjectManager::renameProject(juce::String id, juce::String name) {
+  auto projectFilePath = projectsDirectoryPath + "/" + id + "/index.json";
+  auto projectFile =
+      juce::File::getSpecialLocation(juce::File::userDocumentsDirectory)
+          .getChildFile(projectFilePath);
+
+  auto projectData = juce::JSON::parse(projectFile);
+  projectData.getDynamicObject()->setProperty("name", name);
+
+  auto projectDataString = juce::JSON::toString(projectData);
+  projectFile.replaceWithData(projectDataString.getCharPointer(),
+                              projectDataString.getNumBytesAsUTF8());
+}
+
 void ProjectManager::addCommand(juce::String commandDataJson) {
   auto commandData = juce::JSON::parse(commandDataJson);
   auto id = commandData.getProperty("id", false).toString();
