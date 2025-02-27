@@ -58,6 +58,10 @@ public:
   //==============================================================================
   bool isMuted;
 
+  //==============================================================================
+  // TODO find less coupled way to save parameters
+  juce::String lastPath;
+
 private:
   std::mutex graph_mutex;
 

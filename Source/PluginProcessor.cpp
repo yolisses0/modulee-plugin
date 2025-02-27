@@ -191,13 +191,11 @@ void ModuleeAudioProcessor::getStateInformation(juce::MemoryBlock &destData) {
   // You could do that either as raw data, or use the XML or ValueTree classes
   // as intermediaries to make it easy to save and load complex data.
 
-  // Create an XML element to store the state
   auto state = std::make_unique<juce::XmlElement>("PluginState");
 
-  // Add the lastGraphData string as an attribute or child element
+  state->setAttribute("lastPath", lastPath);
   state->setAttribute("lastGraphData", lastGraphData);
 
-  // Convert the XML element to a binary blob and store it in the MemoryBlock
   copyXmlToBinary(*state, destData);
 }
 
@@ -207,15 +205,16 @@ void ModuleeAudioProcessor::setStateInformation(const void *data,
   // block, whose contents will have been created by the getStateInformation()
   // call.
 
-  // Convert the binary blob back into an XML element
   auto state = getXmlFromBinary(data, sizeInBytes);
 
   if (state != nullptr) {
-    // Check if the XML element has the lastGraphData attribute
     if (state->hasAttribute("lastGraphData")) {
-      // Restore the lastGraphData string
       lastGraphData = state->getStringAttribute("lastGraphData");
       setGraph(lastGraphData);
+    }
+
+    if (state->hasAttribute("lastPath")) {
+      lastPath = state->getStringAttribute("lastPath");
     }
   }
 }

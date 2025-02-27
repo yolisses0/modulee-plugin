@@ -37,6 +37,12 @@ ModuleeAudioProcessorEditor::ModuleeAudioProcessorEditor(
                     data.getProperty("graphData", false).toString();
                 audioProcessor.setGraph(graphData);
               })
+          .withEventListener("setPath",
+                             [this](auto data) {
+                               auto path =
+                                   data.getProperty("path", false).toString();
+                               audioProcessor.lastPath = path;
+                             })
           .withEventListener("setIsMuted",
                              [this](juce::var data) {
                                bool isMuted =
@@ -82,12 +88,14 @@ ModuleeAudioProcessorEditor::ModuleeAudioProcessorEditor(
   webView.reset(webBrowserComponent);
   addAndMakeVisible(webView.get());
 
-  // Determine the URL based on the build configuration
+  // Determine the URL based on the build configuration and last path accessed
 #ifdef IS_DEV_ENVIRONMENT
-  webView->goToURL("http://localhost:5173");
+  auto url = juce::String("http://localhost:5173");
 #else
-  webView->goToURL("https://modulee.yolisses.com");
+  auto url = juce::String("https://modulee.yolisses.com");
 #endif
+  url += audioProcessor.lastPath;
+  webView->goToURL(url);
 
   // Make sure that before the constructor has finished, you've set the
   // editor's size to whatever you need it to be.
