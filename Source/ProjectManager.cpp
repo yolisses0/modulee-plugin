@@ -37,45 +37,12 @@ void ProjectManager::deleteProject(juce::String id) {
   file.deleteRecursively();
 }
 
-juce::var ProjectManager::getProjectCommands(juce::String projectId) {
-  auto commandsDirectoryPath =
-      projectsDirectoryPath + "/" + projectId + "/commands";
-  auto commandsDirectory =
-      juce::File::getSpecialLocation(juce::File::userDocumentsDirectory)
-          .getChildFile(commandsDirectoryPath);
-
-  juce::Array<juce::File> commandFiles;
-  commandsDirectory.findChildFiles(commandFiles, juce::File::findFiles, false);
-
-  auto commandsData = juce::Array<juce::var>{};
-  for (const auto &commandFile : commandFiles) {
-    auto commandData = juce::JSON::parse(commandFile);
-    commandsData.add(commandData);
-  }
-
-  // Sort the array by the "createdAt" property
-  std::sort(commandsData.begin(), commandsData.end(),
-            [](const juce::var &a, const juce::var &b) {
-              auto createdAtA = a.getProperty("createdAt", juce::var());
-              auto createdAtB = b.getProperty("createdAt", juce::var());
-              return createdAtA < createdAtB;
-            });
-
-  return juce::var(commandsData);
-}
-
 juce::String ProjectManager::getProject(juce::String id) {
   auto projectFilePath = projectsDirectoryPath + "/" + id + "/index.json";
   auto projectFile =
       juce::File::getSpecialLocation(juce::File::userDocumentsDirectory)
           .getChildFile(projectFilePath);
-  auto projectData = juce::JSON::parse(projectFile);
-
-  auto dynamicObject = projectData.getDynamicObject();
-  auto commandsData = getProjectCommands(id);
-  dynamicObject->setProperty("commands", commandsData);
-
-  return juce::JSON::toString(projectData);
+  return projectFile.loadFileAsString();
 }
 
 void ProjectManager::createProject(juce::String projectDataJson) {

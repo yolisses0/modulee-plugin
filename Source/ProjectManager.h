@@ -13,5 +13,4 @@ public:
 
 private:
   juce::String projectsDirectoryPath;
-  juce::var getProjectCommands(juce::String projectId);
 };
