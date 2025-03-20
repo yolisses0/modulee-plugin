@@ -74,3 +74,18 @@ void ProjectManager::renameProject(juce::String id, juce::String name) {
   projectFile.replaceWithData(projectDataString.getCharPointer(),
                               projectDataString.getNumBytesAsUTF8());
 }
+
+void ProjectManager::updateProjectGraphData(juce::String id,
+                                            juce::String graphData) {
+  auto projectFilePath = projectsDirectoryPath + "/" + id + "/index.json";
+  auto projectFile =
+      juce::File::getSpecialLocation(juce::File::userDocumentsDirectory)
+          .getChildFile(projectFilePath);
+
+  auto projectData = juce::JSON::parse(projectFile);
+  projectData.getDynamicObject()->setProperty("graphData", graphData);
+
+  auto projectDataString = juce::JSON::toString(projectData);
+  projectFile.replaceWithData(projectDataString.getCharPointer(),
+                              projectDataString.getNumBytesAsUTF8());
+}
