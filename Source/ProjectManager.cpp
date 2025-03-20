@@ -1,5 +1,7 @@
 #include "ProjectManager.h"
 
+// TODO replace projectId/index.json by projectId.json
+
 // TODO consider replacing this manual files manipulation by some proper
 // database like SQLite
 
@@ -42,6 +44,7 @@ juce::String ProjectManager::getProject(juce::String id) {
   auto projectFile =
       juce::File::getSpecialLocation(juce::File::userDocumentsDirectory)
           .getChildFile(projectFilePath);
+  DBG(projectFile.loadFileAsString());
   return projectFile.loadFileAsString();
 }
 
@@ -76,12 +79,13 @@ void ProjectManager::renameProject(juce::String id, juce::String name) {
 }
 
 void ProjectManager::updateProjectGraphData(juce::String id,
-                                            juce::String graphData) {
+                                            juce::String graphDataJson) {
   auto projectFilePath = projectsDirectoryPath + "/" + id + "/index.json";
   auto projectFile =
       juce::File::getSpecialLocation(juce::File::userDocumentsDirectory)
           .getChildFile(projectFilePath);
 
+  auto graphData = juce::JSON::parse(graphDataJson);
   auto projectData = juce::JSON::parse(projectFile);
   projectData.getDynamicObject()->setProperty("graphData", graphData);
 
