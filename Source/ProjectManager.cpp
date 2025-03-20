@@ -107,20 +107,3 @@ void ProjectManager::renameProject(juce::String id, juce::String name) {
   projectFile.replaceWithData(projectDataString.getCharPointer(),
                               projectDataString.getNumBytesAsUTF8());
 }
-
-void ProjectManager::addCommand(juce::String commandDataJson) {
-  auto commandData = juce::JSON::parse(commandDataJson);
-  auto id = commandData.getProperty("id", false).toString();
-  auto projectId = commandData.getProperty("projectId", false).toString();
-
-  auto filePath =
-      projectsDirectoryPath + "/" + projectId + "/commands/" + id + ".json";
-  auto file = juce::File::getSpecialLocation(juce::File::userDocumentsDirectory)
-                  .getChildFile(filePath);
-  file.createDirectory();
-
-  // These parse and toString probably aren't needed. It's here just to ensure
-  // consistent encoding during development.
-  auto data = juce::JSON::toString(commandData);
-  file.replaceWithData(data.getCharPointer(), data.getNumBytesAsUTF8());
-}
