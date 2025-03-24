@@ -14,4 +14,6 @@ public:
 
 private:
   juce::String projectsDirectoryPath;
+  juce::File getProjectFile(juce::String id);
+  juce::String getProjectFilePath(juce::String projectId);
 };

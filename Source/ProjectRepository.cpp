@@ -9,19 +9,31 @@ ProjectRepository::ProjectRepository() {
   projectsDirectoryPath = "Modulee/projects";
 }
 
+juce::String ProjectRepository::getProjectFilePath(juce::String id) {
+  auto projectFilePath = projectsDirectoryPath + "/" + id + ".json";
+  return projectFilePath;
+}
+
+juce::File ProjectRepository::getProjectFile(juce::String id) {
+  auto projectFilePath = getProjectFilePath(id);
+  auto projectFile =
+      juce::File::getSpecialLocation(juce::File::userDocumentsDirectory)
+          .getChildFile(projectFilePath);
+  return projectFile;
+}
+
 juce::String ProjectRepository::getProjects() {
   auto folder =
       juce::File::getSpecialLocation(juce::File::userDocumentsDirectory)
           .getChildFile(projectsDirectoryPath);
   folder.createDirectory();
 
-  juce::Array<juce::File> directories;
-  folder.findChildFiles(directories, juce::File::findDirectories, false);
+  juce::Array<juce::File> files;
+  folder.findChildFiles(files, juce::File::findFiles, false);
 
   juce::var jsonArray = juce::var(juce::Array<juce::var>{});
 
-  for (const auto &directory : directories) {
-    auto file = juce::File(directory).getChildFile("index.json");
+  for (const auto &file : files) {
     auto fileJson = juce::JSON::parse(file);
     juce::DynamicObject::Ptr projectObject = new juce::DynamicObject();
     projectObject->setProperty("id",
@@ -35,18 +47,12 @@ juce::String ProjectRepository::getProjects() {
 }
 
 void ProjectRepository::deleteProject(juce::String id) {
-  auto filePath = projectsDirectoryPath + "/" + id;
-  auto file = juce::File::getSpecialLocation(juce::File::userDocumentsDirectory)
-                  .getChildFile(filePath);
-  file.deleteRecursively();
+  auto projectFile = getProjectFile(id);
+  projectFile.deleteFile();
 }
 
 juce::String ProjectRepository::getProject(juce::String id) {
-  auto projectFilePath = projectsDirectoryPath + "/" + id + "/index.json";
-  auto projectFile =
-      juce::File::getSpecialLocation(juce::File::userDocumentsDirectory)
-          .getChildFile(projectFilePath);
-  DBG(projectFile.loadFileAsString());
+  auto projectFile = getProjectFile(id);
   return projectFile.loadFileAsString();
 }
 
@@ -54,25 +60,19 @@ void ProjectRepository::createProject(juce::String projectDataJson) {
   auto projectData = juce::JSON::parse(projectDataJson);
   auto id = projectData.getProperty("id", false).toString();
 
-  auto filePath = projectsDirectoryPath + "/" + id + "/index.json";
-  auto file = juce::File::getSpecialLocation(juce::File::userDocumentsDirectory)
-                  .getChildFile(filePath);
-
-  file.createDirectory();
+  auto projectFile = getProjectFile(id);
+  projectFile.createDirectory();
 
   // These parse and toString probably aren't needed. It's here just to ensure
   // consistent encoding during development.
   auto data = juce::JSON::toString(projectData);
-  file.replaceWithData(data.getCharPointer(), data.getNumBytesAsUTF8());
+  projectFile.replaceWithData(data.getCharPointer(), data.getNumBytesAsUTF8());
 }
 
 void ProjectRepository::renameProject(juce::String id, juce::String name) {
-  auto projectFilePath = projectsDirectoryPath + "/" + id + "/index.json";
-  auto projectFile =
-      juce::File::getSpecialLocation(juce::File::userDocumentsDirectory)
-          .getChildFile(projectFilePath);
-
+  auto projectFile = getProjectFile(id);
   auto projectData = juce::JSON::parse(projectFile);
+
   projectData.getDynamicObject()->setProperty("name", name);
 
   auto projectDataString = juce::JSON::toString(projectData);
@@ -82,13 +82,10 @@ void ProjectRepository::renameProject(juce::String id, juce::String name) {
 
 void ProjectRepository::updateProjectGraphData(juce::String id,
                                                juce::String graphDataJson) {
-  auto projectFilePath = projectsDirectoryPath + "/" + id + "/index.json";
-  auto projectFile =
-      juce::File::getSpecialLocation(juce::File::userDocumentsDirectory)
-          .getChildFile(projectFilePath);
+  auto projectFile = getProjectFile(id);
+  auto projectData = juce::JSON::parse(projectFile);
 
   auto graphData = juce::JSON::parse(graphDataJson);
-  auto projectData = juce::JSON::parse(projectFile);
   projectData.getDynamicObject()->setProperty("graphData", graphData);
 
   auto projectDataString = juce::JSON::toString(projectData);
