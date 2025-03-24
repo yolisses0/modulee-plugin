@@ -1,13 +1,15 @@
-#include "ProjectManager.h"
+#include "ProjectRepository.h"
 
 // TODO replace projectId/index.json by projectId.json
 
 // TODO consider replacing this manual files manipulation by some proper
 // database like SQLite
 
-ProjectManager::ProjectManager() { projectsDirectoryPath = "Modulee/projects"; }
+ProjectRepository::ProjectRepository() {
+  projectsDirectoryPath = "Modulee/projects";
+}
 
-juce::String ProjectManager::getProjects() {
+juce::String ProjectRepository::getProjects() {
   auto folder =
       juce::File::getSpecialLocation(juce::File::userDocumentsDirectory)
           .getChildFile(projectsDirectoryPath);
@@ -32,14 +34,14 @@ juce::String ProjectManager::getProjects() {
   return juce::JSON::toString(jsonArray);
 }
 
-void ProjectManager::deleteProject(juce::String id) {
+void ProjectRepository::deleteProject(juce::String id) {
   auto filePath = projectsDirectoryPath + "/" + id;
   auto file = juce::File::getSpecialLocation(juce::File::userDocumentsDirectory)
                   .getChildFile(filePath);
   file.deleteRecursively();
 }
 
-juce::String ProjectManager::getProject(juce::String id) {
+juce::String ProjectRepository::getProject(juce::String id) {
   auto projectFilePath = projectsDirectoryPath + "/" + id + "/index.json";
   auto projectFile =
       juce::File::getSpecialLocation(juce::File::userDocumentsDirectory)
@@ -48,7 +50,7 @@ juce::String ProjectManager::getProject(juce::String id) {
   return projectFile.loadFileAsString();
 }
 
-void ProjectManager::createProject(juce::String projectDataJson) {
+void ProjectRepository::createProject(juce::String projectDataJson) {
   auto projectData = juce::JSON::parse(projectDataJson);
   auto id = projectData.getProperty("id", false).toString();
 
@@ -64,7 +66,7 @@ void ProjectManager::createProject(juce::String projectDataJson) {
   file.replaceWithData(data.getCharPointer(), data.getNumBytesAsUTF8());
 }
 
-void ProjectManager::renameProject(juce::String id, juce::String name) {
+void ProjectRepository::renameProject(juce::String id, juce::String name) {
   auto projectFilePath = projectsDirectoryPath + "/" + id + "/index.json";
   auto projectFile =
       juce::File::getSpecialLocation(juce::File::userDocumentsDirectory)
@@ -78,8 +80,8 @@ void ProjectManager::renameProject(juce::String id, juce::String name) {
                               projectDataString.getNumBytesAsUTF8());
 }
 
-void ProjectManager::updateProjectGraphData(juce::String id,
-                                            juce::String graphDataJson) {
+void ProjectRepository::updateProjectGraphData(juce::String id,
+                                               juce::String graphDataJson) {
   auto projectFilePath = projectsDirectoryPath + "/" + id + "/index.json";
   auto projectFile =
       juce::File::getSpecialLocation(juce::File::userDocumentsDirectory)

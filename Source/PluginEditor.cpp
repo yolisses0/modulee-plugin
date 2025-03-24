@@ -8,13 +8,13 @@
 
 #include "PluginEditor.h"
 #include "PluginProcessor.h"
-#include "ProjectManager.h"
+#include "ProjectRepository.h"
 #include <iostream>
 
 //==============================================================================
 ModuleeAudioProcessorEditor::ModuleeAudioProcessorEditor(
     ModuleeAudioProcessor &p)
-    : AudioProcessorEditor(&p), audioProcessor(p), projectManager() {
+    : AudioProcessorEditor(&p), audioProcessor(p), projectRepository() {
 
   // this may be necessary for some DAWs; include for safety
   auto userDataFolder = juce::File::getSpecialLocation(
@@ -52,34 +52,35 @@ ModuleeAudioProcessorEditor::ModuleeAudioProcessorEditor(
           .withNativeFunction("getProjects",
                               [this](auto &args, auto completion) {
                                 auto projectsJson =
-                                    projectManager.getProjects();
+                                    projectRepository.getProjects();
                                 completion(projectsJson);
                               })
           .withNativeFunction("getProject",
                               [this](auto &args, auto completion) {
                                 auto projectJson =
-                                    projectManager.getProject(args[0]);
+                                    projectRepository.getProject(args[0]);
                                 completion(projectJson);
                               })
           .withNativeFunction("createProject",
                               [this](auto &args, auto completion) {
-                                projectManager.createProject(args[0]);
+                                projectRepository.createProject(args[0]);
                                 completion(true);
                               })
           .withNativeFunction("deleteProject",
                               [this](auto &args, auto completion) {
-                                projectManager.deleteProject(args[0]);
+                                projectRepository.deleteProject(args[0]);
                                 completion(true);
                               })
           .withNativeFunction("renameProject",
                               [this](auto &args, auto completion) {
-                                projectManager.renameProject(args[0], args[1]);
+                                projectRepository.renameProject(args[0],
+                                                                args[1]);
                                 completion(true);
                               })
           .withNativeFunction("updateProjectGraphData",
                               [this](auto &args, auto completion) {
-                                projectManager.updateProjectGraphData(args[0],
-                                                                      args[1]);
+                                projectRepository.updateProjectGraphData(
+                                    args[0], args[1]);
                                 completion(true);
                               })
           .withNativeIntegrationEnabled();

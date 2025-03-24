@@ -9,7 +9,7 @@
 #pragma once
 
 #include "PluginProcessor.h"
-#include "ProjectManager.h"
+#include "ProjectRepository.h"
 #include <JuceHeader.h>
 
 //==============================================================================
@@ -25,7 +25,7 @@ public:
   void resized() override;
 
 private:
-  ProjectManager projectManager;
+  ProjectRepository projectRepository;
 
   // This reference is provided as a quick way for your editor to
   // access the processor object that created it.

@@ -2,9 +2,9 @@
 
 #include <JuceHeader.h>
 
-class ProjectManager {
+class ProjectRepository {
 public:
-  ProjectManager();
+  ProjectRepository();
   juce::String getProjects();
   void deleteProject(juce::String id);
   juce::String getProject(juce::String id);
