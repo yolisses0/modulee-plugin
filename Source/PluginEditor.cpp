@@ -33,9 +33,9 @@ ModuleeAudioProcessorEditor::ModuleeAudioProcessorEditor(
           .withEventListener(
               "setGraph",
               [this](auto data) {
-                auto graphData =
-                    data.getProperty("graphData", false).toString();
-                audioProcessor.setGraph(graphData);
+                auto graphEngineData =
+                    data.getProperty("graphEngineData", juce::var()).toString();
+                audioProcessor.setGraph(graphEngineData);
               })
           .withEventListener("setPath",
                              [this](auto data) {
@@ -79,8 +79,8 @@ ModuleeAudioProcessorEditor::ModuleeAudioProcessorEditor(
                               })
           .withNativeFunction("updateProjectGraph",
                               [this](auto &args, auto completion) {
-                                projectRepository.updateProjectGraph(
-                                    args[0], args[1]);
+                                projectRepository.updateProjectGraph(args[0],
+                                                                     args[1]);
                                 completion(true);
                               })
           .withNativeIntegrationEnabled();
