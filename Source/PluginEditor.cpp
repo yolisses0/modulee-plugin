@@ -77,9 +77,9 @@ ModuleeAudioProcessorEditor::ModuleeAudioProcessorEditor(
                                                                 args[1]);
                                 completion(true);
                               })
-          .withNativeFunction("updateProjectGraphData",
+          .withNativeFunction("updateProjectGraph",
                               [this](auto &args, auto completion) {
-                                projectRepository.updateProjectGraphData(
+                                projectRepository.updateProjectGraph(
                                     args[0], args[1]);
                                 completion(true);
                               })

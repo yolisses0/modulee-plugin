@@ -75,7 +75,7 @@ void ProjectRepository::renameProject(juce::String id, juce::String name) {
                               projectDataString.getNumBytesAsUTF8());
 }
 
-void ProjectRepository::updateProjectGraphData(juce::String id,
+void ProjectRepository::updateProjectGraph(juce::String id,
                                                juce::String graphDataJson) {
   auto projectFile = getProjectFile(id);
   auto projectData = juce::JSON::parse(projectFile);
