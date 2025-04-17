@@ -76,12 +76,12 @@ void ProjectRepository::renameProject(juce::String id, juce::String name) {
 }
 
 void ProjectRepository::updateProjectGraph(juce::String id,
-                                               juce::String graphDataJson) {
+                                           juce::String graphDataJson) {
   auto projectFile = getProjectFile(id);
   auto projectData = juce::JSON::parse(projectFile);
 
   auto graphData = juce::JSON::parse(graphDataJson);
-  projectData.getDynamicObject()->setProperty("graphData", graphData);
+  projectData.getDynamicObject()->setProperty("graph", graphData);
 
   auto projectDataString = juce::JSON::toString(projectData);
   projectFile.replaceWithData(projectDataString.getCharPointer(),
