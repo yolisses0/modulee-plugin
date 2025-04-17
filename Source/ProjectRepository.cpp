@@ -35,12 +35,7 @@ juce::String ProjectRepository::getProjects() {
 
   for (const auto &file : files) {
     auto fileJson = juce::JSON::parse(file);
-    juce::DynamicObject::Ptr projectObject = new juce::DynamicObject();
-    projectObject->setProperty("id",
-                               fileJson.getProperty("id", false).toString());
-    projectObject->setProperty("name",
-                               fileJson.getProperty("name", false).toString());
-    jsonArray.append(juce::var(projectObject.get()));
+    jsonArray.append(fileJson);
   }
 
   return juce::JSON::toString(jsonArray);
