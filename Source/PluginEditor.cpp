@@ -30,6 +30,27 @@ ModuleeAudioProcessorEditor::ModuleeAudioProcessorEditor(
           .withBackend(juce::WebBrowserComponent::Options::Backend::webview2)
           .withWinWebView2Options(winWebViewOptions)
           .withInitialisationData("isRunningOnJucePlugin", true)
+          //  Page persistence
+          .withEventListener("setPath",
+                             [this](auto data) {
+                               auto path =
+                                   data.getProperty("path", false).toString();
+                               audioProcessor.lastPath = path;
+                             })
+          //  Audio backend
+          .withEventListener("setNoteOn",
+                             [this](auto data) {
+                               auto pitch =
+                                   (int)data.getProperty("pitch", juce::var());
+                               audioProcessor.setNoteOn(pitch);
+                               DBG(pitch);
+                             })
+          .withEventListener("setNoteOff",
+                             [this](auto data) {
+                               auto pitch =
+                                   (int)data.getProperty("pitch", juce::var());
+                               audioProcessor.setNoteOff(pitch);
+                             })
           .withEventListener(
               "setGraph",
               [this](auto data) {
@@ -37,18 +58,13 @@ ModuleeAudioProcessorEditor::ModuleeAudioProcessorEditor(
                     data.getProperty("graphEngineData", juce::var()).toString();
                 audioProcessor.setGraph(graphEngineData);
               })
-          .withEventListener("setPath",
-                             [this](auto data) {
-                               auto path =
-                                   data.getProperty("path", false).toString();
-                               audioProcessor.lastPath = path;
-                             })
           .withEventListener("setIsMuted",
                              [this](juce::var data) {
                                bool isMuted =
                                    data.getProperty("isMuted", false);
                                audioProcessor.isMuted = isMuted;
                              })
+          //  Projects repository
           .withNativeFunction("getProjects",
                               [this](auto &args, auto completion) {
                                 auto projectsJson =

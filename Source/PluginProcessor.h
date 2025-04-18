@@ -16,6 +16,8 @@
  */
 class ModuleeAudioProcessor : public juce::AudioProcessor {
 public:
+  void setNoteOn(int pitch);
+  void setNoteOff(int pitch);
   void setGraph(juce::String graphDataString);
 
   //==============================================================================

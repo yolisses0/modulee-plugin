@@ -17,6 +17,18 @@ void ModuleeAudioProcessor::setGraph(juce::String graphDataString) {
   lastGraphData = graphDataString;
 }
 
+void ModuleeAudioProcessor::setNoteOn(int pitch) {
+  graph_mutex.lock();
+  set_note_on(&**&graph, pitch);
+  graph_mutex.unlock();
+}
+
+void ModuleeAudioProcessor::setNoteOff(int pitch) {
+  graph_mutex.lock();
+  set_note_off(&**&graph, pitch);
+  graph_mutex.unlock();
+}
+
 //==============================================================================
 ModuleeAudioProcessor::ModuleeAudioProcessor()
 #ifndef JucePlugin_PreferredChannelConfigurations
