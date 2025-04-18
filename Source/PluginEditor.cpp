@@ -43,7 +43,6 @@ ModuleeAudioProcessorEditor::ModuleeAudioProcessorEditor(
                                auto pitch =
                                    (int)data.getProperty("pitch", juce::var());
                                audioProcessor.setNoteOn(pitch);
-                               DBG(pitch);
                              })
           .withEventListener("setNoteOff",
                              [this](auto data) {
