@@ -179,11 +179,7 @@ void ModuleeAudioProcessor::processBlock(juce::AudioBuffer<float> &buffer,
     // Copy the output to other channels. This will be replaced once the app
     // allow stereo output
     for (int channel = 1; channel < totalNumOutputChannels; ++channel) {
-      auto *otherChannelData = buffer.getWritePointer(channel);
-
-      for (int sample = 0; sample < numSamples; ++sample) {
-        otherChannelData[sample] = channelData[sample];
-      }
+      buffer.copyFrom(channel, 0, buffer, 0, 0, numSamples);
     }
   }
 }
