@@ -22,6 +22,12 @@ juce::File ProjectRepository::getProjectFile(juce::String id) {
   return projectFile;
 }
 
+juce::File ProjectRepository::createProjectFile(juce::String id) {
+  auto projectFile = getProjectFile(id);
+  projectFile.getParentDirectory().createDirectory();
+  return projectFile;
+}
+
 juce::String ProjectRepository::getProjects() {
   auto folder =
       juce::File::getSpecialLocation(juce::File::userDocumentsDirectory)
@@ -54,9 +60,7 @@ juce::String ProjectRepository::getProject(juce::String id) {
 void ProjectRepository::createProject(juce::String projectDataJson) {
   auto projectData = juce::JSON::parse(projectDataJson);
   auto id = projectData.getProperty("id", false).toString();
-
-  auto projectFile = getProjectFile(id);
-  projectFile.createDirectory();
+  auto projectFile = createProjectFile(id);
 
   // These parse and toString probably aren't needed. It's here just to ensure
   // consistent encoding during development.
