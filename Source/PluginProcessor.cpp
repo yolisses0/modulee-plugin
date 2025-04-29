@@ -12,20 +12,20 @@
 
 void ModuleeAudioProcessor::setGraph(juce::String graphDataString) {
   graph_mutex.lock();
-  set_graph(&**&graph, graphDataString.toStdString().c_str());
+  set_graph(graph.get(), graphDataString.toStdString().c_str());
   graph_mutex.unlock();
   lastGraphData = graphDataString;
 }
 
 void ModuleeAudioProcessor::setNoteOn(int pitch) {
   graph_mutex.lock();
-  set_note_on(&**&graph, pitch);
+  set_note_on(graph.get(), pitch);
   graph_mutex.unlock();
 }
 
 void ModuleeAudioProcessor::setNoteOff(int pitch) {
   graph_mutex.lock();
-  set_note_off(&**&graph, pitch);
+  set_note_off(graph.get(), pitch);
   graph_mutex.unlock();
 }
 
@@ -141,40 +141,29 @@ bool ModuleeAudioProcessor::isBusesLayoutSupported(
 
 void ModuleeAudioProcessor::processBlock(juce::AudioBuffer<float> &buffer,
                                          juce::MidiBuffer &midiMessages) {
-
-  for (const auto metadata : midiMessages) {
-    auto message = metadata.getMessage();
-    auto timeStamp = metadata.samplePosition;
-
-    if (message.isNoteOn()) {
-      graph_mutex.lock();
-      set_note_on(&**&graph, (float)message.getNoteNumber());
-      graph_mutex.unlock();
-    } else if (message.isNoteOff()) {
-      graph_mutex.lock();
-      set_note_off(&**&graph, (float)message.getNoteNumber());
-      graph_mutex.unlock();
-    }
-  }
-
   juce::ScopedNoDenormals noDenormals;
-  auto totalNumInputChannels = getTotalNumInputChannels();
   auto totalNumOutputChannels = getTotalNumOutputChannels();
-
   auto numSamples = buffer.getNumSamples();
   auto *channelData = buffer.getWritePointer(0);
 
-  // TODO find a more elegant way to process block without writing in the buffer
-
-  // Fill the buffer with generated audio from the graph
+  // Single lock for all graph operations
   graph_mutex.lock();
-  process_block(&**&graph, channelData, numSamples);
+  // Process MIDI events
+  for (const auto metadata : midiMessages) {
+    auto message = metadata.getMessage();
+    if (message.isNoteOn()) {
+      set_note_on(graph.get(), (float)message.getNoteNumber());
+    } else if (message.isNoteOff()) {
+      set_note_off(graph.get(), (float)message.getNoteNumber());
+    }
+  }
+  // Process audio
+  process_block(graph.get(), channelData, numSamples);
   graph_mutex.unlock();
 
   if (isMuted) {
-    // Clear all the outputs
-    for (auto i = totalNumInputChannels; i < totalNumOutputChannels; ++i)
-      buffer.clear(i, 0, buffer.getNumSamples());
+    for (auto i = 0; i < totalNumOutputChannels; ++i)
+      buffer.clear(i, 0, numSamples);
   } else {
     // Copy the output to other channels. This will be replaced once the app
     // allow stereo output

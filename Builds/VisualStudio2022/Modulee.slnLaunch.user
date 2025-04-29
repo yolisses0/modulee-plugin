@@ -1,0 +1,15 @@
+[
+  {
+    "Name": "New Profile",
+    "Projects": [
+      {
+        "Path": "Modulee_StandalonePlugin.vcxproj",
+        "Action": "Start"
+      }
+    ]
+  },
+  {
+    "Name": "New Profile (1)",
+    "Projects": []
+  }
+]
