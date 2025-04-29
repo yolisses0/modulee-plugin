@@ -8,12 +8,9 @@
 
 #include "PluginProcessor.h"
 #include "PluginEditor.h"
-#include <mutex>
 
 void ModuleeAudioProcessor::setGraph(juce::String graphDataString) {
-  graph_mutex.lock();
   set_graph(graph.get(), graphDataString.toStdString().c_str());
-  graph_mutex.unlock();
   lastGraphData = graphDataString;
 }
 
@@ -166,16 +163,12 @@ void ModuleeAudioProcessor::processBlock(juce::AudioBuffer<float> &buffer,
   auto numSamples = buffer.getNumSamples();
   auto *channelData = buffer.getWritePointer(0);
 
-  // Single lock for all graph operations
-  graph_mutex.lock();
-
   processMidiMessagesFrom(midiMessages);
   processMidiMessagesFrom(uiMidiBuffer);
   uiMidiBuffer.clear();
 
   // Process audio
   process_block(graph.get(), channelData, numSamples);
-  graph_mutex.unlock();
 
   if (isMuted) {
     for (auto i = 0; i < totalNumOutputChannels; ++i)

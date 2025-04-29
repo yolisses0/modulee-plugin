@@ -67,8 +67,6 @@ public:
   juce::String lastPath;
 
 private:
-  std::mutex graph_mutex;
-
   /* `unique_ptr` is a smart pointer that will call the destructor once there's
   no reference to this. This line is just a declaration though. The real
   initialization value is given in the plugin processor constructor. */
