@@ -32,6 +32,8 @@ public:
   bool isBusesLayoutSupported(const BusesLayout &layouts) const override;
 #endif
 
+  void processMidiMessagesFrom(juce::MidiBuffer &midiMessages);
+
   void processBlock(juce::AudioBuffer<float> &, juce::MidiBuffer &) override;
 
   //==============================================================================
@@ -76,4 +78,5 @@ private:
   JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(ModuleeAudioProcessor)
 
   juce::String lastGraphData;
+  juce::MidiBuffer uiMidiBuffer;
 };

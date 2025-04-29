@@ -18,15 +18,22 @@ void ModuleeAudioProcessor::setGraph(juce::String graphDataString) {
 }
 
 void ModuleeAudioProcessor::setNoteOn(int pitch) {
-  graph_mutex.lock();
-  set_note_on(graph.get(), pitch);
-  graph_mutex.unlock();
+  // TODO check if there's some way to pass it to the default MidiBuffer
+  // (wherever is it)
+  //
+  // TODO pass velocity data too
+  //
+  // TODO check if the channel makes sense
+  auto midiEvent = juce::MidiMessage::noteOn(1, pitch, 1.0f);
+  // TODO check if the sampleNumber makes sense
+  uiMidiBuffer.addEvent(midiEvent, 0);
 }
 
 void ModuleeAudioProcessor::setNoteOff(int pitch) {
-  graph_mutex.lock();
-  set_note_off(graph.get(), pitch);
-  graph_mutex.unlock();
+  // TODO check if the channel makes sense
+  auto midiEvent = juce::MidiMessage::noteOff(1, pitch, 1.0f);
+  // TODO check if the sampleNumber makes sense
+  uiMidiBuffer.addEvent(midiEvent, 0);
 }
 
 //==============================================================================
@@ -139,15 +146,8 @@ bool ModuleeAudioProcessor::isBusesLayoutSupported(
 }
 #endif
 
-void ModuleeAudioProcessor::processBlock(juce::AudioBuffer<float> &buffer,
-                                         juce::MidiBuffer &midiMessages) {
-  juce::ScopedNoDenormals noDenormals;
-  auto totalNumOutputChannels = getTotalNumOutputChannels();
-  auto numSamples = buffer.getNumSamples();
-  auto *channelData = buffer.getWritePointer(0);
-
-  // Single lock for all graph operations
-  graph_mutex.lock();
+void ModuleeAudioProcessor::processMidiMessagesFrom(
+    juce::MidiBuffer &midiMessages) {
   // Process MIDI events
   for (const auto metadata : midiMessages) {
     auto message = metadata.getMessage();
@@ -157,6 +157,22 @@ void ModuleeAudioProcessor::processBlock(juce::AudioBuffer<float> &buffer,
       set_note_off(graph.get(), (float)message.getNoteNumber());
     }
   }
+}
+
+void ModuleeAudioProcessor::processBlock(juce::AudioBuffer<float> &buffer,
+                                         juce::MidiBuffer &midiMessages) {
+  juce::ScopedNoDenormals noDenormals;
+  auto totalNumOutputChannels = getTotalNumOutputChannels();
+  auto numSamples = buffer.getNumSamples();
+  auto *channelData = buffer.getWritePointer(0);
+
+  // Single lock for all graph operations
+  graph_mutex.lock();
+
+  processMidiMessagesFrom(uiMidiBuffer);
+  processMidiMessagesFrom(midiMessages);
+  uiMidiBuffer.clear();
+
   // Process audio
   process_block(graph.get(), channelData, numSamples);
   graph_mutex.unlock();
