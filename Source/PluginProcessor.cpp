@@ -169,8 +169,8 @@ void ModuleeAudioProcessor::processBlock(juce::AudioBuffer<float> &buffer,
   // Single lock for all graph operations
   graph_mutex.lock();
 
-  processMidiMessagesFrom(uiMidiBuffer);
   processMidiMessagesFrom(midiMessages);
+  processMidiMessagesFrom(uiMidiBuffer);
   uiMidiBuffer.clear();
 
   // Process audio
