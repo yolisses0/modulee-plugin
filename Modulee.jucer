@@ -19,6 +19,11 @@
       <FILE id="iNhTUz" name="PluginEditor.cpp" compile="1" resource="0"
             file="Source/PluginEditor.cpp"/>
     </GROUP>
+    <GROUP id="{C5FCE092-7999-8ADE-9F94-6C278188DE66}" name="Icon">
+      <FILE id="JHcQOq" name="logo64x64.png" compile="0" resource="1" file="Icon/logo64x64.png"/>
+      <FILE id="fRV8cR" name="logo1024x1024.png" compile="0" resource="1"
+            file="Icon/logo1024x1024.png"/>
+    </GROUP>
   </MAINGROUP>
   <MODULES>
     <MODULE id="juce_audio_basics" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
@@ -40,7 +45,7 @@
                JUCE_WEB_BROWSER="1"/>
   <EXPORTFORMATS>
     <LINUX_MAKE targetFolder="Builds/LinuxMakefile" extraLinkerFlags="-L&quot;../../Vendor/modulee-engine-clib/target/debug&quot;"
-                externalLibraries="modulee_engine">
+                externalLibraries="modulee_engine" smallIcon="JHcQOq" bigIcon="fRV8cR">
       <CONFIGURATIONS>
         <CONFIGURATION isDebug="1" name="Debug" targetName="Modulee" defines="IS_DEV_ENVIRONMENT"/>
         <CONFIGURATION isDebug="0" name="Release" targetName="Modulee"/>
@@ -61,7 +66,8 @@
       </MODULEPATHS>
     </LINUX_MAKE>
     <VS2022 targetFolder="Builds/VisualStudio2022" extraLinkerFlags="/LIBPATH:&quot;../../Vendor/modulee-engine-clib/target/debug&quot;"
-            externalLibraries="modulee_engine.lib&#10;kernel32.lib&#10;advapi32.lib&#10;ntdll.lib&#10;userenv.lib&#10;ws2_32.lib&#10;dbghelp.lib&#10;/defaultlib:msvcrt">
+            externalLibraries="modulee_engine.lib&#10;kernel32.lib&#10;advapi32.lib&#10;ntdll.lib&#10;userenv.lib&#10;ws2_32.lib&#10;dbghelp.lib&#10;/defaultlib:msvcrt"
+            bigIcon="fRV8cR" smallIcon="JHcQOq">
       <CONFIGURATIONS>
         <CONFIGURATION isDebug="1" name="Debug" winArchitecture="x64" prebuildCommand="cargo build --manifest-path ..\..\Vendor\modulee-engine-clib\Cargo.toml"
                        defines="IS_DEV_ENVIRONMENT"/>

@@ -5,6 +5,9 @@
     <Filter Include="Modulee\Source">
       <UniqueIdentifier>{418B784E-17CB-9873-4553-57BA4AFB0048}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Modulee\Icon">
+      <UniqueIdentifier>{78EFED0A-1651-EB81-5551-C95814D02A07}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Modulee">
       <UniqueIdentifier>{6008F277-6B61-05FE-ABAE-87F9B7E41E67}</UniqueIdentifier>
     </Filter>
@@ -3474,6 +3477,9 @@
     </ClCompile>
     <ClCompile Include="..\..\..\..\..\..\JUCE\modules\juce_gui_extra\juce_gui_extra.mm">
       <Filter>JUCE Modules\juce_gui_extra</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\JuceLibraryCode\BinaryData.cpp">
+      <Filter>JUCE Library Code</Filter>
     </ClCompile>
     <ClCompile Include="..\..\JuceLibraryCode\include_juce_audio_basics.cpp">
       <Filter>JUCE Library Code</Filter>
@@ -7407,6 +7413,9 @@
     <ClInclude Include="..\..\..\..\..\..\JUCE\modules\juce_gui_extra\juce_gui_extra.h">
       <Filter>JUCE Modules\juce_gui_extra</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\JuceLibraryCode\BinaryData.h">
+      <Filter>JUCE Library Code</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\JuceLibraryCode\JuceHeader.h">
       <Filter>JUCE Library Code</Filter>
     </ClInclude>
@@ -7415,6 +7424,12 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\..\Icon\logo64x64.png">
+      <Filter>Modulee\Icon</Filter>
+    </None>
+    <None Include="..\..\Icon\logo1024x1024.png">
+      <Filter>Modulee\Icon</Filter>
+    </None>
     <None Include="..\..\..\..\..\..\JUCE\modules\juce_audio_devices\native\oboe\src\common\README.md">
       <Filter>JUCE Modules\juce_audio_devices\native\oboe\src\common</Filter>
     </None>
@@ -7483,6 +7498,9 @@
     </None>
     <None Include="..\..\..\..\..\..\JUCE\modules\juce_graphics\unicode\sheenbidi\JUCE_CHANGES.txt">
       <Filter>JUCE Modules\juce_graphics\unicode\sheenbidi</Filter>
+    </None>
+    <None Include=".\icon.ico">
+      <Filter>JUCE Library Code</Filter>
     </None>
     <None Include="packages.config"/>
   </ItemGroup>
