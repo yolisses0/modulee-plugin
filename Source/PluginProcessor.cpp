@@ -9,9 +9,10 @@
 #include "PluginProcessor.h"
 #include "PluginEditor.h"
 
-void ModuleeAudioProcessor::setGraph(juce::String graphDataString) {
-  set_graph(graph.get(), graphDataString.toStdString().c_str());
-  lastGraphData = graphDataString;
+void ModuleeAudioProcessor::setGraph(juce::String graphData) {
+  pendingGraphString = graphData.toStdString();
+  lastGraphData = graphData;
+  graphDataIsPending = true;
 }
 
 void ModuleeAudioProcessor::setNoteOn(int pitch) {
@@ -162,6 +163,11 @@ void ModuleeAudioProcessor::processBlock(juce::AudioBuffer<float> &buffer,
   auto totalNumOutputChannels = getTotalNumOutputChannels();
   auto numSamples = buffer.getNumSamples();
   auto *channelData = buffer.getWritePointer(0);
+
+  if (graphDataIsPending) {
+    set_graph(graph.get(), pendingGraphString.c_str());
+    graphDataIsPending = false;
+  }
 
   processMidiMessagesFrom(midiMessages);
   processMidiMessagesFrom(uiMidiBuffer);

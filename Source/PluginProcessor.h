@@ -75,6 +75,8 @@ private:
   //==============================================================================
   JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(ModuleeAudioProcessor)
 
+  bool graphDataIsPending;
   juce::String lastGraphData;
   juce::MidiBuffer uiMidiBuffer;
+  std::string pendingGraphString;
 };
