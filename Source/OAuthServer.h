@@ -12,7 +12,7 @@ public:
   void run() override;
   void stop();
 
-  std::function<void(const std::string &)> onCredentialReceived;
+  std::function<void(const std::string &)> onCodeReceived;
 
 private:
   std::unique_ptr<httplib::Server> server;

@@ -12,9 +12,9 @@ void OAuthServer::run() {
         res.set_content("Successfully signed in. You can close this tab now.",
                         "text/plain");
 
-        std::string credential = req.get_param_value("code");
-        if (onCredentialReceived) {
-          onCredentialReceived(credential);
+        std::string code = req.get_param_value("code");
+        if (onCodeReceived) {
+          onCodeReceived(code);
         }
       });
 
