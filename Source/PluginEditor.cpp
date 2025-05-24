@@ -116,7 +116,7 @@ ModuleeAudioProcessorEditor::ModuleeAudioProcessorEditor(
 
   // Make sure that before the constructor has finished, you've set the
   // editor's size to whatever you need it to be.
-  setSize(600, 400);
+  setSize(800, 600);
   setResizable(true, true);
 }
 
