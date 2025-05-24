@@ -10,9 +10,9 @@ void OAuthServer::run() {
     res.set_content("pong", "text/plain");
   });
 
-  // Start server on localhost:8080
-  if (!server.listen("127.0.0.1", 8080)) {
-    juce::Logger::writeToLog("Failed to start server on localhost:8080");
+  // Start server on localhost:39057
+  if (!server.listen("127.0.0.1", 39057)) {
+    juce::Logger::writeToLog("Failed to start server on localhost:39057");
   }
 }
 
