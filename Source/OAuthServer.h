@@ -1,6 +1,7 @@
 // OAuthServer.h
 #pragma once
 #include "../Vendor/httplib.h"
+#include <functional>
 #include <juce_core/juce_core.h>
 
 class OAuthServer : public juce::Thread {
@@ -10,6 +11,8 @@ public:
 
   void run() override;
   void stop();
+
+  std::function<void(const std::string &)> onCredentialReceived;
 
 private:
   std::unique_ptr<httplib::Server> server;

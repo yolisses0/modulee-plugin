@@ -8,9 +8,11 @@ void OAuthServer::run() {
   server = std::make_unique<httplib::Server>();
 
   server->Get("/signIn",
-              [](const httplib::Request &req, httplib::Response &res) {
+              [this](const httplib::Request &req, httplib::Response &res) {
                 std::string credential = req.get_param_value("code");
                 res.set_content(credential, "text/plain");
+                if (onCredentialReceived)
+                  onCredentialReceived(credential);
               });
 
   server->Get("/ping", [](const httplib::Request &, httplib::Response &res) {
