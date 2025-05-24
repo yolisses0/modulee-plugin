@@ -5,6 +5,7 @@
     "modulee"
   ],
   "files.associations": {
+    "*.modulee": "json",
     "array": "cpp",
     "*.tcc": "cpp",
     "memory": "cpp",
@@ -79,7 +80,8 @@
     "typeindex": "cpp",
     "typeinfo": "cpp",
     "variant": "cpp",
-    "format": "cpp"
+    "format": "cpp",
+    "a": "cpp"
   },
   "terminal.integrated.env.linux": {
     "GTK_PATH": null,

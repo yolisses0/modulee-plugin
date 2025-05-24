@@ -7,6 +7,7 @@
 */
 
 #include "PluginEditor.h"
+#include "OAuthServer.h"
 #include "PluginProcessor.h"
 #include "ProjectRepository.h"
 #include <iostream>
@@ -14,7 +15,8 @@
 //==============================================================================
 ModuleeAudioProcessorEditor::ModuleeAudioProcessorEditor(
     ModuleeAudioProcessor &p)
-    : AudioProcessorEditor(&p), audioProcessor(p), projectRepository() {
+    : AudioProcessorEditor(&p), audioProcessor(p), projectRepository(),
+      server() {
 
   // this may be necessary for some DAWs; include for safety
   auto userDataFolder = juce::File::getSpecialLocation(
@@ -118,19 +120,22 @@ ModuleeAudioProcessorEditor::ModuleeAudioProcessorEditor(
   setSize(800, 600);
   setResizable(true, true);
 
-  juce::String clientId = "725523345294-l7ljv04v2maac7k6ugu6ifmuut88gbjk.apps."
-                          "googleusercontent.com";
-  // TODO replace by custom URI like "com.myapp://oauth"
-  juce::String redirectUri = "http://localhost:5173/signIn/response";
-  juce::String scope = "https://www.googleapis.com/auth/userinfo.profile "
-                       "https://www.googleapis.com/auth/userinfo.email";
-  juce::String authUrl = "https://accounts.google.com/o/oauth2/v2/auth?"
-                         "client_id=" +
-                         clientId + "&redirect_uri=" + redirectUri +
-                         "&response_type=code"
-                         "&scope=" +
-                         scope + "&access_type=offline";
-  juce::URL(authUrl).launchInDefaultBrowser();
+  startServer();
+
+  // juce::String clientId =
+  // "725523345294-l7ljv04v2maac7k6ugu6ifmuut88gbjk.apps."
+  //                         "googleusercontent.com";
+  // // TODO replace by custom URI like "com.myapp://oauth"
+  // juce::String redirectUri = "http://localhost:5173/signIn/response";
+  // juce::String scope = "https://www.googleapis.com/auth/userinfo.profile "
+  //                      "https://www.googleapis.com/auth/userinfo.email";
+  // juce::String authUrl = "https://accounts.google.com/o/oauth2/v2/auth?"
+  //                        "client_id=" +
+  //                        clientId + "&redirect_uri=" + redirectUri +
+  //                        "&response_type=code"
+  //                        "&scope=" +
+  //                        scope + "&access_type=offline";
+  // juce::URL(authUrl).launchInDefaultBrowser();
 }
 
 ModuleeAudioProcessorEditor::~ModuleeAudioProcessorEditor() {}
@@ -147,4 +152,21 @@ void ModuleeAudioProcessorEditor::resized() {
   // This is generally where you'll want to lay out the positions of any
   // subcomponents in your editor..
   webView->setBounds(0, 0, getWidth(), getHeight());
+}
+
+void ModuleeAudioProcessorEditor::startServer() {
+  if (!server) {
+    server = std::make_unique<OAuthServer>();
+    server->startThread();
+    juce::Logger::writeToLog(
+        "Server started. Try accessing http://localhost:8080");
+  }
+}
+
+void ModuleeAudioProcessorEditor::stopServer() {
+  if (server) {
+    server->stop();
+    server.reset();
+    juce::Logger::writeToLog("Server stopped.");
+  }
 }

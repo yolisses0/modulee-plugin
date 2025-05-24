@@ -8,6 +8,7 @@
 
 #pragma once
 
+#include "OAuthServer.h"
 #include "PluginProcessor.h"
 #include "ProjectRepository.h"
 #include <JuceHeader.h>
@@ -31,7 +32,11 @@ private:
   // access the processor object that created it.
   ModuleeAudioProcessor &audioProcessor;
 
+  std::unique_ptr<OAuthServer> server;
   std::unique_ptr<juce::WebBrowserComponent> webView;
+
+  void startServer();
+  void stopServer();
 
   JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(ModuleeAudioProcessorEditor)
 };

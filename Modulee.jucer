@@ -6,7 +6,10 @@
               pluginDesc="The most modular modular synthetizer" pluginCode="Mdle"
               pluginManufacturerCode="Ylss" pluginCharacteristicsValue="pluginIsSynth,pluginWantsMidiIn">
   <MAINGROUP id="nP1ypY" name="Modulee">
+    <FILE id="ufPaXb" name="httplib.h" compile="0" resource="0" file="Vendor/httplib.h"/>
     <GROUP id="{AE86BBFC-512C-92AD-FF4B-F98A8699FED5}" name="Source">
+      <FILE id="YKBEjV" name="OAuthServer.h" compile="0" resource="0" file="Source/OAuthServer.h"/>
+      <FILE id="JH14LY" name="OAuthServer.cpp" compile="1" resource="0" file="Source/OAuthServer.cpp"/>
       <FILE id="Ri682g" name="ProjectRepository.h" compile="0" resource="0"
             file="Source/ProjectRepository.h"/>
       <FILE id="xx0azy" name="PluginProcessor.h" compile="0" resource="0"
