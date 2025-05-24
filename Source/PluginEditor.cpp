@@ -38,21 +38,6 @@ ModuleeAudioProcessorEditor::ModuleeAudioProcessorEditor(
   setResizable(true, true);
 
   startServer();
-
-  // juce::String clientId =
-  // "725523345294-l7ljv04v2maac7k6ugu6ifmuut88gbjk.apps."
-  //                         "googleusercontent.com";
-  // // TODO replace by custom URI like "com.myapp://oauth"
-  // juce::String redirectUri = "http://localhost:5173/signIn/response";
-  // juce::String scope = "https://www.googleapis.com/auth/userinfo.profile "
-  //                      "https://www.googleapis.com/auth/userinfo.email";
-  // juce::String authUrl = "https://accounts.google.com/o/oauth2/v2/auth?"
-  //                        "client_id=" +
-  //                        clientId + "&redirect_uri=" + redirectUri +
-  //                        "&response_type=code"
-  //                        "&scope=" +
-  //                        scope + "&access_type=offline";
-  // juce::URL(authUrl).launchInDefaultBrowser();
 }
 
 ModuleeAudioProcessorEditor::~ModuleeAudioProcessorEditor() {}
@@ -105,6 +90,13 @@ ModuleeAudioProcessorEditor::getWebviewOptions() {
           .withWinWebView2Options(winWebViewOptions)
           .withInitialisationData("isRunningOnJucePlugin", true)
           .withNativeIntegrationEnabled()
+          //  Open in browser
+          .withEventListener("openUrl",
+                             [this](auto data) {
+                               auto url =
+                                   data.getProperty("url", false).toString();
+                               openUrl(url);
+                             })
           //  Page persistence
           .withEventListener("setPath",
                              [this](auto data) {
@@ -174,4 +166,8 @@ ModuleeAudioProcessorEditor::getWebviewOptions() {
               });
 
   return webBrowserOptions;
+}
+
+void ModuleeAudioProcessorEditor::openUrl(juce::String url) {
+  juce::URL(url).launchInDefaultBrowser();
 }

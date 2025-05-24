@@ -38,6 +38,7 @@ private:
 
   void startServer();
   void stopServer();
+  void openUrl(juce::String url);
 
   JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(ModuleeAudioProcessorEditor)
 };
