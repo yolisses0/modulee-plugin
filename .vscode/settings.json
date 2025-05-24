@@ -81,7 +81,9 @@
     "typeinfo": "cpp",
     "variant": "cpp",
     "format": "cpp",
-    "a": "cpp"
+    "a": "cpp",
+    "csignal": "cpp",
+    "regex": "cpp"
   },
   "terminal.integrated.env.linux": {
     "GTK_PATH": null,

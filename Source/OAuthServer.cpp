@@ -7,16 +7,16 @@ OAuthServer::~OAuthServer() { stop(); }
 void OAuthServer::run() {
   server = std::make_unique<httplib::Server>();
 
-  server->Get("/signIn",
-              [this](const httplib::Request &req, httplib::Response &res) {
-                std::string credential = req.get_param_value("code");
+  server->Get(
+      "/signIn", [this](const httplib::Request &req, httplib::Response &res) {
+        res.set_content("Successfully signed in. You can close this tab now.",
+                        "text/plain");
 
-                res.set_content(credential, "text/plain");
-
-                if (onCredentialReceived) {
-                  onCredentialReceived(credential);
-                }
-              });
+        std::string credential = req.get_param_value("code");
+        if (onCredentialReceived) {
+          onCredentialReceived(credential);
+        }
+      });
 
   server->Get("/ping", [](const httplib::Request &, httplib::Response &res) {
     res.set_content("pong", "text/plain");

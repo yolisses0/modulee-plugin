@@ -38,10 +38,10 @@ ModuleeAudioProcessorEditor::ModuleeAudioProcessorEditor(
   setResizable(true, true);
 
   startServer();
-  server->onCredentialReceived = [this, url](const std::string &) {
-    juce::MessageManager::callAsync([this, url] {
-      if (webView)
-        webView->goToURL(url + "/signIn/response");
+  server->onCredentialReceived = [this, url](const std::string &credential) {
+    juce::MessageManager::callAsync([this, url, credential] {
+      webView->emitEventIfBrowserIsVisible("signInResponse",
+                                           juce::String(credential));
     });
   };
 }
