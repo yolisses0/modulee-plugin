@@ -30,6 +30,7 @@ ModuleeAudioProcessorEditor::ModuleeAudioProcessorEditor(
           .withBackend(juce::WebBrowserComponent::Options::Backend::webview2)
           .withWinWebView2Options(winWebViewOptions)
           .withInitialisationData("isRunningOnJucePlugin", true)
+          .withNativeIntegrationEnabled()
           //  Page persistence
           .withEventListener("setPath",
                              [this](auto data) {
@@ -92,13 +93,11 @@ ModuleeAudioProcessorEditor::ModuleeAudioProcessorEditor(
                                                                 args[1]);
                                 completion(true);
                               })
-          .withNativeFunction("updateProjectGraph",
-                              [this](auto &args, auto completion) {
-                                projectRepository.updateProjectGraph(args[0],
-                                                                     args[1]);
-                                completion(true);
-                              })
-          .withNativeIntegrationEnabled();
+          .withNativeFunction(
+              "updateProjectGraph", [this](auto &args, auto completion) {
+                projectRepository.updateProjectGraph(args[0], args[1]);
+                completion(true);
+              });
 
   auto webBrowserComponent = new juce::WebBrowserComponent(webBrowserOptions);
 
