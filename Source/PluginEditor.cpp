@@ -97,39 +97,38 @@ ModuleeAudioProcessorEditor::getWebviewOptions() {
           .withInitialisationData("isRunningOnJucePlugin", true)
           .withNativeIntegrationEnabled()
           //  Open in browser
-          .withEventListener(
-              "openUrl",
-              [this](auto data) {
-                auto url = data.getProperty("url", juce::var()).toString();
-                openUrl(url);
-              })
+          .withEventListener("openUrl",
+                             [this](auto data) {
+                               juce::String url =
+                                   data.getProperty("url", juce::var());
+                               openUrl(url);
+                             })
           //  Page persistence
-          .withEventListener(
-              "setPath",
-              [this](auto data) {
-                auto path = data.getProperty("path", juce::var()).toString();
-                audioProcessor.lastPath = path;
-              })
+          .withEventListener("setPath",
+                             [this](auto data) {
+                               juce::String path =
+                                   data.getProperty("path", juce::var());
+                               audioProcessor.lastPath = path;
+                             })
           //  Audio backend
           .withEventListener("setNoteOn",
                              [this](auto data) {
-                               auto pitch =
-                                   (int)data.getProperty("pitch", juce::var());
+                               int pitch =
+                                   data.getProperty("pitch", juce::var());
                                audioProcessor.setNoteOn(pitch);
                              })
           .withEventListener("setNoteOff",
                              [this](auto data) {
-                               auto pitch =
-                                   (int)data.getProperty("pitch", juce::var());
+                               int pitch =
+                                   data.getProperty("pitch", juce::var());
                                audioProcessor.setNoteOff(pitch);
                              })
-          .withEventListener(
-              "setGraph",
-              [this](auto data) {
-                auto graphEngineData =
-                    data.getProperty("graphEngineData", juce::var()).toString();
-                audioProcessor.setGraph(graphEngineData);
-              })
+          .withEventListener("setGraph",
+                             [this](auto data) {
+                               juce::String graphEngineData = data.getProperty(
+                                   "graphEngineData", juce::var());
+                               audioProcessor.setGraph(graphEngineData);
+                             })
           .withEventListener("setIsMuted",
                              [this](juce::var data) {
                                bool isMuted =
