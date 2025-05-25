@@ -34,6 +34,12 @@ void ModuleeAudioProcessor::setNoteOff(int pitch) {
   uiMidiBuffer.addEvent(midiEvent, 0);
 }
 
+void ModuleeAudioProcessor::updateControl(int id, float value) {
+  pendingControlId = id;
+  pendingControlValue = value;
+  controlIsPending = true;
+}
+
 //==============================================================================
 ModuleeAudioProcessor::ModuleeAudioProcessor()
 #ifndef JucePlugin_PreferredChannelConfigurations
@@ -167,6 +173,11 @@ void ModuleeAudioProcessor::processBlock(juce::AudioBuffer<float> &buffer,
   if (graphDataIsPending) {
     set_graph(graph.get(), pendingGraphString.c_str());
     graphDataIsPending = false;
+  }
+
+  if (controlIsPending) {
+    update_control(graph.get(), pendingControlId, pendingControlValue);
+    controlIsPending = false;
   }
 
   processMidiMessagesFrom(midiMessages);

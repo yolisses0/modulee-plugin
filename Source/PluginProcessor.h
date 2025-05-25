@@ -18,6 +18,7 @@ class ModuleeAudioProcessor : public juce::AudioProcessor {
 public:
   void setNoteOn(int pitch);
   void setNoteOff(int pitch);
+  void updateControl(int id, float value);
   void setGraph(juce::String graphDataString);
 
   //==============================================================================
@@ -75,8 +76,13 @@ private:
   //==============================================================================
   JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(ModuleeAudioProcessor)
 
+  bool controlIsPending;
+  int pendingControlId;
+  float pendingControlValue;
+
   bool graphDataIsPending;
+  std::string pendingGraphString;
+
   juce::String lastGraphData;
   juce::MidiBuffer uiMidiBuffer;
-  std::string pendingGraphString;
 };
