@@ -135,6 +135,14 @@ ModuleeAudioProcessorEditor::getWebviewOptions() {
                                    data.getProperty("isMuted", juce::var());
                                audioProcessor.isMuted = isMuted;
                              })
+          .withEventListener("updateControl",
+                             [this](juce::var data) {
+                               juce::int64 id =
+                                   data.getProperty("id", juce::var());
+                               float value =
+                                   data.getProperty("value", juce::var());
+                               audioProcessor.updateControl(id, value);
+                             })
           //  Projects repository
           .withNativeFunction("getProjects",
                               [this](auto &args, auto completion) {

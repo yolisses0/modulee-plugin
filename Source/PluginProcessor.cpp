@@ -34,7 +34,7 @@ void ModuleeAudioProcessor::setNoteOff(int pitch) {
   uiMidiBuffer.addEvent(midiEvent, 0);
 }
 
-void ModuleeAudioProcessor::updateControl(int id, float value) {
+void ModuleeAudioProcessor::updateControl(juce::int64 id, float value) {
   pendingControlId = id;
   pendingControlValue = value;
   controlIsPending = true;
