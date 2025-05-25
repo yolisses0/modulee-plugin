@@ -97,19 +97,19 @@ ModuleeAudioProcessorEditor::getWebviewOptions() {
           .withInitialisationData("isRunningOnJucePlugin", true)
           .withNativeIntegrationEnabled()
           //  Open in browser
-          .withEventListener("openUrl",
-                             [this](auto data) {
-                               auto url =
-                                   data.getProperty("url", false).toString();
-                               openUrl(url);
-                             })
+          .withEventListener(
+              "openUrl",
+              [this](auto data) {
+                auto url = data.getProperty("url", juce::var()).toString();
+                openUrl(url);
+              })
           //  Page persistence
-          .withEventListener("setPath",
-                             [this](auto data) {
-                               auto path =
-                                   data.getProperty("path", false).toString();
-                               audioProcessor.lastPath = path;
-                             })
+          .withEventListener(
+              "setPath",
+              [this](auto data) {
+                auto path = data.getProperty("path", juce::var()).toString();
+                audioProcessor.lastPath = path;
+              })
           //  Audio backend
           .withEventListener("setNoteOn",
                              [this](auto data) {
@@ -133,7 +133,7 @@ ModuleeAudioProcessorEditor::getWebviewOptions() {
           .withEventListener("setIsMuted",
                              [this](juce::var data) {
                                bool isMuted =
-                                   data.getProperty("isMuted", false);
+                                   data.getProperty("isMuted", juce::var());
                                audioProcessor.isMuted = isMuted;
                              })
           //  Projects repository
