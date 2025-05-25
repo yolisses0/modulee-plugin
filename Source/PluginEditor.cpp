@@ -9,14 +9,12 @@
 #include "PluginEditor.h"
 #include "OAuthServer.h"
 #include "PluginProcessor.h"
-#include "ProjectRepository.h"
 #include <iostream>
 
 //==============================================================================
 ModuleeAudioProcessorEditor::ModuleeAudioProcessorEditor(
     ModuleeAudioProcessor &p)
-    : AudioProcessorEditor(&p), audioProcessor(p), projectRepository(),
-      server() {
+    : AudioProcessorEditor(&p), audioProcessor(p), server() {
 
   auto webBrowserOptions = getWebviewOptions();
   auto webBrowserComponent = new juce::WebBrowserComponent(webBrowserOptions);
@@ -135,48 +133,11 @@ ModuleeAudioProcessorEditor::getWebviewOptions() {
                                    data.getProperty("isMuted", juce::var());
                                audioProcessor.isMuted = isMuted;
                              })
-          .withEventListener("updateControl",
-                             [this](juce::var data) {
-                               juce::int64 id =
-                                   data.getProperty("id", juce::var());
-                               float value =
-                                   data.getProperty("value", juce::var());
-                               audioProcessor.updateControl(id, value);
-                             })
-          //  Projects repository
-          .withNativeFunction("getProjects",
-                              [this](auto &args, auto completion) {
-                                auto projectsJson =
-                                    projectRepository.getProjects();
-                                completion(projectsJson);
-                              })
-          .withNativeFunction("getProject",
-                              [this](auto &args, auto completion) {
-                                auto projectJson =
-                                    projectRepository.getProject(args[0]);
-                                completion(projectJson);
-                              })
-          .withNativeFunction("createProject",
-                              [this](auto &args, auto completion) {
-                                projectRepository.createProject(args[0]);
-                                completion(true);
-                              })
-          .withNativeFunction("deleteProject",
-                              [this](auto &args, auto completion) {
-                                projectRepository.deleteProject(args[0]);
-                                completion(true);
-                              })
-          .withNativeFunction("renameProject",
-                              [this](auto &args, auto completion) {
-                                projectRepository.renameProject(args[0],
-                                                                args[1]);
-                                completion(true);
-                              })
-          .withNativeFunction(
-              "updateProjectGraph", [this](auto &args, auto completion) {
-                projectRepository.updateProjectGraph(args[0], args[1]);
-                completion(true);
-              });
+          .withEventListener("updateControl", [this](juce::var data) {
+            juce::int64 id = data.getProperty("id", juce::var());
+            float value = data.getProperty("value", juce::var());
+            audioProcessor.updateControl(id, value);
+          });
 
   return webBrowserOptions;
 }

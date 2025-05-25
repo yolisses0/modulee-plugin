@@ -10,7 +10,6 @@
 
 #include "OAuthServer.h"
 #include "PluginProcessor.h"
-#include "ProjectRepository.h"
 #include <JuceHeader.h>
 
 //==============================================================================
@@ -27,8 +26,6 @@ public:
   juce::WebBrowserComponent::Options getWebviewOptions();
 
 private:
-  ProjectRepository projectRepository;
-
   // This reference is provided as a quick way for your editor to
   // access the processor object that created it.
   ModuleeAudioProcessor &audioProcessor;

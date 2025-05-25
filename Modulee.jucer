@@ -8,19 +8,15 @@
   <MAINGROUP id="nP1ypY" name="Modulee">
     <FILE id="ufPaXb" name="httplib.h" compile="0" resource="0" file="Vendor/httplib.h"/>
     <GROUP id="{AE86BBFC-512C-92AD-FF4B-F98A8699FED5}" name="Source">
-      <FILE id="YKBEjV" name="OAuthServer.h" compile="0" resource="0" file="Source/OAuthServer.h"/>
       <FILE id="JH14LY" name="OAuthServer.cpp" compile="1" resource="0" file="Source/OAuthServer.cpp"/>
-      <FILE id="Ri682g" name="ProjectRepository.h" compile="0" resource="0"
-            file="Source/ProjectRepository.h"/>
-      <FILE id="xx0azy" name="PluginProcessor.h" compile="0" resource="0"
-            file="Source/PluginProcessor.h"/>
-      <FILE id="L85sg7" name="PluginEditor.h" compile="0" resource="0" file="Source/PluginEditor.h"/>
-      <FILE id="c43mxE" name="ProjectRepository.cpp" compile="1" resource="0"
-            file="Source/ProjectRepository.cpp"/>
-      <FILE id="t4eyAg" name="PluginProcessor.cpp" compile="1" resource="0"
-            file="Source/PluginProcessor.cpp"/>
+      <FILE id="YKBEjV" name="OAuthServer.h" compile="0" resource="0" file="Source/OAuthServer.h"/>
       <FILE id="iNhTUz" name="PluginEditor.cpp" compile="1" resource="0"
             file="Source/PluginEditor.cpp"/>
+      <FILE id="L85sg7" name="PluginEditor.h" compile="0" resource="0" file="Source/PluginEditor.h"/>
+      <FILE id="t4eyAg" name="PluginProcessor.cpp" compile="1" resource="0"
+            file="Source/PluginProcessor.cpp"/>
+      <FILE id="xx0azy" name="PluginProcessor.h" compile="0" resource="0"
+            file="Source/PluginProcessor.h"/>
     </GROUP>
     <GROUP id="{C5FCE092-7999-8ADE-9F94-6C278188DE66}" name="Icon">
       <FILE id="JHcQOq" name="logo64x64.png" compile="0" resource="1" file="Icon/logo64x64.png"/>
