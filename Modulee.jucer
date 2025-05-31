@@ -7,6 +7,11 @@
               pluginManufacturerCode="Ylss" pluginCharacteristicsValue="pluginIsSynth,pluginWantsMidiIn">
   <MAINGROUP id="nP1ypY" name="Modulee">
     <FILE id="ufPaXb" name="httplib.h" compile="0" resource="0" file="Vendor/httplib.h"/>
+    <GROUP id="{C5FCE092-7999-8ADE-9F94-6C278188DE66}" name="Icon">
+      <FILE id="JHcQOq" name="logo64x64.png" compile="0" resource="1" file="Icon/logo64x64.png"/>
+      <FILE id="fRV8cR" name="logo1024x1024.png" compile="0" resource="1"
+            file="Icon/logo1024x1024.png"/>
+    </GROUP>
     <GROUP id="{AE86BBFC-512C-92AD-FF4B-F98A8699FED5}" name="Source">
       <FILE id="JH14LY" name="OAuthServer.cpp" compile="1" resource="0" file="Source/OAuthServer.cpp"/>
       <FILE id="YKBEjV" name="OAuthServer.h" compile="0" resource="0" file="Source/OAuthServer.h"/>
@@ -17,11 +22,8 @@
             file="Source/PluginProcessor.cpp"/>
       <FILE id="xx0azy" name="PluginProcessor.h" compile="0" resource="0"
             file="Source/PluginProcessor.h"/>
-    </GROUP>
-    <GROUP id="{C5FCE092-7999-8ADE-9F94-6C278188DE66}" name="Icon">
-      <FILE id="JHcQOq" name="logo64x64.png" compile="0" resource="1" file="Icon/logo64x64.png"/>
-      <FILE id="fRV8cR" name="logo1024x1024.png" compile="0" resource="1"
-            file="Icon/logo1024x1024.png"/>
+      <FILE id="LJllAO" name="TokenManager.cpp" compile="1" resource="0"
+            file="Source/TokenManager.cpp"/>
     </GROUP>
   </MAINGROUP>
   <MODULES>

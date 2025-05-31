@@ -2,11 +2,11 @@
 
 <Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Modulee\Source">
-      <UniqueIdentifier>{418B784E-17CB-9873-4553-57BA4AFB0048}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Modulee\Icon">
       <UniqueIdentifier>{78EFED0A-1651-EB81-5551-C95814D02A07}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Modulee\Source">
+      <UniqueIdentifier>{418B784E-17CB-9873-4553-57BA4AFB0048}</UniqueIdentifier>
     </Filter>
     <Filter Include="Modulee">
       <UniqueIdentifier>{6008F277-6B61-05FE-ABAE-87F9B7E41E67}</UniqueIdentifier>
@@ -680,6 +680,9 @@
       <Filter>Modulee\Source</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\PluginProcessor.cpp">
+      <Filter>Modulee\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\TokenManager.cpp">
       <Filter>Modulee\Source</Filter>
     </ClCompile>
     <ClCompile Include="C:\JUCE\modules\juce_audio_basics\audio_play_head\juce_AudioPlayHead.cpp">
