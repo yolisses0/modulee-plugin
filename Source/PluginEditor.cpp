@@ -94,21 +94,21 @@ ModuleeAudioProcessorEditor::getWebviewOptions() {
           .withWinWebView2Options(winWebViewOptions)
           .withInitialisationData("isRunningOnJucePlugin", true)
           .withBackend(juce::WebBrowserComponent::Options::Backend::webview2)
-          //  Open in browser
+          // Open in browser
           .withEventListener("openUrl",
                              [this](auto data) {
                                juce::String url =
                                    data.getProperty("url", juce::var());
                                openUrl(url);
                              })
-          //  Page persistence
+          // Page persistence
           .withEventListener("setPath",
                              [this](auto data) {
                                juce::String path =
                                    data.getProperty("path", juce::var());
                                audioProcessor.lastPath = path;
                              })
-          //  Audio backend
+          // Audio backend
           .withEventListener("setNoteOn",
                              [this](auto data) {
                                int pitch =
@@ -138,6 +138,13 @@ ModuleeAudioProcessorEditor::getWebviewOptions() {
             float value = data.getProperty("value", juce::var());
             audioProcessor.updateControl(id, value);
           });
+
+  auto authToken = tokenManager.getToken();
+  if (authToken.has_value()) {
+    // Auth token
+    webBrowserOptions = webBrowserOptions.withInitialisationData(
+        "authToken", authToken.value());
+  }
 
   return webBrowserOptions;
 }

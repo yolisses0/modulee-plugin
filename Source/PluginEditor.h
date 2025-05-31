@@ -31,8 +31,8 @@ private:
   // access the processor object that created it.
   ModuleeAudioProcessor &audioProcessor;
 
+  TokenManager tokenManager;
   std::unique_ptr<OAuthServer> server;
-  std::unique_ptr<TokenManager> tokenManager;
   std::unique_ptr<juce::WebBrowserComponent> webView;
 
   void startServer();
