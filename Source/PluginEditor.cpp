@@ -94,6 +94,13 @@ ModuleeAudioProcessorEditor::getWebviewOptions() {
           .withWinWebView2Options(winWebViewOptions)
           .withInitialisationData("isRunningOnJucePlugin", true)
           .withBackend(juce::WebBrowserComponent::Options::Backend::webview2)
+          // Auth token
+          .withEventListener("setAuthToken",
+                             [this](auto data) {
+                               juce::String authToken =
+                                   data.getProperty("authToken", juce::var());
+                               tokenManager.saveToken(authToken);
+                             })
           // Open in browser
           .withEventListener("openUrl",
                              [this](auto data) {
@@ -139,9 +146,9 @@ ModuleeAudioProcessorEditor::getWebviewOptions() {
             audioProcessor.updateControl(id, value);
           });
 
+  // Auth token
   auto authToken = tokenManager.getToken();
   if (authToken.has_value()) {
-    // Auth token
     webBrowserOptions = webBrowserOptions.withInitialisationData(
         "authToken", authToken.value());
   }
