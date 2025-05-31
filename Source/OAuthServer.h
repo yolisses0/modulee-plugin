@@ -1,4 +1,3 @@
-// OAuthServer.h
 #pragma once
 #include "../Vendor/httplib.h"
 #include <functional>
