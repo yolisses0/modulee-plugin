@@ -6,7 +6,6 @@
               pluginDesc="The most modular modular synthetizer" pluginCode="Mdle"
               pluginManufacturerCode="Ylss" pluginCharacteristicsValue="pluginIsSynth,pluginWantsMidiIn">
   <MAINGROUP id="nP1ypY" name="Modulee">
-    <FILE id="ufPaXb" name="httplib.h" compile="0" resource="0" file="Vendor/httplib.h"/>
     <GROUP id="{C5FCE092-7999-8ADE-9F94-6C278188DE66}" name="Icon">
       <FILE id="JHcQOq" name="logo64x64.png" compile="0" resource="1" file="Icon/logo64x64.png"/>
       <FILE id="fRV8cR" name="logo1024x1024.png" compile="0" resource="1"
@@ -24,7 +23,9 @@
             file="Source/PluginProcessor.h"/>
       <FILE id="LJllAO" name="TokenManager.cpp" compile="1" resource="0"
             file="Source/TokenManager.cpp"/>
+      <FILE id="YWXUQZ" name="TokenManager.h" compile="0" resource="0" file="Source/TokenManager.h"/>
     </GROUP>
+    <FILE id="ufPaXb" name="httplib.h" compile="0" resource="0" file="Vendor/httplib.h"/>
   </MAINGROUP>
   <MODULES>
     <MODULE id="juce_audio_basics" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>

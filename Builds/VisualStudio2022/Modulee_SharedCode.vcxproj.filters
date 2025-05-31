@@ -3543,9 +3543,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\Vendor\httplib.h">
-      <Filter>Modulee</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\Source\OAuthServer.h">
       <Filter>Modulee\Source</Filter>
     </ClInclude>
@@ -3554,6 +3551,12 @@
     </ClInclude>
     <ClInclude Include="..\..\Source\PluginProcessor.h">
       <Filter>Modulee\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\TokenManager.h">
+      <Filter>Modulee\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Vendor\httplib.h">
+      <Filter>Modulee</Filter>
     </ClInclude>
     <ClInclude Include="C:\JUCE\modules\juce_audio_basics\audio_play_head\juce_AudioPlayHead.h">
       <Filter>JUCE Modules\juce_audio_basics\audio_play_head</Filter>

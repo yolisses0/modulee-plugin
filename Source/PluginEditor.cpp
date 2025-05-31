@@ -14,7 +14,7 @@
 //==============================================================================
 ModuleeAudioProcessorEditor::ModuleeAudioProcessorEditor(
     ModuleeAudioProcessor &p)
-    : AudioProcessorEditor(&p), audioProcessor(p), server() {
+    : AudioProcessorEditor(&p), audioProcessor(p), server(), tokenManager() {
 
   auto webBrowserOptions = getWebviewOptions();
   auto webBrowserComponent = new juce::WebBrowserComponent(webBrowserOptions);

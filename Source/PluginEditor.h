@@ -10,6 +10,7 @@
 
 #include "OAuthServer.h"
 #include "PluginProcessor.h"
+#include "TokenManager.h"
 #include <JuceHeader.h>
 
 //==============================================================================
@@ -31,6 +32,7 @@ private:
   ModuleeAudioProcessor &audioProcessor;
 
   std::unique_ptr<OAuthServer> server;
+  std::unique_ptr<TokenManager> tokenManager;
   std::unique_ptr<juce::WebBrowserComponent> webView;
 
   void startServer();
