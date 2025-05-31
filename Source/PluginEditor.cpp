@@ -90,10 +90,10 @@ ModuleeAudioProcessorEditor::getWebviewOptions() {
 
   auto webBrowserOptions =
       juce::WebBrowserComponent::Options{}
-          .withBackend(juce::WebBrowserComponent::Options::Backend::webview2)
+          .withNativeIntegrationEnabled()
           .withWinWebView2Options(winWebViewOptions)
           .withInitialisationData("isRunningOnJucePlugin", true)
-          .withNativeIntegrationEnabled()
+          .withBackend(juce::WebBrowserComponent::Options::Backend::webview2)
           //  Open in browser
           .withEventListener("openUrl",
                              [this](auto data) {
