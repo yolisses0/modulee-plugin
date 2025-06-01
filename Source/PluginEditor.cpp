@@ -102,7 +102,7 @@ ModuleeAudioProcessorEditor::getWebviewOptions() {
                              [this](auto data) {
                                juce::String authToken =
                                    data.getProperty("authToken", juce::var());
-                               tokenManager.saveToken(authToken);
+                               tokenManager.setAuthToken(authToken);
                              })
           // Open in browser
           .withEventListener("openUrl",
@@ -150,8 +150,10 @@ ModuleeAudioProcessorEditor::getWebviewOptions() {
           });
 
   // Auth token
-  auto authToken = tokenManager.getToken();
+  auto authToken = tokenManager.getAuthToken();
   if (authToken.has_value()) {
+    DBG("value");
+    DBG(authToken.value());
     juce::String cookie = SESSION_COOKIE_NAME + "=" + authToken.value() + ";";
     cookie += " path=/;";
 #ifndef IS_DEV_ENVIRONMENT

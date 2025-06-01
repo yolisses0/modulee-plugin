@@ -12,6 +12,10 @@
             file="Icon/logo1024x1024.png"/>
     </GROUP>
     <GROUP id="{AE86BBFC-512C-92AD-FF4B-F98A8699FED5}" name="Source">
+      <FILE id="Ym5q0f" name="AuthTokenManager.cpp" compile="1" resource="0"
+            file="Source/AuthTokenManager.cpp"/>
+      <FILE id="AIGmbF" name="AuthTokenManager.h" compile="0" resource="0"
+            file="Source/AuthTokenManager.h"/>
       <FILE id="JH14LY" name="OAuthServer.cpp" compile="1" resource="0" file="Source/OAuthServer.cpp"/>
       <FILE id="YKBEjV" name="OAuthServer.h" compile="0" resource="0" file="Source/OAuthServer.h"/>
       <FILE id="iNhTUz" name="PluginEditor.cpp" compile="1" resource="0"
@@ -21,9 +25,6 @@
             file="Source/PluginProcessor.cpp"/>
       <FILE id="xx0azy" name="PluginProcessor.h" compile="0" resource="0"
             file="Source/PluginProcessor.h"/>
-      <FILE id="LJllAO" name="TokenManager.cpp" compile="1" resource="0"
-            file="Source/TokenManager.cpp"/>
-      <FILE id="YWXUQZ" name="TokenManager.h" compile="0" resource="0" file="Source/TokenManager.h"/>
     </GROUP>
     <FILE id="ufPaXb" name="httplib.h" compile="0" resource="0" file="Vendor/httplib.h"/>
   </MAINGROUP>

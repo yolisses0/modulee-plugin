@@ -673,6 +673,9 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\Source\AuthTokenManager.cpp">
+      <Filter>Modulee\Source</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\Source\OAuthServer.cpp">
       <Filter>Modulee\Source</Filter>
     </ClCompile>
@@ -680,9 +683,6 @@
       <Filter>Modulee\Source</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\PluginProcessor.cpp">
-      <Filter>Modulee\Source</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\TokenManager.cpp">
       <Filter>Modulee\Source</Filter>
     </ClCompile>
     <ClCompile Include="C:\JUCE\modules\juce_audio_basics\audio_play_head\juce_AudioPlayHead.cpp">
@@ -3543,6 +3543,9 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\Source\AuthTokenManager.h">
+      <Filter>Modulee\Source</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\Source\OAuthServer.h">
       <Filter>Modulee\Source</Filter>
     </ClInclude>
@@ -3550,9 +3553,6 @@
       <Filter>Modulee\Source</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\PluginProcessor.h">
-      <Filter>Modulee\Source</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\TokenManager.h">
       <Filter>Modulee\Source</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Vendor\httplib.h">

@@ -8,9 +8,9 @@
 
 #pragma once
 
+#include "AuthTokenManager.h"
 #include "OAuthServer.h"
 #include "PluginProcessor.h"
-#include "TokenManager.h"
 #include <JuceHeader.h>
 
 //==============================================================================
@@ -31,7 +31,7 @@ private:
   // access the processor object that created it.
   ModuleeAudioProcessor &audioProcessor;
 
-  TokenManager tokenManager;
+  AuthTokenManager tokenManager;
   std::unique_ptr<OAuthServer> server;
   std::unique_ptr<juce::WebBrowserComponent> webView;
 
