@@ -4,7 +4,7 @@
 class AuthTokenManager {
 public:
   AuthTokenManager();
-  void setAuthToken(const juce::String &authToken);
+  void setAuthToken(const juce::String authToken);
   std::optional<juce::String> getAuthToken() const;
 
 private:

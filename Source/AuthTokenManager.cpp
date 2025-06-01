@@ -7,9 +7,13 @@ AuthTokenManager::AuthTokenManager() {
   file.getParentDirectory().createDirectory();
 }
 
-void AuthTokenManager::setAuthToken(const juce::String &token) {
+void AuthTokenManager::setAuthToken(const juce::String authToken) {
   juce::ScopedLock lock(mutex);
-  file.replaceWithText(token);
+  DBG("setAuthToken");
+  DBG(authToken);
+  if (!file.replaceWithText(authToken)) {
+    DBG("Failed to write auth token to file");
+  }
 }
 
 std::optional<juce::String> AuthTokenManager::getAuthToken() const {

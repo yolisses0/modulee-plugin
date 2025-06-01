@@ -30,7 +30,13 @@ ModuleeAudioProcessorEditor::ModuleeAudioProcessorEditor(
 #else
   auto url = juce::String("https://modulee.yolisses.com");
 #endif
-  url += audioProcessor.lastPath;
+
+  auto authToken = tokenManager.getAuthToken();
+  if (authToken.has_value()) {
+    url += "/dev";
+  } else {
+    url += audioProcessor.lastPath;
+  }
   webView->goToURL(url);
 
   // Make sure that before the constructor has finished, you've set the
@@ -152,17 +158,24 @@ ModuleeAudioProcessorEditor::getWebviewOptions() {
   // Auth token
   auto authToken = tokenManager.getAuthToken();
   if (authToken.has_value()) {
-    DBG("value");
-    DBG(authToken.value());
-    juce::String cookie = SESSION_COOKIE_NAME + "=" + authToken.value() + ";";
-    cookie += " path=/;";
+    juce::String authTokenCookie =
+        SESSION_COOKIE_NAME + "=" + authToken.value() + ";";
+    authTokenCookie += " path=/;";
 #ifndef IS_DEV_ENVIRONMENT
-    cookie += " Secure;";
+    authTokenCookie += " Secure;";
 #endif
-    cookie += " SameSite=Lax;";
-    juce::String cookieScript = "document.cookie = '" + cookie + "';";
+    authTokenCookie += " SameSite=Lax;";
+    // DEBUG
+    authTokenCookie += " Max-Age=864000000;";
+    juce::String cookieScript = "document.cookie = '" + authTokenCookie + "';";
+    DBG("cookieScript");
+    DBG(cookieScript);
     webBrowserOptions = webBrowserOptions.withUserScript(cookieScript);
   }
+
+  webBrowserOptions = webBrowserOptions.withUserScript(
+      "console.log('check script'); console.log(document.cookie); "
+      "console.log(window.location.href); console.log(document.URL);");
 
   return webBrowserOptions;
 }
