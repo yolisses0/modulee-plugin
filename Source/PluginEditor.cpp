@@ -33,14 +33,14 @@ ModuleeAudioProcessorEditor::ModuleeAudioProcessorEditor(
 
   auto authToken = tokenManager.getAuthToken();
   if (authToken.has_value()) {
-    url += "/dev";
+    url += "/setAuthToken";
   } else {
     url += audioProcessor.lastPath;
   }
   webView->goToURL(url);
 
-  // Make sure that before the constructor has finished, you've set the
-  // editor's size to whatever you need it to be.
+  // Make sure that before the constructor has finished, you've set the editor's
+  // size to whatever you need it to be.
   setSize(800, 600);
   setResizable(true, true);
 
@@ -101,7 +101,7 @@ ModuleeAudioProcessorEditor::getWebviewOptions() {
       juce::WebBrowserComponent::Options{}
           .withNativeIntegrationEnabled()
           .withWinWebView2Options(winWebViewOptions)
-          .withInitialisationData("isRunningOnJucePlugin", true)
+          .withInitialisationData("lastPage", audioProcessor.lastPath)
           .withBackend(juce::WebBrowserComponent::Options::Backend::webview2)
           // Auth token
           .withEventListener("setAuthToken",
@@ -158,24 +158,9 @@ ModuleeAudioProcessorEditor::getWebviewOptions() {
   // Auth token
   auto authToken = tokenManager.getAuthToken();
   if (authToken.has_value()) {
-    juce::String authTokenCookie =
-        SESSION_COOKIE_NAME + "=" + authToken.value() + ";";
-    authTokenCookie += " path=/;";
-#ifndef IS_DEV_ENVIRONMENT
-    authTokenCookie += " Secure;";
-#endif
-    authTokenCookie += " SameSite=Lax;";
-    // DEBUG
-    authTokenCookie += " Max-Age=864000000;";
-    juce::String cookieScript = "document.cookie = '" + authTokenCookie + "';";
-    DBG("cookieScript");
-    DBG(cookieScript);
-    webBrowserOptions = webBrowserOptions.withUserScript(cookieScript);
+    webBrowserOptions = webBrowserOptions.withInitialisationData(
+        "authToken", authToken.value());
   }
-
-  webBrowserOptions = webBrowserOptions.withUserScript(
-      "console.log('check script'); console.log(document.cookie); "
-      "console.log(window.location.href); console.log(document.URL);");
 
   return webBrowserOptions;
 }

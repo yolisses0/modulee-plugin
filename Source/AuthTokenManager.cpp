@@ -9,11 +9,7 @@ AuthTokenManager::AuthTokenManager() {
 
 void AuthTokenManager::setAuthToken(const juce::String authToken) {
   juce::ScopedLock lock(mutex);
-  DBG("setAuthToken");
-  DBG(authToken);
-  if (!file.replaceWithText(authToken)) {
-    DBG("Failed to write auth token to file");
-  }
+  file.replaceWithText(authToken);
 }
 
 std::optional<juce::String> AuthTokenManager::getAuthToken() const {
