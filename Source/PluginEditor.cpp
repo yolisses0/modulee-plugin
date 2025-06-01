@@ -152,9 +152,13 @@ ModuleeAudioProcessorEditor::getWebviewOptions() {
   // Auth token
   auto authToken = tokenManager.getToken();
   if (authToken.has_value()) {
-    juce::String cookieScript = "document.cookie = '" + SESSION_COOKIE_NAME +
-                                "=" + authToken.value() +
-                                "; path=/; Secure; SameSite=Strict';";
+    juce::String cookie = SESSION_COOKIE_NAME + "=" + authToken.value() + ";";
+    cookie += " path=/;";
+#ifndef IS_DEV_ENVIRONMENT
+    cookie += " Secure;";
+#endif
+    cookie += " SameSite=Lax;";
+    juce::String cookieScript = "document.cookie = '" + cookie + "';";
     webBrowserOptions = webBrowserOptions.withUserScript(cookieScript);
   }
 
