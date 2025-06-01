@@ -11,6 +11,9 @@
 #include "PluginProcessor.h"
 #include <iostream>
 
+const auto SESSION_COOKIE_NAME = juce::String("session");
+const auto SET_AUTH_TOKEN_ROUTE = juce::String("/setAuthToken");
+
 //==============================================================================
 ModuleeAudioProcessorEditor::ModuleeAudioProcessorEditor(
     ModuleeAudioProcessor &p)
@@ -149,8 +152,10 @@ ModuleeAudioProcessorEditor::getWebviewOptions() {
   // Auth token
   auto authToken = tokenManager.getToken();
   if (authToken.has_value()) {
-    webBrowserOptions = webBrowserOptions.withInitialisationData(
-        "authToken", authToken.value());
+    juce::String cookieScript = "document.cookie = '" + SESSION_COOKIE_NAME +
+                                "=" + authToken.value() +
+                                "; path=/; Secure; SameSite=Strict';";
+    webBrowserOptions = webBrowserOptions.withUserScript(cookieScript);
   }
 
   return webBrowserOptions;
