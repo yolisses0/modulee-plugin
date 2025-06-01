@@ -1,21 +1,21 @@
 #include "AuthTokenManager.h"
 
 AuthTokenManager::AuthTokenManager() {
-  tokenFile =
+  file =
       juce::File::getSpecialLocation(juce::File::userApplicationDataDirectory)
-          .getChildFile("Modulee/token");
-  tokenFile.getParentDirectory().createDirectory();
+          .getChildFile("Modulee/authToken");
+  file.getParentDirectory().createDirectory();
 }
 
 void AuthTokenManager::setAuthToken(const juce::String &token) {
-  juce::ScopedLock lock(tokenMutex);
-  tokenFile.replaceWithText(token);
+  juce::ScopedLock lock(mutex);
+  file.replaceWithText(token);
 }
 
 std::optional<juce::String> AuthTokenManager::getAuthToken() const {
-  juce::ScopedLock lock(tokenMutex);
-  if (tokenFile.existsAsFile()) {
-    auto token = tokenFile.loadFileAsString().trim();
+  juce::ScopedLock lock(mutex);
+  if (file.existsAsFile()) {
+    auto token = file.loadFileAsString().trim();
     if (!token.isEmpty())
       return token;
   }

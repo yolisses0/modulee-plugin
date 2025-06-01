@@ -8,6 +8,6 @@ public:
   std::optional<juce::String> getAuthToken() const;
 
 private:
-  juce::File tokenFile;
-  juce::CriticalSection tokenMutex;
+  juce::File file;
+  juce::CriticalSection mutex;
 };
