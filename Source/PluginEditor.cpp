@@ -43,6 +43,7 @@ ModuleeAudioProcessorEditor::ModuleeAudioProcessorEditor(
   // size to whatever you need it to be.
   setSize(800, 600);
   setResizable(true, true);
+  setWantsKeyboardFocus(true);
 
   startServer();
   server->onCodeReceived = [this, url](const std::string &code) {
@@ -167,4 +168,34 @@ ModuleeAudioProcessorEditor::getWebviewOptions() {
 
 void ModuleeAudioProcessorEditor::openUrl(juce::String url) {
   juce::URL(url).launchInDefaultBrowser();
+}
+
+int ModuleeAudioProcessorEditor::getPitch(char key) const {
+  key = std::tolower(key);
+  // TODO make more intuitive
+  auto it = keyToNoteMap.find(key);
+  return it != keyToNoteMap.end() ? it->second : -1;
+}
+
+bool ModuleeAudioProcessorEditor::keyPressed(const juce::KeyPress &key) {
+  int pitch = getPitch(key.getTextCharacter());
+  if (pitch != -1) {
+    juce::MidiMessage noteOn = juce::MidiMessage::noteOn(1, pitch, 0.8f);
+    audioProcessor.setNoteOn(pitch);
+
+    return true;
+  }
+  return false;
+}
+
+bool ModuleeAudioProcessorEditor::keyStateChanged(bool isKeyDown) {
+  if (!isKeyDown) {
+    for (auto &pair : keyToNoteMap) {
+      if (!juce::KeyPress::isKeyCurrentlyDown(pair.first)) {
+        juce::MidiMessage noteOff = juce::MidiMessage::noteOff(1, pair.second);
+        audioProcessor.setNoteOff(pair.second);
+      }
+    }
+  }
+  return false;
 }
