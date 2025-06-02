@@ -180,9 +180,7 @@ int ModuleeAudioProcessorEditor::getPitch(char key) const {
 bool ModuleeAudioProcessorEditor::keyPressed(const juce::KeyPress &key) {
   int pitch = getPitch(key.getTextCharacter());
   if (pitch != -1) {
-    juce::MidiMessage noteOn = juce::MidiMessage::noteOn(1, pitch, 0.8f);
     audioProcessor.setNoteOn(pitch);
-
     return true;
   }
   return false;
@@ -192,7 +190,6 @@ bool ModuleeAudioProcessorEditor::keyStateChanged(bool isKeyDown) {
   if (!isKeyDown) {
     for (auto &pair : keyToNoteMap) {
       if (!juce::KeyPress::isKeyCurrentlyDown(pair.first)) {
-        juce::MidiMessage noteOff = juce::MidiMessage::noteOff(1, pair.second);
         audioProcessor.setNoteOff(pair.second);
       }
     }
