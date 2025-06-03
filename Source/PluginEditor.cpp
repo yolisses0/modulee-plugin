@@ -14,6 +14,23 @@
 const auto SESSION_COOKIE_NAME = juce::String("session");
 const auto SET_AUTH_TOKEN_ROUTE = juce::String("/setAuthToken");
 
+class KeypressThing : public juce::KeyListener {
+public:
+  KeypressThing(ModuleeAudioProcessorEditor &a)
+      : moduleeAudioProcessorEditor(a) {}
+
+  ModuleeAudioProcessorEditor &moduleeAudioProcessorEditor;
+  bool keyPressed(const juce::KeyPress &key,
+                  juce::Component *originatingComponent) override {
+    DBG("key press");
+    return moduleeAudioProcessorEditor.keyPressed(key);
+  }
+  bool keyStateChanged(bool isKeyDown,
+                       juce::Component *originatingComponent) override {
+    return moduleeAudioProcessorEditor.keyStateChanged(isKeyDown);
+  }
+};
+
 //==============================================================================
 ModuleeAudioProcessorEditor::ModuleeAudioProcessorEditor(
     ModuleeAudioProcessor &p)
@@ -23,6 +40,9 @@ ModuleeAudioProcessorEditor::ModuleeAudioProcessorEditor(
   auto webBrowserComponent = new juce::WebBrowserComponent(webBrowserOptions);
   webView.reset(webBrowserComponent);
   addAndMakeVisible(webView.get());
+
+  auto keyPressThing = new KeypressThing(*this);
+  webView.get()->addKeyListener(keyPressThing);
 
   // Determine the URL based on the build configuration and last path accessed
 #ifdef IS_DEV_ENVIRONMENT
