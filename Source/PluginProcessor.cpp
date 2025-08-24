@@ -166,9 +166,6 @@ void ModuleeAudioProcessor::processMidiMessagesFrom(
 void ModuleeAudioProcessor::processBlock(juce::AudioBuffer<float> &buffer,
                                          juce::MidiBuffer &midiMessages) {
   juce::ScopedNoDenormals noDenormals;
-  auto totalNumOutputChannels = getTotalNumOutputChannels();
-  auto numSamples = buffer.getNumSamples();
-  auto *channelData = buffer.getWritePointer(0);
 
   if (graphDataIsPending) {
     set_graph(graph.get(), pendingGraphString.c_str());
@@ -184,18 +181,21 @@ void ModuleeAudioProcessor::processBlock(juce::AudioBuffer<float> &buffer,
   processMidiMessagesFrom(uiMidiBuffer);
   uiMidiBuffer.clear();
 
-  // Process audio
-  process_block(graph.get(), channelData, numSamples);
+  auto totalNumOutputChannels = getTotalNumOutputChannels();
+  auto numSamples = buffer.getNumSamples();
+  auto *channel0Data = buffer.getWritePointer(0);
+  auto *channel1Data = buffer.getWritePointer(1);
+
+  for (auto i = 0; i < numSamples; i++) {
+    process(graph.get());
+    auto outputs = get_outputs(graph.get());
+    channel0Data[i] = outputs.output_0;
+    channel1Data[i] = outputs.output_1;
+  }
 
   if (isMuted) {
     for (auto i = 0; i < totalNumOutputChannels; ++i)
       buffer.clear(i, 0, numSamples);
-  } else {
-    // Copy the output to other channels. This will be replaced once the app
-    // allow stereo output
-    for (int channel = 1; channel < totalNumOutputChannels; ++channel) {
-      buffer.copyFrom(channel, 0, buffer, 0, 0, numSamples);
-    }
   }
 }
 
