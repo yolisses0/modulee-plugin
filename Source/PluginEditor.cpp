@@ -102,6 +102,8 @@ ModuleeAudioProcessorEditor::getWebviewOptions() {
           .withNativeIntegrationEnabled()
           .withWinWebView2Options(winWebViewOptions)
           .withInitialisationData("lastPage", audioProcessor.lastPath)
+          .withInitialisationData("versionString", ProjectInfo::versionString)
+          .withInitialisationData("versionNumber", ProjectInfo::versionNumber)
           .withBackend(juce::WebBrowserComponent::Options::Backend::webview2)
           // Auth token
           .withEventListener("setAuthToken",
