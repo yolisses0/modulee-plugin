@@ -68,18 +68,14 @@ Name: "tamil"; MessagesFile: "compiler:Languages\Tamil.isl"
 Name: "turkish"; MessagesFile: "compiler:Languages\Turkish.isl"
 Name: "ukrainian"; MessagesFile: "compiler:Languages\Ukrainian.isl"
 
-[Tasks]
-Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
-
 [Files]
-Source: "C:\Users\yolis\Modulee\modulee-plugin\Builds\VisualStudio2022\x64\Release\Standalone Plugin\{#MyAppExeName}"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\Users\yolis\Modulee\modulee-plugin\Builds\VisualStudio2022\x64\Release\VST3\Modulee.vst3\Contents\x86_64-win\Modulee.vst3"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\Users\yolis\Modulee\modulee-plugin\Builds\VisualStudio2022\x64\Release\VST3\Modulee.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "x64\Release\Standalone Plugin\{#MyAppExeName}"; DestDir: "{app}"; Flags: ignoreversion
+Source: "x64\Release\VST3\Modulee.vst3\Contents\x86_64-win\Modulee.vst3"; DestDir: "{commoncf}\VST3"; Flags: ignoreversion
+Source: "x64\Release\VST3\Modulee.dll"; DestDir: "{commoncf}\VST2"; Flags: ignoreversion
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]
 Name: "{autoprograms}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"
-Name: "{autodesktop}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; Tasks: desktopicon
 
 [Run]
 Filename: "{app}\{#MyAppExeName}"; Description: "{cm:LaunchProgram,{#StringChange(MyAppName, '&', '&&')}}"; Flags: nowait postinstall skipifsilent
