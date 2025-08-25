@@ -1,1 +1,53 @@
-test1
+Terms of Use for Modulee
+Last Updated: August 20, 2025
+
+By using Modulee, you agree to these Terms of Use ("Terms"). If you do not agree, do not use the App.
+
+Acceptance of Terms
+By using Modulee, you confirm you are at least 18 years old or have legal permission from a guardian, and agree to comply with these Terms and applicable laws.
+
+Use of the App
+You may not:
+- Use Modulee for illegal activities or to harm others.
+- Interfere with Modulee’s functionality or security.
+- Mislead others about the origin, functionality, or ownership of modules or Modulee.
+- Create fake or repeated content to gain visibility.
+
+User Accounts
+Modulee uses Google Sign-In for authentication. You are responsible for securing your Google account.
+We may suspend or terminate access for violations of these Terms.
+
+User-Created Content
+You retain ownership of the content (e.g.: modules, tiles, descriptions) you create, but grant us and other users a non-exclusive, worldwide, royalty-free license to host, display, share, and create derivative works from them as part of Modulee’s functionality. You are responsible for ensuring your modules, titles, and descriptions do not infringe on third-party rights or mislead others about their purpose or origin.
+
+Content Guidelines
+Module titles, descriptions, and modules must:
+- Not contain offensive, discriminatory, or inappropriate language.
+- Not include copyrighted material without permission.
+- Not mislead users about the module’s functionality, origin, or ownership.
+- Not contain malicious code, cause system crashes, or overload devices.
+We may remove or reject content violating these guidelines.
+
+Intellectual Property
+Modulee’s source code is licensed under the MIT License. The Modulee logo and name are owned by the developer and may not be used without express permission. You may not reproduce or distribute Modulee’s non-open-source assets without permission.
+
+Privacy
+Your use of Modulee is subject to our Privacy Policy[](https://modulee.app/privacy-policy).
+
+Termination
+We may suspend or terminate your access to Modulee for violating these Terms or at our discretion.
+
+Disclaimer of Warranties
+Modulee is provided "as is" without warranties. We do not guarantee uninterrupted or error-free service.
+
+Limitation of Liability
+To the fullest extent permitted by law, the developer is not liable for damages arising from your use of Modulee.
+
+Changes to Terms
+We may update these Terms. Continued use of Modulee after changes constitutes acceptance of the new Terms.
+
+Governing Law
+These Terms are governed by the laws of the jurisdiction where the developer operates. Disputes will be resolved in courts located in Paraíba, Brazil.
+
+Contact
+For questions, contact moduleeapp@gmail.com.
