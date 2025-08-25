@@ -29,11 +29,11 @@ ArchitecturesAllowed=x64compatible
 ; the 64-bit view of the registry.
 ArchitecturesInstallIn64BitMode=x64compatible
 DisableProgramGroupPage=yes
-LicenseFile=C:\Users\yolis\Modulee\modulee-plugin\Builds\VisualStudio2022\license.txt
+LicenseFile=license.txt
 ; Uncomment the following line to run in non administrative install mode (install for current user only).
 ;PrivilegesRequired=lowest
 OutputBaseFilename=ModuleeInstaller
-SetupIconFile=C:\Users\yolis\Modulee\modulee-plugin\Builds\VisualStudio2022\icon.ico
+SetupIconFile=icon.ico
 SolidCompression=yes
 WizardStyle=modern
 
