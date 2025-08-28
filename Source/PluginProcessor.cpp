@@ -59,7 +59,7 @@ ModuleeAudioProcessor::ModuleeAudioProcessor()
 #endif
 {
   isMuted = false;
-  graph.reset(create_graph_pointer());
+  graph.reset(create_graph_pointer(this->getSampleRate()));
 }
 
 ModuleeAudioProcessor::~ModuleeAudioProcessor() {}
@@ -117,6 +117,7 @@ void ModuleeAudioProcessor::prepareToPlay(double sampleRate,
                                           int samplesPerBlock) {
   // Use this method as the place to do any pre-playback
   // initialisation that you need..
+  set_sample_rate(graph.get(), sampleRate);
 }
 
 void ModuleeAudioProcessor::releaseResources() {
