@@ -5,6 +5,13 @@ jobs:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Install Rust
+        run: curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+      - name: Build Rust Component
+        run: |
+          source $HOME/.cargo/env
+          cd Vendor/modulee-engine-clib
+          cargo build --release
       - name: Clone JUCE
         run: git clone https://github.com/juce-framework/JUCE.git ~/JUCE
       - name: Build Xcode Project
