@@ -882,7 +882,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				CONFIGURATION_BUILD_DIR = "$(PROJECT_DIR)/build/$(CONFIGURATION)";
 				COPY_PHASE_STRIP = NO;
-				EXCLUDED_ARCHS = "";
+				EXCLUDED_ARCHS = "i386 arm64 arm64e";
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -972,14 +972,17 @@
 					"$(inherited)",
 				);
 				INSTALL_PATH = "@executable_path/../Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"../../Vendor/modulee-engine-clib/target/debug\"",
+				);
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				MTL_HEADER_SEARCH_PATHS = "$(HOME)/JUCE/modules/juce_audio_processors/format_types/VST3_SDK $(SRCROOT)/../../JuceLibraryCode $(HOME)/JUCE/modules $(HOME)/JUCE/modules/juce_audio_plugin_client/AU";
-				OTHER_LDFLAGS = "-L../../Vendor/modulee-engine-clib/target/debug";
 				PRODUCT_BUNDLE_IDENTIFIER = com.Yolisses.Modulee;
 				PRODUCT_NAME = "Modulee";
 				SKIP_INSTALL = YES;
 				USE_HEADERMAP = NO;
-				VALID_ARCHS = "i386 x86_64 arm64 arm64e";
+				VALID_ARCHS = "x86_64";
 			};
 			name = Debug;
 		};
@@ -992,7 +995,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				CONFIGURATION_BUILD_DIR = "$(PROJECT_DIR)/build/$(CONFIGURATION)";
 				COPY_PHASE_STRIP = NO;
-				EXCLUDED_ARCHS = "";
+				EXCLUDED_ARCHS = "i386 arm64 arm64e";
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -1082,13 +1085,16 @@
 				);
 				INFOPLIST_FILE = Info-VST3_Manifest_Helper.plist;
 				INFOPLIST_PREPROCESS = NO;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"../../Vendor/modulee-engine-clib/target/debug\"",
+				);
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				MTL_HEADER_SEARCH_PATHS = "$(HOME)/JUCE/modules/juce_audio_processors/format_types/VST3_SDK $(SRCROOT)/../../JuceLibraryCode $(HOME)/JUCE/modules $(HOME)/JUCE/modules/juce_audio_plugin_client/AU";
-				OTHER_LDFLAGS = "-L../../Vendor/modulee-engine-clib/target/debug";
 				PRODUCT_BUNDLE_IDENTIFIER = com.Yolisses.Modulee;
 				PRODUCT_NAME = "juce_vst3_helper";
 				USE_HEADERMAP = NO;
-				VALID_ARCHS = "i386 x86_64 arm64 arm64e";
+				VALID_ARCHS = "x86_64";
 			};
 			name = Debug;
 		};
@@ -1101,7 +1107,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				CONFIGURATION_BUILD_DIR = "$(PROJECT_DIR)/build/$(CONFIGURATION)";
 				COPY_PHASE_STRIP = NO;
-				EXCLUDED_ARCHS = "";
+				EXCLUDED_ARCHS = "i386 arm64 arm64e";
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -1191,13 +1197,17 @@
 				);
 				INFOPLIST_FILE = Info-Standalone_Plugin.plist;
 				INFOPLIST_PREPROCESS = NO;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"../../Vendor/modulee-engine-clib/target/debug\"",
+				);
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				MTL_HEADER_SEARCH_PATHS = "$(HOME)/JUCE/modules/juce_audio_processors/format_types/VST3_SDK $(SRCROOT)/../../JuceLibraryCode $(HOME)/JUCE/modules $(HOME)/JUCE/modules/juce_audio_plugin_client/AU";
-				OTHER_LDFLAGS = "-lModulee -lmodulee_engine -L../../Vendor/modulee-engine-clib/target/debug";
+				OTHER_LDFLAGS = "-lModulee -lmodulee_engine";
 				PRODUCT_BUNDLE_IDENTIFIER = com.Yolisses.Modulee;
 				PRODUCT_NAME = "Modulee";
 				USE_HEADERMAP = NO;
-				VALID_ARCHS = "i386 x86_64 arm64 arm64e";
+				VALID_ARCHS = "x86_64";
 			};
 			name = Debug;
 		};
@@ -1210,7 +1220,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				CONFIGURATION_BUILD_DIR = "$(PROJECT_DIR)/build/$(CONFIGURATION)";
 				DEAD_CODE_STRIPPING = YES;
-				EXCLUDED_ARCHS = "";
+				EXCLUDED_ARCHS = "i386 arm64 arm64e";
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -1300,14 +1310,18 @@
 				);
 				INFOPLIST_FILE = Info-Standalone_Plugin.plist;
 				INFOPLIST_PREPROCESS = NO;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"../../Vendor/modulee-engine-clib/target/release\"",
+				);
 				LLVM_LTO = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				MTL_HEADER_SEARCH_PATHS = "$(HOME)/JUCE/modules/juce_audio_processors/format_types/VST3_SDK $(SRCROOT)/../../JuceLibraryCode $(HOME)/JUCE/modules $(HOME)/JUCE/modules/juce_audio_plugin_client/AU";
-				OTHER_LDFLAGS = "-lModulee -lmodulee_engine -L../../Vendor/modulee-engine-clib/target/release";
+				OTHER_LDFLAGS = "-lModulee -lmodulee_engine";
 				PRODUCT_BUNDLE_IDENTIFIER = com.Yolisses.Modulee;
 				PRODUCT_NAME = "Modulee";
 				USE_HEADERMAP = NO;
-				VALID_ARCHS = "i386 x86_64 arm64 arm64e";
+				VALID_ARCHS = "x86_64";
 			};
 			name = Release;
 		};
@@ -1320,7 +1334,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				CONFIGURATION_BUILD_DIR = "$(PROJECT_DIR)/build/$(CONFIGURATION)";
 				DEAD_CODE_STRIPPING = YES;
-				EXCLUDED_ARCHS = "";
+				EXCLUDED_ARCHS = "i386 arm64 arm64e";
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -1410,14 +1424,17 @@
 				);
 				INFOPLIST_FILE = Info-VST3_Manifest_Helper.plist;
 				INFOPLIST_PREPROCESS = NO;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"../../Vendor/modulee-engine-clib/target/release\"",
+				);
 				LLVM_LTO = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				MTL_HEADER_SEARCH_PATHS = "$(HOME)/JUCE/modules/juce_audio_processors/format_types/VST3_SDK $(SRCROOT)/../../JuceLibraryCode $(HOME)/JUCE/modules $(HOME)/JUCE/modules/juce_audio_plugin_client/AU";
-				OTHER_LDFLAGS = "-L../../Vendor/modulee-engine-clib/target/release";
 				PRODUCT_BUNDLE_IDENTIFIER = com.Yolisses.Modulee;
 				PRODUCT_NAME = "juce_vst3_helper";
 				USE_HEADERMAP = NO;
-				VALID_ARCHS = "i386 x86_64 arm64 arm64e";
+				VALID_ARCHS = "x86_64";
 			};
 			name = Release;
 		};
@@ -1430,7 +1447,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				CONFIGURATION_BUILD_DIR = "$(PROJECT_DIR)/build/$(CONFIGURATION)";
 				COPY_PHASE_STRIP = NO;
-				EXCLUDED_ARCHS = "";
+				EXCLUDED_ARCHS = "i386 arm64 arm64e";
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -1522,14 +1539,18 @@
 				INFOPLIST_FILE = Info-VST3.plist;
 				INFOPLIST_PREPROCESS = NO;
 				INSTALL_PATH = "$(HOME)/Library/Audio/Plug-Ins/VST3/";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"../../Vendor/modulee-engine-clib/target/debug\"",
+				);
 				LIBRARY_STYLE = Bundle;
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				MTL_HEADER_SEARCH_PATHS = "$(HOME)/JUCE/modules/juce_audio_processors/format_types/VST3_SDK $(SRCROOT)/../../JuceLibraryCode $(HOME)/JUCE/modules $(HOME)/JUCE/modules/juce_audio_plugin_client/AU";
-				OTHER_LDFLAGS = "-bundle -lModulee -lmodulee_engine -L../../Vendor/modulee-engine-clib/target/debug";
+				OTHER_LDFLAGS = "-bundle -lModulee -lmodulee_engine";
 				PRODUCT_BUNDLE_IDENTIFIER = com.Yolisses.Modulee;
 				PRODUCT_NAME = "Modulee";
 				USE_HEADERMAP = NO;
-				VALID_ARCHS = "i386 x86_64 arm64 arm64e";
+				VALID_ARCHS = "x86_64";
 				WRAPPER_EXTENSION = vst3;
 			};
 			name = Debug;
@@ -1599,7 +1620,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				CONFIGURATION_BUILD_DIR = "$(PROJECT_DIR)/build/$(CONFIGURATION)";
 				DEAD_CODE_STRIPPING = YES;
-				EXCLUDED_ARCHS = "";
+				EXCLUDED_ARCHS = "i386 arm64 arm64e";
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -1691,15 +1712,19 @@
 				INFOPLIST_FILE = Info-VST3.plist;
 				INFOPLIST_PREPROCESS = NO;
 				INSTALL_PATH = "$(HOME)/Library/Audio/Plug-Ins/VST3/";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"../../Vendor/modulee-engine-clib/target/release\"",
+				);
 				LIBRARY_STYLE = Bundle;
 				LLVM_LTO = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				MTL_HEADER_SEARCH_PATHS = "$(HOME)/JUCE/modules/juce_audio_processors/format_types/VST3_SDK $(SRCROOT)/../../JuceLibraryCode $(HOME)/JUCE/modules $(HOME)/JUCE/modules/juce_audio_plugin_client/AU";
-				OTHER_LDFLAGS = "-bundle -lModulee -lmodulee_engine -L../../Vendor/modulee-engine-clib/target/release";
+				OTHER_LDFLAGS = "-bundle -lModulee -lmodulee_engine";
 				PRODUCT_BUNDLE_IDENTIFIER = com.Yolisses.Modulee;
 				PRODUCT_NAME = "Modulee";
 				USE_HEADERMAP = NO;
-				VALID_ARCHS = "i386 x86_64 arm64 arm64e";
+				VALID_ARCHS = "x86_64";
 				WRAPPER_EXTENSION = vst3;
 			};
 			name = Release;
@@ -1713,7 +1738,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				CONFIGURATION_BUILD_DIR = "$(PROJECT_DIR)/build/$(CONFIGURATION)";
 				DEAD_CODE_STRIPPING = YES;
-				EXCLUDED_ARCHS = "";
+				EXCLUDED_ARCHS = "i386 arm64 arm64e";
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -1803,15 +1828,18 @@
 					"$(inherited)",
 				);
 				INSTALL_PATH = "@executable_path/../Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"../../Vendor/modulee-engine-clib/target/release\"",
+				);
 				LLVM_LTO = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				MTL_HEADER_SEARCH_PATHS = "$(HOME)/JUCE/modules/juce_audio_processors/format_types/VST3_SDK $(SRCROOT)/../../JuceLibraryCode $(HOME)/JUCE/modules $(HOME)/JUCE/modules/juce_audio_plugin_client/AU";
-				OTHER_LDFLAGS = "-L../../Vendor/modulee-engine-clib/target/release";
 				PRODUCT_BUNDLE_IDENTIFIER = com.Yolisses.Modulee;
 				PRODUCT_NAME = "Modulee";
 				SKIP_INSTALL = YES;
 				USE_HEADERMAP = NO;
-				VALID_ARCHS = "i386 x86_64 arm64 arm64e";
+				VALID_ARCHS = "x86_64";
 			};
 			name = Release;
 		};
@@ -1824,7 +1852,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				CONFIGURATION_BUILD_DIR = "$(PROJECT_DIR)/build/$(CONFIGURATION)";
 				COPY_PHASE_STRIP = NO;
-				EXCLUDED_ARCHS = "";
+				EXCLUDED_ARCHS = "i386 arm64 arm64e";
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -1916,15 +1944,19 @@
 				INFOPLIST_FILE = Info-AU.plist;
 				INFOPLIST_PREPROCESS = NO;
 				INSTALL_PATH = "$(HOME)/Library/Audio/Plug-Ins/Components/";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"../../Vendor/modulee-engine-clib/target/debug\"",
+				);
 				LIBRARY_STYLE = Bundle;
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				MTL_HEADER_SEARCH_PATHS = "$(HOME)/JUCE/modules/juce_audio_processors/format_types/VST3_SDK $(SRCROOT)/../../JuceLibraryCode $(HOME)/JUCE/modules $(HOME)/JUCE/modules/juce_audio_plugin_client/AU";
-				OTHER_LDFLAGS = "-bundle -lModulee -lmodulee_engine -L../../Vendor/modulee-engine-clib/target/debug";
+				OTHER_LDFLAGS = "-bundle -lModulee -lmodulee_engine";
 				OTHER_REZFLAGS = "-d ppc_$ppc -d i386_$i386 -d ppc64_$ppc64 -d x86_64_$x86_64 -d arm64_$arm64 -I /System/Library/Frameworks/CoreServices.framework/Frameworks/CarbonCore.framework/Versions/A/Headers -I \"$(DEVELOPER_DIR)/Extras/CoreAudio/AudioUnits/AUPublic/AUBase\" -I \"$(DEVELOPER_DIR)/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks/AudioUnit.framework/Headers\"";
 				PRODUCT_BUNDLE_IDENTIFIER = com.Yolisses.Modulee;
 				PRODUCT_NAME = "Modulee";
 				USE_HEADERMAP = NO;
-				VALID_ARCHS = "i386 x86_64 arm64 arm64e";
+				VALID_ARCHS = "x86_64";
 				WRAPPER_EXTENSION = component;
 			};
 			name = Debug;
@@ -1938,7 +1970,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				CONFIGURATION_BUILD_DIR = "$(PROJECT_DIR)/build/$(CONFIGURATION)";
 				DEAD_CODE_STRIPPING = YES;
-				EXCLUDED_ARCHS = "";
+				EXCLUDED_ARCHS = "i386 arm64 arm64e";
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -2030,16 +2062,20 @@
 				INFOPLIST_FILE = Info-AU.plist;
 				INFOPLIST_PREPROCESS = NO;
 				INSTALL_PATH = "$(HOME)/Library/Audio/Plug-Ins/Components/";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"../../Vendor/modulee-engine-clib/target/release\"",
+				);
 				LIBRARY_STYLE = Bundle;
 				LLVM_LTO = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				MTL_HEADER_SEARCH_PATHS = "$(HOME)/JUCE/modules/juce_audio_processors/format_types/VST3_SDK $(SRCROOT)/../../JuceLibraryCode $(HOME)/JUCE/modules $(HOME)/JUCE/modules/juce_audio_plugin_client/AU";
-				OTHER_LDFLAGS = "-bundle -lModulee -lmodulee_engine -L../../Vendor/modulee-engine-clib/target/release";
+				OTHER_LDFLAGS = "-bundle -lModulee -lmodulee_engine";
 				OTHER_REZFLAGS = "-d ppc_$ppc -d i386_$i386 -d ppc64_$ppc64 -d x86_64_$x86_64 -d arm64_$arm64 -I /System/Library/Frameworks/CoreServices.framework/Frameworks/CarbonCore.framework/Versions/A/Headers -I \"$(DEVELOPER_DIR)/Extras/CoreAudio/AudioUnits/AUPublic/AUBase\" -I \"$(DEVELOPER_DIR)/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks/AudioUnit.framework/Headers\"";
 				PRODUCT_BUNDLE_IDENTIFIER = com.Yolisses.Modulee;
 				PRODUCT_NAME = "Modulee";
 				USE_HEADERMAP = NO;
-				VALID_ARCHS = "i386 x86_64 arm64 arm64e";
+				VALID_ARCHS = "x86_64";
 				WRAPPER_EXTENSION = component;
 			};
 			name = Release;
