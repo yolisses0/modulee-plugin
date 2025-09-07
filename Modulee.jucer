@@ -48,11 +48,12 @@
                JUCE_USE_WIN_WEBVIEW2="1" JUCE_USE_WIN_WEBVIEW2_WITH_STATIC_LINKING="1"
                JUCE_WEB_BROWSER="1"/>
   <EXPORTFORMATS>
-    <LINUX_MAKE targetFolder="Builds/LinuxMakefile" extraLinkerFlags="-L&quot;../../Vendor/modulee-engine-clib/target/debug&quot;"
-                externalLibraries="modulee_engine" smallIcon="JHcQOq" bigIcon="fRV8cR">
+    <LINUX_MAKE targetFolder="Builds/LinuxMakefile" externalLibraries="modulee_engine"
+                smallIcon="JHcQOq" bigIcon="fRV8cR">
       <CONFIGURATIONS>
-        <CONFIGURATION isDebug="1" name="Debug" targetName="Modulee" defines="IS_DEV_ENVIRONMENT"/>
-        <CONFIGURATION name="Release" targetName="Modulee" isDebug="0"/>
+        <CONFIGURATION isDebug="1" name="Debug" targetName="Modulee" defines="IS_DEV_ENVIRONMENT"
+                       extraLinkerFlags="-L&quot;../../Vendor/modulee-engine-clib/target/debug&quot;"/>
+        <CONFIGURATION name="Release" targetName="Modulee" isDebug="0" extraLinkerFlags="-L&quot;../../Vendor/modulee-engine-clib/target/release&quot;"/>
       </CONFIGURATIONS>
       <MODULEPATHS>
         <MODULEPATH id="juce_audio_basics" path="../../../JUCE/modules"/>
@@ -92,10 +93,11 @@
         <MODULEPATH id="juce_gui_extra" path="../../juce"/>
       </MODULEPATHS>
     </VS2022>
-    <XCODE_MAC targetFolder="Builds/MacOSX">
+    <XCODE_MAC targetFolder="Builds/MacOSX" smallIcon="JHcQOq" bigIcon="fRV8cR"
+               externalLibraries="modulee_engine">
       <CONFIGURATIONS>
-        <CONFIGURATION isDebug="1" name="Debug"/>
-        <CONFIGURATION isDebug="0" name="Release"/>
+        <CONFIGURATION isDebug="1" name="Debug" extraLinkerFlags="-L&quot;../../Vendor/modulee-engine-clib/target/debug&quot;"/>
+        <CONFIGURATION isDebug="0" name="Release" extraLinkerFlags="-L&quot;../../Vendor/modulee-engine-clib/target/release&quot;"/>
       </CONFIGURATIONS>
       <MODULEPATHS>
         <MODULEPATH id="juce_audio_basics" path="../../juce"/>

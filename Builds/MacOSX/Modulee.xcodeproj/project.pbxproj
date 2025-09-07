@@ -63,6 +63,7 @@
 		CC3A62DDE3ED034E0DE52B78 /* WebKit.framework */ = {isa = PBXBuildFile; fileRef = F4B914885BA59E799CC329C6; };
 		CF4D017DD52EC65BAB2E0C2F /* Standalone Plugin */ = {isa = PBXBuildFile; fileRef = A69C15C58CC063C412C99E06; };
 		D649076DDA2CBC4ADFEECF11 /* AudioToolbox.framework */ = {isa = PBXBuildFile; fileRef = 40F6F5AB7F9621A90D2D8AD4; };
+		DA97B72752529DC2CF45694A /* Icon.icns */ = {isa = PBXBuildFile; fileRef = 98A8E6D7D1BB4046326A1295; };
 		E011D5F96ECB40B9FDA91E12 /* Shared Code */ = {isa = PBXBuildFile; fileRef = 8F58A0282DFAFDA831331FD5; };
 		E12630FD26DE7D1136A2FFE4 /* Cocoa.framework */ = {isa = PBXBuildFile; fileRef = B723D88E2A856C270EC00188; };
 		E507C482BFD6E756A13CFFC5 /* include_juce_audio_processors_ara.cpp */ = {isa = PBXBuildFile; fileRef = 137D6E83654F57A1726C3DAB; };
@@ -125,6 +126,7 @@
 		8F58A0282DFAFDA831331FD5 /* Shared Code */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libModulee.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		92842FC5219A5E4BD58EF295 /* logo1024x1024.png */ /* logo1024x1024.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = logo1024x1024.png; path = ../../Icon/logo1024x1024.png; sourceTree = SOURCE_ROOT; };
 		93675413BAE3586D8CD2E0B4 /* Info-VST3_Manifest_Helper.plist */ /* Info-VST3_Manifest_Helper.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Info-VST3_Manifest_Helper.plist"; path = "Info-VST3_Manifest_Helper.plist"; sourceTree = SOURCE_ROOT; };
+		98A8E6D7D1BB4046326A1295 /* Icon.icns */ /* Icon.icns */ = {isa = PBXFileReference; lastKnownFileType = file.icns; name = Icon.icns; path = Icon.icns; sourceTree = SOURCE_ROOT; };
 		9A1699E8C0522F50ABBA812A /* include_juce_graphics_Sheenbidi.c */ /* include_juce_graphics_Sheenbidi.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = include_juce_graphics_Sheenbidi.c; path = ../../JuceLibraryCode/include_juce_graphics_Sheenbidi.c; sourceTree = SOURCE_ROOT; };
 		9B95960F20B81B715CE26EC9 /* Security.framework */ /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		A69C15C58CC063C412C99E06 /* Standalone Plugin */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Modulee.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -359,6 +361,7 @@
 				0338736BE8D5FA275FDFA6EC,
 				93675413BAE3586D8CD2E0B4,
 				FC35A3E9C0F0FC23BA281BE4,
+				98A8E6D7D1BB4046326A1295,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -648,6 +651,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6A53F5D4746D38A0A296817E,
+				DA97B72752529DC2CF45694A,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -656,6 +660,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6A53F5D4746D38A0A296817E,
+				DA97B72752529DC2CF45694A,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -664,6 +669,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6A53F5D4746D38A0A296817E,
+				DA97B72752529DC2CF45694A,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -968,6 +974,7 @@
 				INSTALL_PATH = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				MTL_HEADER_SEARCH_PATHS = "$(HOME)/JUCE/modules/juce_audio_processors/format_types/VST3_SDK $(SRCROOT)/../../JuceLibraryCode $(HOME)/JUCE/modules $(HOME)/JUCE/modules/juce_audio_plugin_client/AU";
+				OTHER_LDFLAGS = "-L"../../Vendor/modulee-engine-clib/target/debug";
 				PRODUCT_BUNDLE_IDENTIFIER = com.Yolisses.Modulee;
 				PRODUCT_NAME = "Modulee";
 				SKIP_INSTALL = YES;
@@ -1077,6 +1084,7 @@
 				INFOPLIST_PREPROCESS = NO;
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				MTL_HEADER_SEARCH_PATHS = "$(HOME)/JUCE/modules/juce_audio_processors/format_types/VST3_SDK $(SRCROOT)/../../JuceLibraryCode $(HOME)/JUCE/modules $(HOME)/JUCE/modules/juce_audio_plugin_client/AU";
+				OTHER_LDFLAGS = "-L"../../Vendor/modulee-engine-clib/target/debug";
 				PRODUCT_BUNDLE_IDENTIFIER = com.Yolisses.Modulee;
 				PRODUCT_NAME = "juce_vst3_helper";
 				USE_HEADERMAP = NO;
@@ -1185,7 +1193,7 @@
 				INFOPLIST_PREPROCESS = NO;
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				MTL_HEADER_SEARCH_PATHS = "$(HOME)/JUCE/modules/juce_audio_processors/format_types/VST3_SDK $(SRCROOT)/../../JuceLibraryCode $(HOME)/JUCE/modules $(HOME)/JUCE/modules/juce_audio_plugin_client/AU";
-				OTHER_LDFLAGS = "-lModulee";
+				OTHER_LDFLAGS = "-lModulee -lmodulee_engine -L"../../Vendor/modulee-engine-clib/target/debug";
 				PRODUCT_BUNDLE_IDENTIFIER = com.Yolisses.Modulee;
 				PRODUCT_NAME = "Modulee";
 				USE_HEADERMAP = NO;
@@ -1295,7 +1303,7 @@
 				LLVM_LTO = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				MTL_HEADER_SEARCH_PATHS = "$(HOME)/JUCE/modules/juce_audio_processors/format_types/VST3_SDK $(SRCROOT)/../../JuceLibraryCode $(HOME)/JUCE/modules $(HOME)/JUCE/modules/juce_audio_plugin_client/AU";
-				OTHER_LDFLAGS = "-lModulee";
+				OTHER_LDFLAGS = "-lModulee -lmodulee_engine -L"../../Vendor/modulee-engine-clib/target/release";
 				PRODUCT_BUNDLE_IDENTIFIER = com.Yolisses.Modulee;
 				PRODUCT_NAME = "Modulee";
 				USE_HEADERMAP = NO;
@@ -1405,6 +1413,7 @@
 				LLVM_LTO = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				MTL_HEADER_SEARCH_PATHS = "$(HOME)/JUCE/modules/juce_audio_processors/format_types/VST3_SDK $(SRCROOT)/../../JuceLibraryCode $(HOME)/JUCE/modules $(HOME)/JUCE/modules/juce_audio_plugin_client/AU";
+				OTHER_LDFLAGS = "-L"../../Vendor/modulee-engine-clib/target/release";
 				PRODUCT_BUNDLE_IDENTIFIER = com.Yolisses.Modulee;
 				PRODUCT_NAME = "juce_vst3_helper";
 				USE_HEADERMAP = NO;
@@ -1516,7 +1525,7 @@
 				LIBRARY_STYLE = Bundle;
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				MTL_HEADER_SEARCH_PATHS = "$(HOME)/JUCE/modules/juce_audio_processors/format_types/VST3_SDK $(SRCROOT)/../../JuceLibraryCode $(HOME)/JUCE/modules $(HOME)/JUCE/modules/juce_audio_plugin_client/AU";
-				OTHER_LDFLAGS = "-bundle -lModulee";
+				OTHER_LDFLAGS = "-bundle -lModulee -lmodulee_engine -L"../../Vendor/modulee-engine-clib/target/debug";
 				PRODUCT_BUNDLE_IDENTIFIER = com.Yolisses.Modulee;
 				PRODUCT_NAME = "Modulee";
 				USE_HEADERMAP = NO;
@@ -1686,7 +1695,7 @@
 				LLVM_LTO = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				MTL_HEADER_SEARCH_PATHS = "$(HOME)/JUCE/modules/juce_audio_processors/format_types/VST3_SDK $(SRCROOT)/../../JuceLibraryCode $(HOME)/JUCE/modules $(HOME)/JUCE/modules/juce_audio_plugin_client/AU";
-				OTHER_LDFLAGS = "-bundle -lModulee";
+				OTHER_LDFLAGS = "-bundle -lModulee -lmodulee_engine -L"../../Vendor/modulee-engine-clib/target/release";
 				PRODUCT_BUNDLE_IDENTIFIER = com.Yolisses.Modulee;
 				PRODUCT_NAME = "Modulee";
 				USE_HEADERMAP = NO;
@@ -1797,6 +1806,7 @@
 				LLVM_LTO = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				MTL_HEADER_SEARCH_PATHS = "$(HOME)/JUCE/modules/juce_audio_processors/format_types/VST3_SDK $(SRCROOT)/../../JuceLibraryCode $(HOME)/JUCE/modules $(HOME)/JUCE/modules/juce_audio_plugin_client/AU";
+				OTHER_LDFLAGS = "-L"../../Vendor/modulee-engine-clib/target/release";
 				PRODUCT_BUNDLE_IDENTIFIER = com.Yolisses.Modulee;
 				PRODUCT_NAME = "Modulee";
 				SKIP_INSTALL = YES;
@@ -1909,7 +1919,7 @@
 				LIBRARY_STYLE = Bundle;
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				MTL_HEADER_SEARCH_PATHS = "$(HOME)/JUCE/modules/juce_audio_processors/format_types/VST3_SDK $(SRCROOT)/../../JuceLibraryCode $(HOME)/JUCE/modules $(HOME)/JUCE/modules/juce_audio_plugin_client/AU";
-				OTHER_LDFLAGS = "-bundle -lModulee";
+				OTHER_LDFLAGS = "-bundle -lModulee -lmodulee_engine -L"../../Vendor/modulee-engine-clib/target/debug";
 				OTHER_REZFLAGS = "-d ppc_$ppc -d i386_$i386 -d ppc64_$ppc64 -d x86_64_$x86_64 -d arm64_$arm64 -I /System/Library/Frameworks/CoreServices.framework/Frameworks/CarbonCore.framework/Versions/A/Headers -I \"$(DEVELOPER_DIR)/Extras/CoreAudio/AudioUnits/AUPublic/AUBase\" -I \"$(DEVELOPER_DIR)/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks/AudioUnit.framework/Headers\"";
 				PRODUCT_BUNDLE_IDENTIFIER = com.Yolisses.Modulee;
 				PRODUCT_NAME = "Modulee";
@@ -2024,7 +2034,7 @@
 				LLVM_LTO = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				MTL_HEADER_SEARCH_PATHS = "$(HOME)/JUCE/modules/juce_audio_processors/format_types/VST3_SDK $(SRCROOT)/../../JuceLibraryCode $(HOME)/JUCE/modules $(HOME)/JUCE/modules/juce_audio_plugin_client/AU";
-				OTHER_LDFLAGS = "-bundle -lModulee";
+				OTHER_LDFLAGS = "-bundle -lModulee -lmodulee_engine -L"../../Vendor/modulee-engine-clib/target/release";
 				OTHER_REZFLAGS = "-d ppc_$ppc -d i386_$i386 -d ppc64_$ppc64 -d x86_64_$x86_64 -d arm64_$arm64 -I /System/Library/Frameworks/CoreServices.framework/Frameworks/CarbonCore.framework/Versions/A/Headers -I \"$(DEVELOPER_DIR)/Extras/CoreAudio/AudioUnits/AUPublic/AUBase\" -I \"$(DEVELOPER_DIR)/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks/AudioUnit.framework/Headers\"";
 				PRODUCT_BUNDLE_IDENTIFIER = com.Yolisses.Modulee;
 				PRODUCT_NAME = "Modulee";
