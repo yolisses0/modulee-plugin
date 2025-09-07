@@ -20,3 +20,10 @@ jobs:
         run: xcodebuild -project Builds/MacOSX/Modulee.xcodeproj -configuration Release -arch x86_64 -IDEPackageSupportUseBuiltinSCM=YES
         env:
           JUCE_PATH: ~/JUCE
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: modulee-build
+          path: |
+            Builds/MacOSX/build/Release/
+            ~/Library/Audio/Plug-Ins/
