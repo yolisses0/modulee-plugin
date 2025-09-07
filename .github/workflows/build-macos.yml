@@ -5,5 +5,9 @@ jobs:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Clone JUCE
+        run: git clone https://github.com/juce-framework/JUCE.git ~/JUCE
       - name: Build Xcode Project
-        run: xcodebuild -project Builds/MacOSX/Modulee.xcodeproj -configuration Release
+        run: xcodebuild -project Builds/MacOSX/Modulee.xcodeproj -configuration Release -IDEPackageSupportUseBuiltinSCM=YES
+        env:
+          JUCE_PATH: ~/JUCE
