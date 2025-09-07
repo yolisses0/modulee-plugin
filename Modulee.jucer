@@ -96,8 +96,8 @@
     <XCODE_MAC targetFolder="Builds/MacOSX" smallIcon="JHcQOq" bigIcon="fRV8cR"
                externalLibraries="modulee_engine" xcodeValidArchs="x86_64">
       <CONFIGURATIONS>
-        <CONFIGURATION isDebug="1" name="Debug" libraryPath="../../Vendor/modulee-engine-clib/target/debug"/>
-        <CONFIGURATION isDebug="0" name="Release" libraryPath="../../Vendor/modulee-engine-clib/target/release"/>
+        <CONFIGURATION isDebug="1" name="Debug" libraryPath="../../Vendor/modulee-engine-clib/target/x86_64-apple-darwin/debug"/>
+        <CONFIGURATION isDebug="0" name="Release" libraryPath="../../Vendor/modulee-engine-clib/target/x86_64-apple-darwin/release"/>
       </CONFIGURATIONS>
       <MODULEPATHS>
         <MODULEPATH id="juce_audio_basics" path="../../juce"/>
