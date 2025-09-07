@@ -12,11 +12,11 @@ jobs:
       - name: Build Rust Component
         run: |
           source $HOME/.cargo/env
-          (cd Vendor/modulee-engine-clib
-          cargo build --release)
+          cd Vendor/modulee-engine-clib
+          cargo build --release --target x86_64-apple-darwin
       - name: Clone JUCE
         run: git clone https://github.com/juce-framework/JUCE.git ~/JUCE
       - name: Build Xcode Project
-        run: xcodebuild -project Builds/MacOSX/Modulee.xcodeproj -configuration Release -IDEPackageSupportUseBuiltinSCM=YES
+        run: xcodebuild -project Builds/MacOSX/Modulee.xcodeproj -configuration Release -arch x86_64 -IDEPackageSupportUseBuiltinSCM=YES
         env:
           JUCE_PATH: ~/JUCE
