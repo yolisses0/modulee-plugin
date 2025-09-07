@@ -5,7 +5,5 @@ jobs:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Configure
-        run: cmake -B build -DCMAKE_BUILD_TYPE=Release
-      - name: Build
-        run: cmake --build build
+      - name: Build Xcode Project
+        run: xcodebuild -project Builds/MacOSX/Modulee.xcodeproj -configuration Release
