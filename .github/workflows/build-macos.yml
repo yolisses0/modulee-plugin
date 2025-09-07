@@ -10,16 +10,11 @@ jobs:
       - name: Build Rust Component
         run: |
           source $HOME/.cargo/env
-          cd Vendor/modulee-engine-clib
-          cargo build --release --target x86_64-apple-darwin
+          (cd Vendor/modulee-engine-clib
+          cargo build --release)
       - name: Clone JUCE
         run: git clone https://github.com/juce-framework/JUCE.git ~/JUCE
       - name: Build Xcode Project
-        run: |
-          xcodebuild -project Builds/MacOSX/Modulee.xcodeproj -configuration Release -IDEPackageSupportUseBuiltinSCM=YES \
-          -target "Modulee - All" \
-          ARCHS="x86_64" \
-          LD_RUNPATH_SEARCH_PATHS="@executable_path/../Frameworks" \
-          OTHER_LDFLAGS="-lmodulee_engine -L../../Vendor/modulee-engine-clib/target/x86_64-apple-darwin/release"
+        run: xcodebuild -project Builds/MacOSX/Modulee.xcodeproj -configuration Release -IDEPackageSupportUseBuiltinSCM=YES
         env:
           JUCE_PATH: ~/JUCE
