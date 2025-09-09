@@ -1,3 +1,4 @@
 log.txt
-input/*
-!input/.gitkeep
+inputs/*
+dist
+pkg_temp
