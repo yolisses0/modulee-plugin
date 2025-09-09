@@ -1,46 +1,82 @@
 #!/bin/bash
-set -e
-exec > log.txt 2>&1  # All output goes to log.txt
 
-# Configuration
+set -e # Exit on first error
+
+# Variables
 PLUGIN_NAME="Modulee"
-BUNDLE_ID="com.yolisses.${PLUGIN_NAME}"
+APP_BUNDLE="${PLUGIN_NAME}.app"
+VST3_BUNDLE="${PLUGIN_NAME}.vst3"
+IDENTIFIER="com.yolisses.${PLUGIN_NAME}"
 VERSION="0.0.1"
-TEAM_ID="ModuleeTeam"
 INSTALLER_NAME="${PLUGIN_NAME}Installer"
+OUTPUT_DIR="dist"
+PKG_DIR="pkg_temp"
+LOG_FILE="log.txt"
 
-# Directories
-BUILD_DIR="build"
-OUTPUT_DIR="output"
+# Redirect output to log file and terminal
+exec > >(tee -a "${LOG_FILE}") 2>&1
 
-# Plugin formats and their installation paths
-declare -a PLUGINS
-PLUGINS[VST3]="Library/Audio/Plug-Ins/VST3/${PLUGIN_NAME}.vst3"
-PLUGINS[AU]="Library/Audio/Plug-Ins/Components/${PLUGIN_NAME}.component"
+echo "Starting installer creation for ${PLUGIN_NAME}"
 
-# Create output directories
-mkdir -p $OUTPUT_DIR
+# Create temporary directories
+echo "Creating directories..."
+mkdir -p "${PKG_DIR}/Applications" || { echo "Failed to create Applications directory"; exit 1; }
+mkdir -p "${PKG_DIR}/Library/Audio/Plug-Ins/VST3" || { echo "Failed to create VST3 directory"; exit 1; }
+mkdir -p "${OUTPUT_DIR}" || { echo "Failed to create output directory"; exit 1; }
 
-# Build .pkg for each plugin format
-for format in VST3 AU; do
-    pkgbuild --root "${BUILD_DIR}/${format}" \
-             --identifier "${BUNDLE_ID}.${format}" \
-             --version "${VERSION}" \
-             --install-location "/${PLUGINS[$format]}" \
-             "${OUTPUT_DIR}/${PLUGIN_NAME}_${format}.pkg"
-done
+# Copy the standalone app and VST3 bundle
+echo "Copying ${APP_BUNDLE} to Applications..."
+cp -R "${APP_BUNDLE}" "${PKG_DIR}/Applications/" || { echo "Failed to copy ${APP_BUNDLE}"; exit 1; }
+echo "Copying ${VST3_BUNDLE} to VST3 directory..."
+cp -R "${VST3_BUNDLE}" "${PKG_DIR}/Library/Audio/Plug-Ins/VST3/" || { echo "Failed to copy ${VST3_BUNDLE}"; exit 1; }
 
-# Combine into final .pkg
-productbuild --distribution "distribution.xml" \
+# Create distribution.xml
+echo "Creating distribution.xml..."
+cat << EOF > distribution.xml || { echo "Failed to create distribution.xml"; exit 1; }
+<?xml version="1.0" encoding="utf-8"?>
+<installer-gui-script minSpecVersion="1">
+    <title>${PLUGIN_NAME} Installer</title>
+    <pkg-ref id="${IDENTIFIER}.app"/>
+    <pkg-ref id="${IDENTIFIER}.vst3"/>
+    <options customize="never" require-scripts="false"/>
+    <choices-outline>
+        <line choice="app_choice"/>
+        <line choice="vst3_choice"/>
+    </choices-outline>
+    <choice id="app_choice" title="${PLUGIN_NAME} Application">
+        <pkg-ref id="${IDENTIFIER}.app"/>
+    </choice>
+    <choice id="vst3_choice" title="${PLUGIN_NAME} VST3 Plugin">
+        <pkg-ref id="${IDENTIFIER}.vst3"/>
+    </choice>
+</installer-gui-script>
+EOF
+
+# Build component packages
+echo "Building application package..."
+pkgbuild --root "${PKG_DIR}/Applications" \
+         --identifier "${IDENTIFIER}.app" \
+         --version "${VERSION}" \
+         --install-location /Applications \
+         "${OUTPUT_DIR}/${PLUGIN_NAME}_app.pkg" || { echo "Failed to build application package"; exit 1; }
+
+echo "Building VST3 package..."
+pkgbuild --root "${PKG_DIR}/Library/Audio/Plug-Ins/VST3" \
+         --identifier "${IDENTIFIER}.vst3" \
+         --version "${VERSION}" \
+         --install-location /Library/Audio/Plug-Ins/VST3 \
+         "${OUTPUT_DIR}/${INSTALLER_NAME}.pkg" || { echo "Failed to build VST3 package"; exit 1; }
+
+# Create the final installer
+echo "Creating final installer..."
+productbuild --distribution distribution.xml \
              --package-path "${OUTPUT_DIR}" \
-             --resources "${OUTPUT_DIR}" \
-             "${OUTPUT_DIR}/${INSTALLER_NAME}.pkg"
+             "${OUTPUT_DIR}/${INSTALLER_NAME}.pkg" || { echo "Failed to create final installer"; exit 1; }
 
+# Clean up
+echo "Cleaning up temporary files..."
+rm -rf "${PKG_DIR}" || { echo "Failed to clean up ${PKG_DIR}"; exit 1; }
+rm distribution.xml || { echo "Failed to clean up distribution.xml"; exit 1; }
 
-# Create DMG
-hdiutil create -volname "${PLUGIN_NAME} Installer" \
-               -srcfolder "${OUTPUT_DIR}/${INSTALLER_NAME}.pkg" \
-               -ov -format UDZO \
-               "${OUTPUT_DIR}/${INSTALLER_NAME}.dmg"
-
-echo "Installer created at ${OUTPUT_DIR}/${INSTALLER_NAME}.dmg"
+echo "Installer created at ${OUTPUT_DIR}/${INSTALLER_NAME}.pkg"
+echo "Log saved to ${LOG_FILE}"
