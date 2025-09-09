@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<installer-gui-script minSpecVersion="1">
+    <title>Modulee Installer</title>
+    <pkg-ref id="com.yolisses.Modulee"/>
+    <options customize="never" require-scripts="false"/>
+    <choices-outline>
+        <line choice="default">
+            <pkg-ref id="com.yolisses.Modulee"/>
+        </line>
+    </choices-outline>
+    <choice id="default" title="Modulee" description="Installs Modulee plugin">
+        <pkg-ref id="com.yolisses.Modulee"/>
+    </choice>
+</installer-gui-script>
