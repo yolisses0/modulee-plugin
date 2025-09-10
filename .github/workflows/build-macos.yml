@@ -30,16 +30,24 @@ jobs:
           JUCE_PATH: ~/JUCE
         run: xcodebuild -project Builds/MacOSX/Modulee.xcodeproj -configuration Release -arch x86_64 -IDEPackageSupportUseBuiltinSCM=YES
 
-      - name: Create Installer
-        run: |
-          ls Builds/MacOSX -laR
-          mkdir -p Builds/MacOSX/installer/inputs
-          cp Builds/MacOSX/build/Release/Modulee.app Builds/MacOSX/installer/inputs/
-          cp Builds/MacOSX/build/Release/Modulee.vst3 Builds/MacOSX/installer/inputs/
-          Builds/MacOSX/installer/create_installer.sh
-
       - name: Upload Artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: ModuleeInstaller.pkg
-          path: Builds/MacOSX/installer/dist/ModuleeInstaller.pkg
+          name: output
+          path: Builds/MacOSX
+
+      - name: Create Installer
+        run: |
+          pwd
+          ls Builds/MacOSX -laR
+
+      # mkdir -p Builds/MacOSX/installer/inputs
+      # cp Builds/MacOSX/build/Release/Modulee.app Builds/MacOSX/installer/inputs/
+      # cp Builds/MacOSX/build/Release/Modulee.vst3 Builds/MacOSX/installer/inputs/
+      # # Builds/MacOSX/installer/create_installer.sh
+
+      # - name: Upload Artifacts
+      #   uses: actions/upload-artifact@v4
+      #   with:
+      #     name: ModuleeInstaller.pkg
+      #     path: Builds/MacOSX/installer/dist/ModuleeInstaller.pkg
