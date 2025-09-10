@@ -18,6 +18,8 @@ jobs:
 
       - name: Build Rust Component
         run: |
+          pwd
+          ls -laR
           source $HOME/.cargo/env
           cd Vendor/modulee-engine-clib
           cargo build --release --target x86_64-apple-darwin
@@ -28,7 +30,10 @@ jobs:
       - name: Build Xcode Project
         env:
           JUCE_PATH: ~/JUCE
-        run: xcodebuild -project Builds/MacOSX/Modulee.xcodeproj -configuration Release -arch x86_64 -IDEPackageSupportUseBuiltinSCM=YES
+        run: |
+          pwd
+          ls -laR
+          xcodebuild -project Builds/MacOSX/Modulee.xcodeproj -configuration Release -arch x86_64 -IDEPackageSupportUseBuiltinSCM=YES
 
       - name: Upload Artifacts
         uses: actions/upload-artifact@v4
@@ -39,7 +44,7 @@ jobs:
       - name: Create Installer
         run: |
           pwd
-          ls Builds/MacOSX -laR
+          ls -laR
 
       # mkdir -p Builds/MacOSX/installer/inputs
       # cp Builds/MacOSX/build/Release/Modulee.app Builds/MacOSX/installer/inputs/
