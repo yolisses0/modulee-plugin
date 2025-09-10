@@ -17,10 +17,8 @@ jobs:
         run: rustup target add x86_64-apple-darwin
 
       - name: Build Rust Component
-        run: |
-          source $HOME/.cargo/env
-          cd Vendor/modulee-engine-clib
-          cargo build --release --target x86_64-apple-darwin
+        working-directory: Vendor/modulee-engine-clib
+        run: cargo build --release --target x86_64-apple-darwin
 
       - name: Clone JUCE
         run: git clone https://github.com/juce-framework/JUCE.git ~/JUCE
@@ -33,11 +31,9 @@ jobs:
       - name: Create Installer
         run: |
           mkdir -p Builds/MacOSX/installer/inputs
-          cp -R Builds/MacOSX/build/Release/Modulee.app Builds/MacOSX/installer/inputs/
-          cp -R Builds/MacOSX/build/Release/Modulee.vst3 Builds/MacOSX/installer/inputs/
-          cd Builds/MacOSX/installer/ 
-          chmod +x create_installer.sh
-          ./create_installer.sh
+          cp -R Builds/MacOSX/build/Release/Modulee.{app,vst3} Builds/MacOSX/installer/inputs/
+          Builds/MacOSX/installer/create_installer.sh
+        working-directory: Builds/MacOSX/installer
 
       - name: Upload Artifacts
         uses: actions/upload-artifact@v4
