@@ -44,7 +44,7 @@ jobs:
           cp -R Builds/MacOSX/build/Release/Modulee.vst3 Builds/MacOSX/installer/inputs/
           cd Builds/MacOSX/installer/ 
           chmod +x create_installer.sh
-          Builds/MacOSX/installer/create_installer.sh
+          ./create_installer.sh
 
       - name: Upload Artifacts
         uses: actions/upload-artifact@v4
