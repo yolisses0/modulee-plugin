@@ -32,9 +32,10 @@ jobs:
 
       - name: Create Installer
         run: |
+          ls Builds/MacOSX -laR
           mkdir -p Builds/MacOSX/installer/inputs
-          cp -R Builds/MacOSX/build/Release/Modulee.app Builds/MacOSX/installer/inputs/
-          cp -R ~/Library/Audio/Plug-Ins/VST3/Modulee.vst3 Builds/MacOSX/installer/inputs/
+          cp Builds/MacOSX/build/Release/Modulee.app Builds/MacOSX/installer/inputs/
+          cp Builds/MacOSX/build/Release/Modulee.vst3 Builds/MacOSX/installer/inputs/
           Builds/MacOSX/installer/create_installer.sh
 
       - name: Upload Artifacts
