@@ -3,6 +3,7 @@ on:
   push:
     branches:
       - release
+      - build-macos
 
 jobs:
   build:
