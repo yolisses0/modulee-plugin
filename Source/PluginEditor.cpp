@@ -14,6 +14,11 @@
 const auto SESSION_COOKIE_NAME = juce::String("session");
 const auto SET_AUTH_TOKEN_ROUTE = juce::String("/setAuthToken");
 
+double getWavelength(int pitch, double sampleRate) {
+  double frequency = 440.0 * std::pow(2.0, (pitch - 69) / 12.0);
+  return sampleRate / frequency;
+}
+
 //==============================================================================
 ModuleeAudioProcessorEditor::ModuleeAudioProcessorEditor(
     ModuleeAudioProcessor &p)
@@ -159,6 +164,21 @@ ModuleeAudioProcessorEditor::getWebviewOptions() {
                                    data.getProperty("value", juce::var());
                                audioProcessor.updateControl(id, value);
                              })
+          .withEventListener(
+              "setOscilloscopePitch",
+              [this](auto data) {
+                int pitch = data.getProperty("pitch", juce::var());
+
+                auto length =
+                    audioProcessor.oscilloscopeBuffer.buffer.getNumSamples();
+                auto wavelength =
+                    getWavelength(pitch, audioProcessor.getSampleRate());
+                auto multiplier = std::max(
+                    static_cast<int>(std::floor(length / wavelength)) + 2, 1);
+                auto ratio =
+                    static_cast<double>(length) / wavelength / multiplier;
+                audioProcessor.oscilloscopeBuffer.setRatio(ratio);
+              })
           .withNativeFunction(
               "getOscilloscopeData", [this](auto &var, auto complete) {
                 complete(audioProcessor.oscilloscopeBuffer.getDataVar());

@@ -3,6 +3,8 @@
 
 class OscilloscopeBuffer {
 public:
+  juce::AudioBuffer<float> buffer;
+
   OscilloscopeBuffer(int size)
       : buffer(), accumulator(0.0f), ratio(1.0f), tail(0) {
     buffer.setSize(1, size);
@@ -23,7 +25,6 @@ public:
   juce::var getDataVar() { return getVarFromAudioBuffer(buffer); }
 
 private:
-  juce::AudioBuffer<float> buffer;
   float accumulator;
   float ratio;
   int tail;

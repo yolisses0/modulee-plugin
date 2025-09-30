@@ -189,6 +189,9 @@ void ModuleeAudioProcessor::processBlock(juce::AudioBuffer<float> &buffer,
     auto outputs = get_outputs(graph.get());
     channel0Data[i] = outputs.output_0;
     channel1Data[i] = outputs.output_1;
+
+    // TODO make stereo
+    oscilloscopeBuffer.push(outputs.output_0);
   }
 
   if (isMuted) {
