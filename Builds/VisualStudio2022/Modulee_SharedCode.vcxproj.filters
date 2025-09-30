@@ -3549,6 +3549,9 @@
     <ClInclude Include="..\..\Source\OAuthServer.h">
       <Filter>Modulee\Source</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Source\OscilloscopeBuffer.h">
+      <Filter>Modulee\Source</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\Source\PluginEditor.h">
       <Filter>Modulee\Source</Filter>
     </ClInclude>

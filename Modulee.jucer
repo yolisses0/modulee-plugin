@@ -19,6 +19,8 @@
             file="Source/AuthTokenManager.h"/>
       <FILE id="JH14LY" name="OAuthServer.cpp" compile="1" resource="0" file="Source/OAuthServer.cpp"/>
       <FILE id="YKBEjV" name="OAuthServer.h" compile="0" resource="0" file="Source/OAuthServer.h"/>
+      <FILE id="jrv9P3" name="OscilloscopeBuffer.h" compile="0" resource="0"
+            file="Source/OscilloscopeBuffer.h"/>
       <FILE id="iNhTUz" name="PluginEditor.cpp" compile="1" resource="0"
             file="Source/PluginEditor.cpp"/>
       <FILE id="L85sg7" name="PluginEditor.h" compile="0" resource="0" file="Source/PluginEditor.h"/>
