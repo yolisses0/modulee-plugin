@@ -20,11 +20,26 @@ public:
 
   void setRatio(float newRatio) { ratio = newRatio; }
 
-  const juce::AudioBuffer<float> &getBuffer() const { return buffer; }
+  juce::var getDataVar() { return getVarFromAudioBuffer(buffer); }
 
 private:
   juce::AudioBuffer<float> buffer;
   float accumulator;
   float ratio;
   int tail;
+
+  juce::var getVarFromAudioBuffer(const juce::AudioBuffer<float> &buffer) {
+    int numSamples = buffer.getNumSamples();
+    int channel = 0;
+    const float *channelData = buffer.getReadPointer(channel);
+
+    juce::Array<juce::var> sampleArray;
+    sampleArray.ensureStorageAllocated(numSamples);
+
+    for (int i = 0; i < numSamples; ++i) {
+      sampleArray.add(juce::var(channelData[i]));
+    }
+
+    return juce::var(sampleArray);
+  }
 };

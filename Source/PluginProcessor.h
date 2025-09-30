@@ -9,6 +9,7 @@
 #pragma once
 
 #include "../Vendor/modulee-engine-clib/pkg/bindings.h"
+#include "OscilloscopeBuffer.h"
 #include <JuceHeader.h>
 
 //==============================================================================
@@ -62,6 +63,7 @@ public:
 
   //==============================================================================
   bool isMuted;
+  OscilloscopeBuffer oscilloscopeBuffer;
 
   //==============================================================================
   // TODO find less coupled way to save parameters

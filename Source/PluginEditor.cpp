@@ -151,11 +151,18 @@ ModuleeAudioProcessorEditor::getWebviewOptions() {
                                    data.getProperty("isMuted", juce::var());
                                audioProcessor.isMuted = isMuted;
                              })
-          .withEventListener("updateControl", [this](juce::var data) {
-            juce::int64 id = data.getProperty("id", juce::var());
-            float value = data.getProperty("value", juce::var());
-            audioProcessor.updateControl(id, value);
-          });
+          .withEventListener("updateControl",
+                             [this](juce::var data) {
+                               juce::int64 id =
+                                   data.getProperty("id", juce::var());
+                               float value =
+                                   data.getProperty("value", juce::var());
+                               audioProcessor.updateControl(id, value);
+                             })
+          .withNativeFunction(
+              "getOscilloscopeData", [this](auto &var, auto complete) {
+                complete(audioProcessor.oscilloscopeBuffer.getDataVar());
+              });
 
   // Auth token
   auto authToken = tokenManager.getAuthToken();
