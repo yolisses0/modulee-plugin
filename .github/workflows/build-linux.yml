@@ -20,10 +20,7 @@ jobs:
     steps:
       - name: Build Rust Component
         working-directory: Vendor/modulee-engine-clib
-        run: |
-          curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
-          . "$HOME/.cargo/env"
-          cargo build --release
+        run: cargo build --release
 
   clone_juce:
     runs-on: ubuntu-latest
