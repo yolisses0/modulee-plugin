@@ -6,23 +6,6 @@ on:
       - build-linux
 
 jobs:
-  checkout:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          submodules: recursive
-
-  build_rust:
-    needs:
-      - checkout
-    runs-on: ubuntu-latest
-    steps:
-      - name: Build Rust Component
-        run: |
-          cd Vendor/modulee-engine-clib
-          cargo build --release
-
   clone_juce:
     runs-on: ubuntu-latest
     steps:
@@ -48,12 +31,19 @@ jobs:
 
   build:
     needs:
-      - build_rust
-      - checkout
       - clone_juce
       - install_juce_dependencies
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Build Rust Component
+        run: |
+          cd Vendor/modulee-engine-clib
+          cargo build --release
+
       - name: Build Project
         working-directory: Builds/LinuxMakefile
         run: make CONFIG=Release -j$(nproc)
