@@ -6,16 +6,18 @@ on:
       - build-linux
 
 jobs:
-  clone_juce:
+  build:
     runs-on: ubuntu-latest
     steps:
-      - name: Clone JUCE
-        run: |
-          git clone https://github.com/juce-framework/JUCE.git ~/JUCE
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
 
-  install_juce_dependencies:
-    runs-on: ubuntu-latest
-    steps:
+      - name: Build Rust Component
+        run: |
+          cd Vendor/modulee-engine-clib
+          cargo build --release
+
       - name: Install JUCE dependencies
         run: |
           sudo apt update -qq
@@ -29,20 +31,9 @@ jobs:
             libglu1-mesa-dev mesa-common-dev \
             -y -qq
 
-  build:
-    needs:
-      - clone_juce
-      - install_juce_dependencies
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          submodules: recursive
-
-      - name: Build Rust Component
+      - name: Clone JUCE
         run: |
-          cd Vendor/modulee-engine-clib
-          cargo build --release
+          git clone https://github.com/juce-framework/JUCE.git ~/JUCE
 
       - name: Build Project
         working-directory: Builds/LinuxMakefile
