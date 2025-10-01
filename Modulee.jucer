@@ -5,7 +5,7 @@
               companyWebsite="yolisses.com" companyEmail="yolisses0@gmail.com"
               pluginDesc="The most modular modular synthetizer" pluginCode="Mdle"
               pluginManufacturerCode="Ylss" pluginCharacteristicsValue="pluginEditorRequiresKeys,pluginIsSynth,pluginWantsMidiIn"
-              version="0.0.1" userNotes="The company will eventually be changed to something less personal.">
+              version="0.0.2" userNotes="The company will eventually be changed to something less personal.">
   <MAINGROUP id="nP1ypY" name="Modulee">
     <GROUP id="{C5FCE092-7999-8ADE-9F94-6C278188DE66}" name="Icon">
       <FILE id="JHcQOq" name="logo64x64.png" compile="0" resource="1" file="Icon/logo64x64.png"/>
