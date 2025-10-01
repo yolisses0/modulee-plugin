@@ -30,6 +30,7 @@ jobs:
 
       - name: Create Installer
         run: |
+          ls -R Builds
           mkdir -p Builds/MacOSX/installer/inputs
           cp -R Builds/MacOSX/build/Release/Modulee.{app,vst3} Builds/MacOSX/installer/inputs/
           Builds/MacOSX/installer/create_installer.sh
