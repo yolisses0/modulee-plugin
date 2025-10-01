@@ -30,11 +30,13 @@ jobs:
 
       - name: Create Installer
         run: |
-          ls -R
-          pwd
           mkdir -p Builds/MacOSX/installer/inputs
-          cp -R Builds/MacOSX/build/Release/Modulee.{app,vst3} Builds/MacOSX/installer/inputs/
-          Builds/MacOSX/installer/create_installer.sh
+          cp -R Builds/MacOSX/build/Release/Modulee.app Builds/MacOSX/installer/inputs/
+          cp -R Builds/MacOSX/build/Release/Modulee.vst3 Builds/MacOSX/installer/inputs/
+          cd Builds/MacOSX/installer/ 
+          chmod +x create_installer.sh
+          ./create_installer.sh
+          ls -R
 
       - name: Upload Artifacts
         uses: actions/upload-artifact@v4
