@@ -42,7 +42,7 @@ jobs:
       - name: Upload Artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: Modulee.zip
+          name: Modulee
           path: |
             Builds/LinuxMakefile/build/Modulee.vst3/Contents/x86_64-linux/Modulee.so
             Builds/LinuxMakefile/build/Modulee
